@@ -15,7 +15,7 @@ public class Sandbox() : BaseTrimawCard(0, CardType.Skill, CardRarity.Basic, Tar
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
-        HoverTipHelper.ForImagine(Owner),
+        HoverTipHelper.ForImagine(this),
         HoverTipFactory.Static(StaticHoverTip.Pop)
     ];
 

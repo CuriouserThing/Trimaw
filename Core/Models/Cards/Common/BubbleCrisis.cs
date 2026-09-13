@@ -9,7 +9,7 @@ namespace Trimaw.Core.Models.Cards.Common;
 
 public class BubbleCrisis() : TrimawCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipHelper.ForImagine(Owner)];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipHelper.ForImagine(this)];
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
