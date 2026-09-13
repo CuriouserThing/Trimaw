@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://dxerr782mn4fe"
+path="res://.godot/imported/char_002_amiya_epoque#4.skel-0d6c7488a48e80dab7c4ee81c6f2ac3b.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_002_amiya_epoque#4.skel"
+dest_files=["res://.godot/imported/char_002_amiya_epoque#4.skel-0d6c7488a48e80dab7c4ee81c6f2ac3b.spskel"]
+
+[params]
+

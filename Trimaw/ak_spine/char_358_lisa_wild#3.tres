@@ -1,0 +1,8 @@
+[gd_resource type="SpineSkeletonDataResource" load_steps=3 format=3 uid="uid://cqmk7mjwrke5c"]
+
+[ext_resource type="SpineAtlasResource" uid="uid://oe3lcqpoqnsb" path="res://Trimaw/ak_spine/char_358_lisa_wild#3.spatlas" id="1_56v4b"]
+[ext_resource type="SpineSkeletonFileResource" uid="uid://bynaj6h5segx1" path="res://Trimaw/ak_spine/char_358_lisa_wild#3.spskel" id="2_mkw1g"]
+
+[resource]
+atlas_res = ExtResource("1_56v4b")
+skeleton_file_res = ExtResource("2_mkw1g")

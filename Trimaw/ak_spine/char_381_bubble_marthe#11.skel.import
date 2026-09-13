@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://0mwg6wppimf3"
+path="res://.godot/imported/char_381_bubble_marthe#11.skel-4b0400f5a6a5fbcd4a7ebe14e5de52d0.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_381_bubble_marthe#11.skel"
+dest_files=["res://.godot/imported/char_381_bubble_marthe#11.skel-4b0400f5a6a5fbcd4a7ebe14e5de52d0.spskel"]
+
+[params]
+

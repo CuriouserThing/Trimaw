@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://cuvpcylfopm3g"
+path="res://.godot/imported/char_197_poca.skel-f0e74ed4eca0d8433d19614446000d47.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_197_poca.skel"
+dest_files=["res://.godot/imported/char_197_poca.skel-f0e74ed4eca0d8433d19614446000d47.spskel"]
+
+[params]
+

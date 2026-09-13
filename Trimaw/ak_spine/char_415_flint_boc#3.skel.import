@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://cngy3dybro5vu"
+path="res://.godot/imported/char_415_flint_boc#3.skel-4ff61d9b902e8d2ecee391540ada5a34.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_415_flint_boc#3.skel"
+dest_files=["res://.godot/imported/char_415_flint_boc#3.skel-4ff61d9b902e8d2ecee391540ada5a34.spskel"]
+
+[params]
+

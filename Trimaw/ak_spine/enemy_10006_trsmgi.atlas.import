@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://bj8u3cba3rqag"
+path="res://.godot/imported/enemy_10006_trsmgi.atlas-43831a2019a5221a6ef610b84515ee5b.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_10006_trsmgi.atlas"
+dest_files=["res://.godot/imported/enemy_10006_trsmgi.atlas-43831a2019a5221a6ef610b84515ee5b.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://bclxsa8jkhdar"
+path="res://.godot/imported/enemy_2036_syshop.atlas-db644d71cf0d5f9b781777bb6a146349.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_2036_syshop.atlas"
+dest_files=["res://.godot/imported/enemy_2036_syshop.atlas-db644d71cf0d5f9b781777bb6a146349.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

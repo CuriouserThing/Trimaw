@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://d1jc7ktsqmx47"
+path="res://.godot/imported/char_281_popka.skel-9b5d0f3c43bab59bd70ebe025badf5f6.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_281_popka.skel"
+dest_files=["res://.godot/imported/char_281_popka.skel-9b5d0f3c43bab59bd70ebe025badf5f6.spskel"]
+
+[params]
+

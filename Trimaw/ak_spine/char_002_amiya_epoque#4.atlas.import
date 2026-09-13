@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://dhpudsevixgys"
+path="res://.godot/imported/char_002_amiya_epoque#4.atlas-262768f305d1c2c1edb93ed08a0ee870.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_002_amiya_epoque#4.atlas"
+dest_files=["res://.godot/imported/char_002_amiya_epoque#4.atlas-262768f305d1c2c1edb93ed08a0ee870.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

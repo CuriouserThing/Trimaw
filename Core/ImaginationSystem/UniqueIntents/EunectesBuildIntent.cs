@@ -1,0 +1,28 @@
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using Trimaw.Core.Models.Monsters.Figments;
+using Trimaw.Core.Models.Powers.SharedTalents;
+using Trimaw.Core.Utils;
+
+namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
+
+public class EunectesBuildIntent : UnlabeledFigmentIntent<EunectesFigment>
+{
+    private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Unknown;
+
+    protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("nut_and_bolt");
+
+    protected override bool CanPerform(MoveContext<EunectesFigment> ctx, out Creature? target)
+    {
+        target = ctx.PetOwner.Creature; // turn toward player, even though this doesn't target them per se
+        return ctx.Trigger != TriggerKind.Pop;
+    }
+
+    protected override async Task<FigmentMoveResult> OnPerform(MoveContext<EunectesFigment> ctx,
+        PlayerChoiceContext choiceCtx)
+    {
+        await PowerCmd.Apply<AnyCardTrigger>(choiceCtx, ctx.MoveUser.Creature, 1, ctx.MoveUser.Creature, null);
+        return FigmentMoveResult.Success;
+    }
+}

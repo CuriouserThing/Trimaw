@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://b56frpmmwkgli"
+path="res://.godot/imported/char_452_bstalk_unveiling#4.skel-11b3d0cf647e7a2fb5353591026e01b7.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_452_bstalk_unveiling#4.skel"
+dest_files=["res://.godot/imported/char_452_bstalk_unveiling#4.skel-11b3d0cf647e7a2fb5353591026e01b7.spskel"]
+
+[params]
+

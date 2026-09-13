@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://de2d0depa726i"]
+
+[ext_resource type="SpineSkeletonDataResource" uid="uid://dywgwoviobsm2" path="res://Trimaw/ak_spine/char_2013_cerber_whirlwind#2.tres" id="1_btaww"]
+
+[node name="TestSpineSprite" type="SpineSprite"]
+skeleton_data_res = ExtResource("1_btaww")
+preview_skin = "default"
+preview_animation = "Idle"
+preview_frame = true
+preview_time = 4.0

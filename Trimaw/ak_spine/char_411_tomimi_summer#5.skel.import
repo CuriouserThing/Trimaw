@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://2rv6otilvf0"
+path="res://.godot/imported/char_411_tomimi_summer#5.skel-1456deb6518baa89f6892ae58feb1d6f.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_411_tomimi_summer#5.skel"
+dest_files=["res://.godot/imported/char_411_tomimi_summer#5.skel-1456deb6518baa89f6892ae58feb1d6f.spskel"]
+
+[params]
+

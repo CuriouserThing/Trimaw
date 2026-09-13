@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://bn6f268mvrso3"
+path="res://.godot/imported/char_355_ethan_epoque#7.atlas-78b78b93b042ff43bc953ac7db3e5f77.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_355_ethan_epoque#7.atlas"
+dest_files=["res://.godot/imported/char_355_ethan_epoque#7.atlas-78b78b93b042ff43bc953ac7db3e5f77.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

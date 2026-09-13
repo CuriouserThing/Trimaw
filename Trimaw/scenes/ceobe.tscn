@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbioxygnxv65"]
+
+[ext_resource type="SpineSkeletonDataResource" uid="uid://dywgwoviobsm2" path="res://Trimaw/ak_spine/char_2013_cerber_whirlwind#2.tres" id="1_fpjr3"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -15.0
+offset_right = 40.0
+offset_bottom = 25.0
+
+[node name="Visuals" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("1_fpjr3")
+preview_skin = "default"
+preview_animation = "Idle"
+preview_frame = false
+preview_time = 0.0
+scale = Vector2(0.6, 0.6)
+
+[node name="Bounds" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -116.0
+offset_top = -237.0
+offset_right = 111.0
+offset_bottom = 1.0
+
+[node name="IntentPosition" type="Marker2D" parent="."]
+position = Vector2(2, -262)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+position = Vector2(5, -120)

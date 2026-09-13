@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://cejubepafksa"
+path="res://.godot/imported/char_1051_headb2.skel-8da7607114e8d80c75b39e60fb418c67.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_1051_headb2.skel"
+dest_files=["res://.godot/imported/char_1051_headb2.skel-8da7607114e8d80c75b39e60fb418c67.spskel"]
+
+[params]
+

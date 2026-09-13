@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://8p5cgvjtyvcw"
+path="res://.godot/imported/enemy_10005_trsmsb.skel-ade41b4d879d4ba48e661efa4fb9fda9.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_10005_trsmsb.skel"
+dest_files=["res://.godot/imported/enemy_10005_trsmsb.skel-ade41b4d879d4ba48e661efa4fb9fda9.spskel"]
+
+[params]
+

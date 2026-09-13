@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://btnga7vat6s3g"
+path="res://.godot/imported/enemy_1050_lslime.skel-f8fe532b14a52ebab33c2929284de518.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_1050_lslime.skel"
+dest_files=["res://.godot/imported/enemy_1050_lslime.skel-f8fe532b14a52ebab33c2929284de518.spskel"]
+
+[params]
+

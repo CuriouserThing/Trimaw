@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://bv333sfgv8kbd"
+path="res://.godot/imported/char_4141_marcil.atlas-69023c7ee70e56231bee73ecd8db8e41.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_4141_marcil.atlas"
+dest_files=["res://.godot/imported/char_4141_marcil.atlas-69023c7ee70e56231bee73ecd8db8e41.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

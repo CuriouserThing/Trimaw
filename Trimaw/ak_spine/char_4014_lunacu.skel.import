@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://cypydu42dewf2"
+path="res://.godot/imported/char_4014_lunacu.skel-7e9389094ecea46a1130802794582b99.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_4014_lunacu.skel"
+dest_files=["res://.godot/imported/char_4014_lunacu.skel-7e9389094ecea46a1130802794582b99.spskel"]
+
+[params]
+

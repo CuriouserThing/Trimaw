@@ -1,0 +1,8 @@
+[gd_resource type="SpineSkeletonDataResource" load_steps=3 format=3 uid="uid://dr4jen6e8tc3q"]
+
+[ext_resource type="SpineAtlasResource" uid="uid://ber02isrg3r6h" path="res://Trimaw/ak_spine/enemy_2034_sythef.spatlas" id="1_iruqb"]
+[ext_resource type="SpineSkeletonFileResource" uid="uid://tja6rlf3hn71" path="res://Trimaw/ak_spine/enemy_2034_sythef.spskel" id="2_kumx4"]
+
+[resource]
+atlas_res = ExtResource("1_iruqb")
+skeleton_file_res = ExtResource("2_kumx4")

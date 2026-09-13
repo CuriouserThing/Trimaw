@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://clue4jp2bgl3s"
+path="res://.godot/imported/char_452_bstalk_snow#4.skel-9f92c3ddbd5d6bb3a8df77cc62a92f2a.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_452_bstalk_snow#4.skel"
+dest_files=["res://.godot/imported/char_452_bstalk_snow#4.skel-9f92c3ddbd5d6bb3a8df77cc62a92f2a.spskel"]
+
+[params]
+

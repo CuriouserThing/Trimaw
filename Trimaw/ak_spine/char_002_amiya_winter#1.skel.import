@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://c1gha7e0bbcdj"
+path="res://.godot/imported/char_002_amiya_winter#1.skel-80619dba0f5d8187d4bf7b1f29b78593.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_002_amiya_winter#1.skel"
+dest_files=["res://.godot/imported/char_002_amiya_winter#1.skel-80619dba0f5d8187d4bf7b1f29b78593.spskel"]
+
+[params]
+

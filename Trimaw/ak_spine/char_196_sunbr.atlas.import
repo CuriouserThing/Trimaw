@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://cn4ppgm8i2rhp"
+path="res://.godot/imported/char_196_sunbr.atlas-c9fb66a67dc419d21b77c252e15d61d6.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_196_sunbr.atlas"
+dest_files=["res://.godot/imported/char_196_sunbr.atlas-c9fb66a67dc419d21b77c252e15d61d6.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

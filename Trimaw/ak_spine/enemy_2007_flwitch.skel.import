@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://bjiqxi3jw8osd"
+path="res://.godot/imported/enemy_2007_flwitch.skel-05493fc9561bb827e716959c59fea1cc.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_2007_flwitch.skel"
+dest_files=["res://.godot/imported/enemy_2007_flwitch.skel-05493fc9561bb827e716959c59fea1cc.spskel"]
+
+[params]
+

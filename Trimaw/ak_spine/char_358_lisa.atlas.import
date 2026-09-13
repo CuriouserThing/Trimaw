@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://cyps1y5od6mg8"
+path="res://.godot/imported/char_358_lisa.atlas-a1993074fdb3ea09fb328d06d8760741.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_358_lisa.atlas"
+dest_files=["res://.godot/imported/char_358_lisa.atlas-a1993074fdb3ea09fb328d06d8760741.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://bfv2falwqq1pu"
+path="res://.godot/imported/char_264_f12yin_marthe#13.atlas-9c1c8e26e77b901a3b7965ac2c84cf87.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_264_f12yin_marthe#13.atlas"
+dest_files=["res://.godot/imported/char_264_f12yin_marthe#13.atlas-9c1c8e26e77b901a3b7965ac2c84cf87.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

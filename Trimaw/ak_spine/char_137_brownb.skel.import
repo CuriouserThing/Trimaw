@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://b7xhjmcdal0hm"
+path="res://.godot/imported/char_137_brownb.skel-0eeae95d761a9ee896f3c12bc4b4e0c8.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_137_brownb.skel"
+dest_files=["res://.godot/imported/char_137_brownb.skel-0eeae95d761a9ee896f3c12bc4b4e0c8.spskel"]
+
+[params]
+

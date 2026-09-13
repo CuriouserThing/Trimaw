@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://dgdgvvs5or2w"
+path="res://.godot/imported/char_381_bubble_marthe#11.atlas-71f5dae690a272c7c45c431dbb01dae0.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_381_bubble_marthe#11.atlas"
+dest_files=["res://.godot/imported/char_381_bubble_marthe#11.atlas-71f5dae690a272c7c45c431dbb01dae0.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

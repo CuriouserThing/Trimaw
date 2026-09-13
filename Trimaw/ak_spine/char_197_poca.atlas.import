@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://d0742m2w6xwhe"
+path="res://.godot/imported/char_197_poca.atlas-d0c414f7adefefdb014955a980da7fd0.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_197_poca.atlas"
+dest_files=["res://.godot/imported/char_197_poca.atlas-d0c414f7adefefdb014955a980da7fd0.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://dpvuju80kbiyf"
+path="res://.godot/imported/char_285_medic2.atlas-b6e38bee9c1a8ecca84bb84c4d203c66.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_285_medic2.atlas"
+dest_files=["res://.godot/imported/char_285_medic2.atlas-b6e38bee9c1a8ecca84bb84c4d203c66.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

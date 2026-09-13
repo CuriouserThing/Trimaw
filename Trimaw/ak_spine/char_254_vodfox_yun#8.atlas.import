@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://cptntnuu4le3v"
+path="res://.godot/imported/char_254_vodfox_yun#8.atlas-7a3c835ef4a39b25f479f1519c4cf176.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_254_vodfox_yun#8.atlas"
+dest_files=["res://.godot/imported/char_254_vodfox_yun#8.atlas-7a3c835ef4a39b25f479f1519c4cf176.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

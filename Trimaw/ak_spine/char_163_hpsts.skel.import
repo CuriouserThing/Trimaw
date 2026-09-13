@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://dkt1p4eehq7tx"
+path="res://.godot/imported/char_163_hpsts.skel-8823967267638de0484671b2ee4af8c0.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_163_hpsts.skel"
+dest_files=["res://.godot/imported/char_163_hpsts.skel-8823967267638de0484671b2ee4af8c0.spskel"]
+
+[params]
+

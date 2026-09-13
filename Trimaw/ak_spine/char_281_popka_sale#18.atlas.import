@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://cnank8xox5e7r"
+path="res://.godot/imported/char_281_popka_sale#18.atlas-c3e0a450c665f59d607fe17997902c28.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_281_popka_sale#18.atlas"
+dest_files=["res://.godot/imported/char_281_popka_sale#18.atlas-c3e0a450c665f59d607fe17997902c28.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://tj8ckcdlgl8u"
+path="res://.godot/imported/enemy_2007_flwitch.atlas-c655e17f7c76eddeb67a84f7031fcc82.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_2007_flwitch.atlas"
+dest_files=["res://.godot/imported/enemy_2007_flwitch.atlas-c655e17f7c76eddeb67a84f7031fcc82.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

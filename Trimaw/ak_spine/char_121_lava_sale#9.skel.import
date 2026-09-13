@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://bfyd86vme5p1o"
+path="res://.godot/imported/char_121_lava_sale#9.skel-e0b64ccb26b0bfc18645e182040948d4.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_121_lava_sale#9.skel"
+dest_files=["res://.godot/imported/char_121_lava_sale#9.skel-e0b64ccb26b0bfc18645e182040948d4.spskel"]
+
+[params]
+

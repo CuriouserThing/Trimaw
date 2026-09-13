@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://kmaw0dxohtnj"
+path="res://.godot/imported/char_411_tomimi_summer#5.atlas-aee2e32bbdd9c11551f92680e42d97fa.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_411_tomimi_summer#5.atlas"
+dest_files=["res://.godot/imported/char_411_tomimi_summer#5.atlas-aee2e32bbdd9c11551f92680e42d97fa.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

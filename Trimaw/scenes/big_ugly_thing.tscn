@@ -1,0 +1,31 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbkpyirra5jjh"]
+
+[ext_resource type="SpineSkeletonDataResource" uid="uid://fcaayufn7m3e" path="res://Trimaw/ak_spine/enemy_1512_mcmstr.tres" id="1_jpq67"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = -15.0
+offset_right = 40.0
+offset_bottom = 25.0
+
+[node name="Visuals" type="SpineSprite" parent="."]
+skeleton_data_res = ExtResource("1_jpq67")
+preview_skin = "Default"
+preview_animation = "Idle_1"
+preview_frame = false
+preview_time = 0.0
+scale = Vector2(0.5, 0.5)
+
+[node name="Bounds" type="Control" parent="."]
+anchors_preset = 0
+offset_left = -67.5
+offset_top = -254.0
+offset_right = 67.5
+offset_bottom = -4.0
+
+[node name="IntentPosition" type="Marker2D" parent="."]
+position = Vector2(14, -271)
+
+[node name="CenterPos" type="Marker2D" parent="."]
+position = Vector2(28, -122)

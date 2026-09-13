@@ -1,0 +1,78 @@
+[gd_scene load_steps=5 format=3 uid="uid://bfb0d52kw0epb"]
+
+[ext_resource type="Texture2D" uid="uid://d0w2gjin8ludp" path="res://Trimaw/images/fluent_ui_emoji_256px/blueberries_color.png" id="1_gqubq"]
+
+[sub_resource type="Animation" id="Animation_p6gwp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationAnchor:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationAnchor:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 100)]
+}
+
+[sub_resource type="Animation" id="Animation_sqk3o"]
+resource_name = "idle"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationAnchor:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.76666665, 0.8333333, 0.9),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 0.833), Vector2(1, 1), Vector2(1, 1), Vector2(1.1, 0.909), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationAnchor:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.16666667, 0.46666667, 0.76666665),
+"transitions": PackedFloat32Array(1, 0.5, 2, 1),
+"update": 0,
+"values": [Vector2(0, 100), Vector2(0, 100), Vector2(0, 25), Vector2(0, 100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o7sca"]
+_data = {
+&"RESET": SubResource("Animation_p6gwp"),
+&"idle": SubResource("Animation_sqk3o")
+}
+
+[node name="Blueberries" type="Node2D"]
+
+[node name="AnimationAnchor" type="Node2D" parent="."]
+position = Vector2(0, 100)
+
+[node name="MorselSprite" type="Sprite2D" parent="AnimationAnchor"]
+position = Vector2(0, -110)
+texture = ExtResource("1_gqubq")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7sca")
+}

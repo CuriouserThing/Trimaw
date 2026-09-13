@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://pawusanra2h0"
+path="res://.godot/imported/enemy_10003_trwlpl.atlas-9ae720794ea21c32bac4a491338d6512.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_10003_trwlpl.atlas"
+dest_files=["res://.godot/imported/enemy_10003_trwlpl.atlas-9ae720794ea21c32bac4a491338d6512.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

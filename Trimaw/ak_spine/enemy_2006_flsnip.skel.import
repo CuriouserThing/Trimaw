@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://dudnlqmlgi7m4"
+path="res://.godot/imported/enemy_2006_flsnip.skel-14eb11b45568d1e508a69e7b87da11ee.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_2006_flsnip.skel"
+dest_files=["res://.godot/imported/enemy_2006_flsnip.skel-14eb11b45568d1e508a69e7b87da11ee.spskel"]
+
+[params]
+

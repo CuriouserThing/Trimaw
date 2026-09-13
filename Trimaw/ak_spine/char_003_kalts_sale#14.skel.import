@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://b3oi1c40ia21e"
+path="res://.godot/imported/char_003_kalts_sale#14.skel-5830cfcf30dc7e836cb47decffa4da12.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_003_kalts_sale#14.skel"
+dest_files=["res://.godot/imported/char_003_kalts_sale#14.skel-5830cfcf30dc7e836cb47decffa4da12.spskel"]
+
+[params]
+

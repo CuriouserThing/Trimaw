@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://bspw2cmm8sfql"
+path="res://.godot/imported/char_272_strong_summer#6.atlas-b235cd6049d4987e2c76524654ae5dfb.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_272_strong_summer#6.atlas"
+dest_files=["res://.godot/imported/char_272_strong_summer#6.atlas-b235cd6049d4987e2c76524654ae5dfb.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

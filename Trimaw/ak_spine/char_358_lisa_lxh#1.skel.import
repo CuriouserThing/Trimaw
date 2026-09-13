@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://bc1ehe4nexgvm"
+path="res://.godot/imported/char_358_lisa_lxh#1.skel-829730c3d101773906588c48af1b4afd.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_358_lisa_lxh#1.skel"
+dest_files=["res://.godot/imported/char_358_lisa_lxh#1.skel-829730c3d101773906588c48af1b4afd.spskel"]
+
+[params]
+

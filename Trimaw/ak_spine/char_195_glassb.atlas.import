@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://dtwkfx34y430l"
+path="res://.godot/imported/char_195_glassb.atlas-25d1bc62421d3e326b6ea14e0785145b.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_195_glassb.atlas"
+dest_files=["res://.godot/imported/char_195_glassb.atlas-25d1bc62421d3e326b6ea14e0785145b.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

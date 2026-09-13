@@ -1,0 +1,16 @@
+.godot/
+bin/
+/android/
+.git/
+.idea/
+.vs/
+publish/
+Properties/
+packages/
+.editorconfig
+*.user
+Directory.Build.props
+TrimawSims/bin/
+TrimawSims/obj/
+TrimawTests/bin/
+TrimawTests/obj/

@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://bd26onnrlmfkb"
+path="res://.godot/imported/char_260_durnar.skel-c7baaf676d5b29f72e63dc5889a0c8f1.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_260_durnar.skel"
+dest_files=["res://.godot/imported/char_260_durnar.skel-c7baaf676d5b29f72e63dc5889a0c8f1.spskel"]
+
+[params]
+

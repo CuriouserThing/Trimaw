@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://dd2dr4vhjcpah"
+path="res://.godot/imported/char_452_bstalk_snow#4.atlas-f2cb4d6b65c641bbdd1a8241fd584fe0.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_452_bstalk_snow#4.atlas"
+dest_files=["res://.godot/imported/char_452_bstalk_snow#4.atlas-f2cb4d6b65c641bbdd1a8241fd584fe0.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

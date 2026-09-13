@@ -1,0 +1,8 @@
+[gd_resource type="SpineSkeletonDataResource" load_steps=3 format=3 uid="uid://c48fu6a82rlxr"]
+
+[ext_resource type="SpineAtlasResource" uid="uid://hu2gvx2a6gva" path="res://Trimaw/ak_spine/char_4141_marcil_dungeon#1.spatlas" id="1_pmiee"]
+[ext_resource type="SpineSkeletonFileResource" uid="uid://c44oomxqw4j3n" path="res://Trimaw/ak_spine/char_4141_marcil_dungeon#1.spskel" id="2_nbc8a"]
+
+[resource]
+atlas_res = ExtResource("1_pmiee")
+skeleton_file_res = ExtResource("2_nbc8a")

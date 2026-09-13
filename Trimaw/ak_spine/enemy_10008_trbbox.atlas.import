@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://bvthmlrsioeht"
+path="res://.godot/imported/enemy_10008_trbbox.atlas-d726cdf20ad85ac77fc9e7592a18f591.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_10008_trbbox.atlas"
+dest_files=["res://.godot/imported/enemy_10008_trbbox.atlas-d726cdf20ad85ac77fc9e7592a18f591.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

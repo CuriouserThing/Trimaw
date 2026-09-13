@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://s7dn0mjbiamh"
+path="res://.godot/imported/char_4014_lunacu.atlas-592d40be729d688e8c245a6e5fdcaa2b.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_4014_lunacu.atlas"
+dest_files=["res://.godot/imported/char_4014_lunacu.atlas-592d40be729d688e8c245a6e5fdcaa2b.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

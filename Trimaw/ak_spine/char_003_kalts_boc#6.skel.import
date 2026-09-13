@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://bnas0mm57akef"
+path="res://.godot/imported/char_003_kalts_boc#6.skel-6a57d743c38a618c2c7fe909a90451be.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_003_kalts_boc#6.skel"
+dest_files=["res://.godot/imported/char_003_kalts_boc#6.skel-6a57d743c38a618c2c7fe909a90451be.spskel"]
+
+[params]
+

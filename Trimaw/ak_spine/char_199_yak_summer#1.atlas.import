@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://b8a44eyl71fsk"
+path="res://.godot/imported/char_199_yak_summer#1.atlas-090806f0f648939a287713fb11724c14.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_199_yak_summer#1.atlas"
+dest_files=["res://.godot/imported/char_199_yak_summer#1.atlas-090806f0f648939a287713fb11724c14.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

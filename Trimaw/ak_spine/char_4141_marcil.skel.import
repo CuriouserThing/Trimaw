@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://mbx2tgndjnig"
+path="res://.godot/imported/char_4141_marcil.skel-f7f46f88142ed28c927cd7460fe18dcb.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_4141_marcil.skel"
+dest_files=["res://.godot/imported/char_4141_marcil.skel-f7f46f88142ed28c927cd7460fe18dcb.spskel"]
+
+[params]
+

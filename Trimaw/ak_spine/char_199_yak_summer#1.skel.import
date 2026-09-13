@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://bj264r1jy01ds"
+path="res://.godot/imported/char_199_yak_summer#1.skel-eca5a7bd6b5c4336a35f27dc3f560c4b.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_199_yak_summer#1.skel"
+dest_files=["res://.godot/imported/char_199_yak_summer#1.skel-eca5a7bd6b5c4336a35f27dc3f560c4b.spskel"]
+
+[params]
+

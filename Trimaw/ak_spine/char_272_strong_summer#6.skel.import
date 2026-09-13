@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://didyyxnsgdsse"
+path="res://.godot/imported/char_272_strong_summer#6.skel-ad43c85742f2768c3c15c0da1e0a09b3.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_272_strong_summer#6.skel"
+dest_files=["res://.godot/imported/char_272_strong_summer#6.skel-ad43c85742f2768c3c15c0da1e0a09b3.spskel"]
+
+[params]
+

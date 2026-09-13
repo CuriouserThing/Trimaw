@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://cfj4cmydsf216"
+path="res://.godot/imported/char_195_glassb.skel-99e7cb6bc6e72167048885977d960464.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_195_glassb.skel"
+dest_files=["res://.godot/imported/char_195_glassb.skel-99e7cb6bc6e72167048885977d960464.spskel"]
+
+[params]
+

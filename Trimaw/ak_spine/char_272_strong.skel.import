@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://bsdl1kcflksgc"
+path="res://.godot/imported/char_272_strong.skel-dea77f395ad99a4f54c30c4ec1ed7fc7.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_272_strong.skel"
+dest_files=["res://.godot/imported/char_272_strong.skel-dea77f395ad99a4f54c30c4ec1ed7fc7.spskel"]
+
+[params]
+

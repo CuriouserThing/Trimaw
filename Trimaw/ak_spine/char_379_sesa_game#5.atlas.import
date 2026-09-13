@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://bqni5nv46loax"
+path="res://.godot/imported/char_379_sesa_game#5.atlas-0ca0457a494344fd9bd72a6fdfbb70e0.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_379_sesa_game#5.atlas"
+dest_files=["res://.godot/imported/char_379_sesa_game#5.atlas-0ca0457a494344fd9bd72a6fdfbb70e0.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

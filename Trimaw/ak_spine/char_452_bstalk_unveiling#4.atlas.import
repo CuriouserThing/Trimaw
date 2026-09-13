@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://0u5pqvlweppu"
+path="res://.godot/imported/char_452_bstalk_unveiling#4.atlas-d6a02c4e2c5d64d96c9bed3772cedc33.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_452_bstalk_unveiling#4.atlas"
+dest_files=["res://.godot/imported/char_452_bstalk_unveiling#4.atlas-d6a02c4e2c5d64d96c9bed3772cedc33.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

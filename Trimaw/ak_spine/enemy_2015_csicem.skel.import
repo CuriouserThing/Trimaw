@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://dwqpkrnxd36q0"
+path="res://.godot/imported/enemy_2015_csicem.skel-c3f78a16d5a10909564e7a208edc0580.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_2015_csicem.skel"
+dest_files=["res://.godot/imported/enemy_2015_csicem.skel-c3f78a16d5a10909564e7a208edc0580.spskel"]
+
+[params]
+

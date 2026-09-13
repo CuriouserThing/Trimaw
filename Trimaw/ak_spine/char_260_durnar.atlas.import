@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://b7misbawsdy4o"
+path="res://.godot/imported/char_260_durnar.atlas-7509467d6f2558f768a2c429cd861f14.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_260_durnar.atlas"
+dest_files=["res://.godot/imported/char_260_durnar.atlas-7509467d6f2558f768a2c429cd861f14.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://c0i0x4w7ltfqv"
+path="res://.godot/imported/char_196_sunbr.skel-6d8277c864720ac692a29834bff25be1.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_196_sunbr.skel"
+dest_files=["res://.godot/imported/char_196_sunbr.skel-6d8277c864720ac692a29834bff25be1.spskel"]
+
+[params]
+

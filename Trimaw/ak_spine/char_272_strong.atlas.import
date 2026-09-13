@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://d13kr7vwjpn0h"
+path="res://.godot/imported/char_272_strong.atlas-354d28843c42de26af2411136435a41f.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_272_strong.atlas"
+dest_files=["res://.godot/imported/char_272_strong.atlas-354d28843c42de26af2411136435a41f.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

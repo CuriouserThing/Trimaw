@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://draci1g7fc750"
+path="res://.godot/imported/char_355_ethan_epoque#7.skel-a6b4229fa2e68653f661591523eddcb4.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_355_ethan_epoque#7.skel"
+dest_files=["res://.godot/imported/char_355_ethan_epoque#7.skel-a6b4229fa2e68653f661591523eddcb4.spskel"]
+
+[params]
+

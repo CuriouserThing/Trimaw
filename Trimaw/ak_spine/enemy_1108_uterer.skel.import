@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://b5ma600si2l4d"
+path="res://.godot/imported/enemy_1108_uterer.skel-aef0e725d3ddd89eacb0a6a170227b32.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_1108_uterer.skel"
+dest_files=["res://.godot/imported/enemy_1108_uterer.skel-aef0e725d3ddd89eacb0a6a170227b32.spskel"]
+
+[params]
+

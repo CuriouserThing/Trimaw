@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://c1lf204csqww2"
+path="res://.godot/imported/enemy_2014_csicer.atlas-4ebff5e46d8dba3b77acaa85f700398f.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_2014_csicer.atlas"
+dest_files=["res://.godot/imported/enemy_2014_csicer.atlas-4ebff5e46d8dba3b77acaa85f700398f.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

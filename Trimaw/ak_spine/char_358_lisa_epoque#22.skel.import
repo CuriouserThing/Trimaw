@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://vdws2yubajkw"
+path="res://.godot/imported/char_358_lisa_epoque#22.skel-f05107eb60ec5ec965e7b3c785cbcf75.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_358_lisa_epoque#22.skel"
+dest_files=["res://.godot/imported/char_358_lisa_epoque#22.skel-f05107eb60ec5ec965e7b3c785cbcf75.spskel"]
+
+[params]
+

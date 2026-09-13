@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://xmkgiy8h5mvj"
+path="res://.godot/imported/enemy_2006_flsnip.atlas-0d2d6268bbae782bae92611225ee3128.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_2006_flsnip.atlas"
+dest_files=["res://.godot/imported/enemy_2006_flsnip.atlas-0d2d6268bbae782bae92611225ee3128.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

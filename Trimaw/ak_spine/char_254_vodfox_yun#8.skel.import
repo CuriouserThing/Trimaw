@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://yyu5t3e7i0uk"
+path="res://.godot/imported/char_254_vodfox_yun#8.skel-57f7f8abf161dc64bcce39ef3faf28bd.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_254_vodfox_yun#8.skel"
+dest_files=["res://.godot/imported/char_254_vodfox_yun#8.skel-57f7f8abf161dc64bcce39ef3faf28bd.spskel"]
+
+[params]
+

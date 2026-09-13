@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://16fiqjaxppb2"
+path="res://.godot/imported/enemy_1108_uterer.atlas-bca48aa2d92eebe60dbe8453f4299f14.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/enemy_1108_uterer.atlas"
+dest_files=["res://.godot/imported/enemy_1108_uterer.atlas-bca48aa2d92eebe60dbe8453f4299f14.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

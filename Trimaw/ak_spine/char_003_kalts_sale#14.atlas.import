@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://cpua3wagle3uq"
+path="res://.godot/imported/char_003_kalts_sale#14.atlas-8fd68f6c8297215881071810518d1336.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_003_kalts_sale#14.atlas"
+dest_files=["res://.godot/imported/char_003_kalts_sale#14.atlas-8fd68f6c8297215881071810518d1336.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

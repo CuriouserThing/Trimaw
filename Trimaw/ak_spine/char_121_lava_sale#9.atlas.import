@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://dfgiinxtc5m7s"
+path="res://.godot/imported/char_121_lava_sale#9.atlas-2896d6a44887bc2d8ebf7b0d56da7899.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_121_lava_sale#9.atlas"
+dest_files=["res://.godot/imported/char_121_lava_sale#9.atlas-2896d6a44887bc2d8ebf7b0d56da7899.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

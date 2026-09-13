@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1yj0wgq7hoas"]
+
+[ext_resource type="Texture2D" uid="uid://cma2t8fjn68la" path="res://Trimaw/images/fluent_ui_emoji_256px/mushroom_color.png" id="1_o3slx"]
+
+[node name="MorselSlot" type="Node2D"]
+
+[node name="AnimationAnchor" type="Node2D" parent="."]
+
+[node name="MorselSprite" type="Sprite2D" parent="AnimationAnchor"]
+texture = ExtResource("1_o3slx")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="AnimationTimer" type="Timer" parent="."]
+one_shot = true

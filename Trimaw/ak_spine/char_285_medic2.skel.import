@@ -1,0 +1,14 @@
+[remap]
+
+importer="spine.skel"
+type="SpineSkeletonFileResource"
+uid="uid://1vgqe78nwpnn"
+path="res://.godot/imported/char_285_medic2.skel-dbbd3f9424d815cbdec8b38ac280b9e2.spskel"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_285_medic2.skel"
+dest_files=["res://.godot/imported/char_285_medic2.skel-dbbd3f9424d815cbdec8b38ac280b9e2.spskel"]
+
+[params]
+

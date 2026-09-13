@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://ck0b86o36io1v"
+path="res://.godot/imported/char_1051_headb2.atlas-4a544741336a81710f9a0f8e6ee961aa.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_1051_headb2.atlas"
+dest_files=["res://.godot/imported/char_1051_headb2.atlas-4a544741336a81710f9a0f8e6ee961aa.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

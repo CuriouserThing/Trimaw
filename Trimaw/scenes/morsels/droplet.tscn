@@ -1,0 +1,102 @@
+[gd_scene load_steps=5 format=3 uid="uid://x2ec3kywgny5"]
+
+[ext_resource type="Texture2D" uid="uid://cljtheoxce4mf" path="res://Trimaw/images/fluent_ui_emoji_256px/droplet_color.png" id="1_vw3sf"]
+
+[sub_resource type="Animation" id="Animation_p6gwp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationAnchor:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationAnchor:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationAnchor:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -100)]
+}
+
+[sub_resource type="Animation" id="Animation_sqk3o"]
+resource_name = "idle"
+length = 2.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimationAnchor:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(1.9333333, 2.1000004, 2.2333333, 2.5999997),
+"transitions": PackedFloat32Array(2, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimationAnchor:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1.8333335, 2, 2.1000004, 2.2333333, 2.3333333, 2.5999997),
+"transitions": PackedFloat32Array(2, 0.5, 1, 1, 2, 0.5, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.05, 1.2), Vector2(1.2, 1.05), Vector2(1.2, 1.05), Vector2(0, 0), Vector2(0.7, 0.5), Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimationAnchor:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.8333335, 2.1000004, 2.2333333, 2.5999997),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -100), Vector2(0, -100), Vector2(0, 200), Vector2(0, -100), Vector2(0, -100)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o7sca"]
+_data = {
+&"RESET": SubResource("Animation_p6gwp"),
+&"idle": SubResource("Animation_sqk3o")
+}
+
+[node name="Droplet" type="Node2D"]
+
+[node name="AnimationAnchor" type="Node2D" parent="."]
+position = Vector2(0, -100)
+
+[node name="MorselSprite" type="Sprite2D" parent="AnimationAnchor"]
+position = Vector2(0, 100)
+texture = ExtResource("1_vw3sf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_o7sca")
+}

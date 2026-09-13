@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://bcs6kiuyv0x63"
+path="res://.godot/imported/char_002_amiya_winter#1.atlas-20ea24aa10d5bee46fa6a6b95166e78b.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_002_amiya_winter#1.atlas"
+dest_files=["res://.godot/imported/char_002_amiya_winter#1.atlas-20ea24aa10d5bee46fa6a6b95166e78b.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"

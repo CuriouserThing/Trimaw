@@ -1,0 +1,16 @@
+[remap]
+
+importer="spine.atlas"
+type="SpineAtlasResource"
+uid="uid://pcopfxkvafqj"
+path="res://.godot/imported/char_002_amiya_test#1.atlas-a1db1cdf30a384be6e4000fc8eab3d32.spatlas"
+
+[deps]
+
+source_file="res://Trimaw/ak_spine/char_002_amiya_test#1.atlas"
+dest_files=["res://.godot/imported/char_002_amiya_test#1.atlas-a1db1cdf30a384be6e4000fc8eab3d32.spatlas"]
+
+[params]
+
+normal_map_prefix="n"
+specular_map_prefix="s"
