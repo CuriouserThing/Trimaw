@@ -10,7 +10,9 @@ packages/
 .editorconfig
 *.user
 Directory.Build.props
+TrimawSims/lib/sts2.dll
 TrimawSims/bin/
 TrimawSims/obj/
+TrimawTests/lib/sts2.dll
 TrimawTests/bin/
 TrimawTests/obj/
