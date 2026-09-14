@@ -78,7 +78,7 @@
   "TRIMAW-SLUG_SPREAD.title": "Slug Spread",
   "TRIMAW-SLUG_SPREAD.description": "Add a random [purple]Really Heavy[/purple] {IfUpgraded:show:[gold]Upgraded[/gold] |}Attack into your [gold]Hand[/gold].",
   "TRIMAW-TACO_DOSSOLEADO.title": "Taco Dossoleado",
-  "TRIMAW-TACO_DOSSOLEADO.description": "Gain {Energy:energyIcons()}.\nAdd a random {IfUpgraded:show:[gold]Upgraded[/gold] |}Attack into your [gold]Hand[/gold].",
+  "TRIMAW-TACO_DOSSOLEADO.description": "Gain {Energy:energyIcons()}.\nAdd a random {IfUpgraded:show:[gold]Upgraded[/gold] |}Attack with cost equal to your Energy into your [gold]Hand[/gold].",
   "TRIMAW-URSUS_BIG_BREAD.title": "Ursus Big Bread",
   "TRIMAW-URSUS_BIG_BREAD.description": "Lose {energyPrefix:energyIcons(1)}.\nNext turn, gain {Energy:energyIcons()}.",
   "TRIMAW-VILLAGE_POT.title": "Village Pot",

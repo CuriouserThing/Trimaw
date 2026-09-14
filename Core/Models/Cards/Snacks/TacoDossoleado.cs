@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 
 namespace Trimaw.Core.Models.Cards.Snacks;
 
@@ -16,7 +17,7 @@ public class TacoDossoleado : SnackCard
         var energy = Owner.PlayerCombatState?.Energy ?? 1;
         var pool = Owner.Character.CardPool
             .GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint)
-            .Where(c => c.Type == CardType.Attack && (c.EnergyCost.Canonical == energy || c.EnergyCost.CostsX));
+            .Where(c => CardMatches(c, energy, IsUpgraded));
         var attack = CardFactory.GetDistinctForCombat(Owner, pool, 1, Owner.RunState.Rng.CombatCardGeneration)
             .FirstOrDefault();
         if (attack is null)
@@ -27,5 +28,17 @@ public class TacoDossoleado : SnackCard
 
         if (IsUpgraded) CardCmd.Upgrade(attack);
         await CardPileCmd.AddGeneratedCardToCombat(attack, PileType.Hand, Owner);
+    }
+
+    private bool CardMatches(CardModel card, int energy, bool upgraded)
+    {
+        if (upgraded)
+        {
+            card = card.ToMutable();
+            card.UpgradeInternal();
+        }
+        
+        return card.Type == CardType.Attack &&
+               (card.EnergyCost.GetWithModifiers(CostModifiers.All) == energy || card.EnergyCost.CostsX);
     }
 }
