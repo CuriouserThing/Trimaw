@@ -21,4 +21,5 @@ public static class StaticHoverTip
     [CustomEnum] public static MegaCritTip Imagine;
     [CustomEnum] public static MegaCritTip Pop;
     [CustomEnum] public static MegaCritTip DuckLordAssociate;
+    [CustomEnum] public static MegaCritTip Eunectes;
 }
