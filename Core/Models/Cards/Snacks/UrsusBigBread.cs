@@ -8,23 +8,21 @@ namespace Trimaw.Core.Models.Cards.Snacks;
 
 public class UrsusBigBread : SnackCard
 {
-    private const string EnergyLossKey = "EnergyLoss";
-
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
-        new(EnergyLossKey, 1),
-        new EnergyVar(4)
+        new EnergyVar(1),
+        new PowerVar<EnergyNextTurnPower>(3)
     ];
 
     protected override void OnUpgrade()
     {
-        DynamicVars.Energy.UpgradeValueBy(2);
+        DynamicVars[nameof(EnergyNextTurnPower)].UpgradeValueBy(2);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await PlayerCmd.LoseEnergy(DynamicVars[EnergyLossKey].BaseValue, Owner);
-        await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, Owner.Creature, DynamicVars.Energy.BaseValue,
-            Owner.Creature, this);
+        await PlayerCmd.GainEnergy(DynamicVars.Energy.BaseValue, Owner);
+        await PowerCmd.Apply<EnergyNextTurnPower>(choiceContext, Owner.Creature,
+            DynamicVars[nameof(EnergyNextTurnPower)].BaseValue, Owner.Creature, this);
     }
 }

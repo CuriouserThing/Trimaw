@@ -14,16 +14,14 @@ public class HoneyBiscuit : SnackCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        IEnumerable<CardModel> pileCards = PileType.Discard.GetPile(Owner).Cards;
-        if (IsUpgraded) pileCards = pileCards.Concat(PileType.Draw.GetPile(Owner).Cards);
-
         var polished = ModelDb.Enchantment<Polished>();
-        var candidates = pileCards
-            .Where(polished.CanEnchant)
-            .GroupBy(c => c.EnergyCost.GetWithModifiers(CostModifiers.Local))
-            .OrderByDescending(g => g.Key)
-            .FirstOrDefault();
-        var card = candidates?.TakeRandom(1, Owner.RunState.Rng.CombatCardSelection).FirstOrDefault();
+        var hand = PileType.Hand.GetPile(Owner).Cards.Where(polished.CanEnchant);
+        if (IsUpgraded)
+            hand = hand
+                .GroupBy(c => c.EnergyCost.GetWithModifiers(CostModifiers.Local))
+                .OrderByDescending(g => g.Key)
+                .FirstOrDefault();
+        var card = hand?.TakeRandom(1, Owner.RunState.Rng.CombatCardSelection).FirstOrDefault();
         if (card is null) return;
 
         var clone = card.CreateClone();
