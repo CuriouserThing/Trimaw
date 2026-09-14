@@ -13,8 +13,6 @@ public abstract class MultiCardPlayTrigger : CardPlayTrigger
 
     public sealed override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Card.Owner != Owner.PetOwner || !CardMatches(cardPlay)) return;
-
-        await PowerCmd.Decrement(this);
+        if (CardTriggersMove(cardPlay)) await PowerCmd.Decrement(this);
     }
 }

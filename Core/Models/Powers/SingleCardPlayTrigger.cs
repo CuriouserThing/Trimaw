@@ -12,8 +12,6 @@ public abstract class SingleCardPlayTrigger : CardPlayTrigger
 
     public sealed override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Card.Owner != Owner.PetOwner || !CardMatches(cardPlay)) return;
-
-        await TriggerMove(choiceContext);
+        if (CardTriggersMove(cardPlay)) await TriggerMove(choiceContext);
     }
 }
