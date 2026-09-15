@@ -13,15 +13,21 @@ public class CaramelCandies : SnackCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        var glam = ModelDb.Enchantment<Glam>();
         IEnumerable<CardModel> source = PileType.Hand.GetPile(Owner).Cards;
         if (IsUpgraded) source = source.Concat(PileType.Draw.GetPile(Owner).Cards);
         var cards = source
-            .Where(c => c.EnergyCost.GetWithModifiers(CostModifiers.All) == DynamicVars.Energy.IntValue)
+            .Where(c => glam.CanEnchant(c) &&
+                        c.EnergyCost.GetWithModifiers(CostModifiers.All) == DynamicVars.Energy.IntValue)
             .ToArray();
         if (cards.Length < 1) return;
 
         var glammedCards = cards.Select(c => c.CreateClone()).ToArray();
-        foreach (var card in glammedCards) CardCmd.Enchant<Glam>(card, 1);
+        foreach (var card in glammedCards)
+        {
+            CardCmd.ClearEnchantment(card);
+            CardCmd.Enchant<Glam>(card, 1);
+        }
 
         var transforms = cards.Zip(glammedCards, (a, b) => new CardTransformation(a, b));
         await CardCmd.Transform(transforms, null);
