@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using Trimaw.Core.CombatHistory;
 using Trimaw.Core.GodotControls;
 using Trimaw.Core.Hooks;
 using Trimaw.Core.Models.Cards;
@@ -72,7 +73,8 @@ public static class SnackCmd
     {
         if (combatState is null) return null;
 
-        await TrimawHook.BeforeMorselPrepped(player.RunState, combatState, choiceContext, player, morsel);
+        await TrimawHook.BeforeMorselPrepped(combatState, choiceContext, player, morsel);
+        MainFile.CombatManagerFactory.GetOrCreate(player).AddHistoryEntry(new MorselPreppedEntry(player, morsel));
 
         if (player.Creature.GetCreatureNode() is { } nCreature &&
             MorselStockWrapper.NCreatureTable[nCreature] is { } stockControl)
@@ -93,7 +95,7 @@ public static class SnackCmd
             await CardPileCmd.AddGeneratedCardToCombat(card, snackPileType, player, snackPilePosition);
         }
 
-        await TrimawHook.AfterMorselPrepped(player.RunState, combatState, choiceContext, player, morsel, card);
+        await TrimawHook.AfterMorselPrepped(combatState, choiceContext, player, morsel, card);
         return card;
     }
 }
