@@ -13,9 +13,16 @@ public class Polished : TrimawEnchantment
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
+    public override bool CanEnchantCardType(CardType cardType)
+    {
+        return cardType is CardType.Attack or CardType.Skill;
+    }
+
     public override bool CanEnchant(CardModel card)
     {
-        return card.EnergyCost.Canonical > 0;
+        return base.CanEnchant(card) &&
+               card.EnergyCost.Canonical > 0 &&
+               !card.CanonicalKeywords.Contains(CardKeyword.Exhaust);
     }
 
     protected override void OnEnchant()
