@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Relics;
 
 namespace Trimaw.Core.Models.Enchantments;
 
@@ -30,8 +31,12 @@ public class Hyperfixated : TrimawEnchantment
         // so we have to estimate the amount of energy spent on it.
         // Narrow corner case so if the estimate is wrong because of some timing issue it's not the end of the world :)
         var energySpentEstimate = card.EnergyCost.GetWithModifiers(CostModifiers.All);
+        
+        // Hardcode this special case :)
+        var relicBonus = card.Owner.Relics.Count(r => r is ChemicalX) * 2;
+        
         var remainingEnergy = card.Owner.PlayerCombatState?.Energy ?? 0;
-        return playCount + energySpentEstimate + remainingEnergy;
+        return playCount + energySpentEstimate + relicBonus + remainingEnergy;
     }
 
     public override async Task AfterModifyingCardPlayCount(CardModel card)
