@@ -28,8 +28,11 @@ public class PineconeFactory : ITrimawCombatManagerFactory
         // Is ANY card (try to keep at least a couple here)
         Enchant<Glam>(),
         Enchant<ReallyHot>(4),
+        
+        // Costs 0-1
+        Enchant<Hyperfixated>(),
 
-        // Costs 1+
+        // Costs 1+ and doesn't exhaust
         Enchant<Polished>(),
 
         // Costs 2+ and either deals damage or gains block
@@ -44,7 +47,7 @@ public class PineconeFactory : ITrimawCombatManagerFactory
         Enchant<Corrupted>(),
 
         // Is a targeted Attack
-        Enchant<Hyperfixated>(),
+        Enchant<Focused>(),
 
         // Is an Attack that deals N+ damage
         Enchant<ReallyHeavy>(),

@@ -20,7 +20,7 @@ public class Doodled : TrimawEnchantment
     public override bool CanEnchant(CardModel card)
     {
         return base.CanEnchant(card) &&
-               card.EnergyCost.Canonical > 1 &&
+               card.EnergyCost.GetWithModifiers(CostModifiers.None) > 1 &&
                (card.Type == CardType.Attack || card.GainsBlock);
     }
 

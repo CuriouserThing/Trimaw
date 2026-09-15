@@ -1,65 +1,41 @@
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
-using Trimaw.Core.Models.Powers.CeobePowers;
-using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Enchantments;
 
 public class Hyperfixated : TrimawEnchantment
 {
-    private int _trackedAim;
-    private AttackCommand? _trackedAttack;
-    private int _trackedVigor;
-
-    public override string Icon64Path => Pathfinder.GameIconsDotnet64("eye_target");
-
-    public override bool CanEnchantCardType(CardType cardType)
-    {
-        return cardType == CardType.Attack;
-    }
+    public override bool HasExtraCardText => true;
 
     public override bool CanEnchant(CardModel card)
     {
-        // Only enchant targeted Attacks, since untargeted Attacks can never consume Aim regardless.
-        return base.CanEnchant(card) && card.TargetType == TargetType.AnyEnemy;
+        return base.CanEnchant(card) &&
+               !card.EnergyCost.CostsX &&
+               card.CanonicalStarCost < 1 &&
+               card.EnergyCost.GetWithModifiers(CostModifiers.None) < 2;
     }
 
-    public override Task BeforeAttack(AttackCommand command)
+    protected override void OnEnchant()
     {
-        if (IsMutable && command.ModelSource == Card)
-        {
-            _trackedAttack = command;
-            _trackedAim = command.Attacker?.GetPowerAmount<AimPower>() ?? 0;
-            _trackedVigor = command.Attacker?.GetPowerAmount<VigorPower>() ?? 0;
-        }
-
-        return Task.CompletedTask;
+        Card.SetToFreeThisCombat();
     }
 
-    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
+    public override int ModifyCardPlayCount(CardModel card, Creature? target, int playCount)
     {
-        if (command == _trackedAttack && command.Attacker is { } attacker)
-        {
-            await ApplyPower<AimPower>(choiceContext, attacker, _trackedAim);
-            await ApplyPower<VigorPower>(choiceContext, attacker, _trackedVigor);
-        }
+        if (card != Card) return playCount;
 
-        _trackedAttack = null;
-        _trackedAim = 0;
-        _trackedVigor = 0;
+        // Energy spent is only >0 with some cost modifier in effect, but we want the card to behave as an X-cost,
+        // so we have to estimate the amount of energy spent on it.
+        // Narrow corner case so if the estimate is wrong because of some timing issue it's not the end of the world :)
+        var energySpentEstimate = card.EnergyCost.GetWithModifiers(CostModifiers.All);
+        var remainingEnergy = card.Owner.PlayerCombatState?.Energy ?? 0;
+        return playCount + energySpentEstimate + remainingEnergy;
     }
 
-    private async Task ApplyPower<T>(PlayerChoiceContext choiceContext, Creature creature, int trackedPower)
-        where T : PowerModel
+    public override async Task AfterModifyingCardPlayCount(CardModel card)
     {
-        var current = creature.GetPowerAmount<T>();
-        if (trackedPower < current) return;
-        var delta = trackedPower - current;
-        await PowerCmd.Apply<T>(choiceContext, creature, delta, creature, Card);
+        await PlayerCmd.SetEnergy(0, card.Owner);
     }
 }
