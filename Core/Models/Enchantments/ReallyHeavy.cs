@@ -22,7 +22,8 @@ public class ReallyHeavy : TrimawEnchantment
     public override bool CanEnchant(CardModel card)
     {
         return base.CanEnchant(card) &&
-               card.DynamicVars.Damage.BaseValue >= DynamicVars[DamageDivisorKey].BaseValue;
+               card.DynamicVars.TryGetValue("Damage", out var damage) &&
+               damage.BaseValue >= DynamicVars[DamageDivisorKey].BaseValue;
     }
 
     public override decimal EnchantDamageAdditive(decimal originalDamage, ValueProp props)
