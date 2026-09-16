@@ -8,7 +8,7 @@ using Trimaw.Core.Commands;
 
 namespace Trimaw.Core.Models.Cards.Snacks;
 
-public class BarrensTequila : SnackCard
+public class ChicoTequila : SnackCard
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.Static(StaticHoverTip.SuperSpecial)];
 

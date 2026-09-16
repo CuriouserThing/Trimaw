@@ -11,7 +11,7 @@ public class UrsusBigBread : SnackCard
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new EnergyVar(1),
-        new PowerVar<EnergyNextTurnPower>(3)
+        new EnergyVar(nameof(EnergyNextTurnPower), 3)
     ];
 
     protected override void OnUpgrade()

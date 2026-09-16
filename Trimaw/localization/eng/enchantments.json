@@ -8,7 +8,7 @@
   "TRIMAW-GLAZED.description": "When played, gain [gold]Sticky Fingers[/gold].",
   "TRIMAW-GLAZED.extraCardText": "Gain [gold]Sticky Fingers[/gold].",
   "TRIMAW-HYPERFIXATED.title": "Hyperfixated",
-  "TRIMAW-HYPERFIXATED.description": "This card spends ALL Energy and has Replay for each {Energy:energyIcons()} spent.",
+  "TRIMAW-HYPERFIXATED.description": "This card spends ALL Energy and has Replay for each {energyPrefix:energyIcons(1)} spent.",
   "TRIMAW-HYPERFIXATED.extraCardText": "Replay X.",
   "TRIMAW-POCKETED.title": "Pocketed",
   "TRIMAW-POCKETED.description": "This card gains [gold]Retain[/gold].",

@@ -95,10 +95,6 @@ public class PineconeFactory : ITrimawCombatManagerFactory
 
     public static IReadOnlyList<IRecipe> RecipeBook =>
     [
-        new UpgradedRecipe<BarrensTequila>(
-            [Enchant<Spiced>(Morsel.Pepper), Enchant<Xxl>(Morsel.Water)],
-            [Morsel.Berries, Morsel.Berries, Morsel.Water]),
-
         new Recipe<BloodCurd>(
             [Morsel.Meat, Morsel.Meat],
             Morsel.Meat),
@@ -126,6 +122,10 @@ public class PineconeFactory : ITrimawCombatManagerFactory
 
         new UpgradedRecipe<Xxl, Cargirl>(
             [Morsel.Water, Morsel.Water, Morsel.Water, Morsel.Water]),
+        
+        new UpgradedRecipe<ChicoTequila>(
+            [Enchant<Spiced>(Morsel.Pepper), Enchant<Xxl>(Morsel.Water)],
+            [Morsel.Berries, Morsel.Berries, Morsel.Water]),
 
         new UpgradedRecipe<CrabPorridge>(
             [Enchant<ReallyHot>(3, Morsel.Pepper)],
