@@ -26,6 +26,7 @@ public class PineconeFactory : ITrimawCombatManagerFactory
     public static IReadOnlyList<IEnchanter> SuperSpecialEnchantmentPool =>
     [
         // Is ANY card (try to keep at least a couple here)
+        Enchant<Sown>(),
         Enchant<Glam>(),
         Enchant<ReallyHot>(4),
         
