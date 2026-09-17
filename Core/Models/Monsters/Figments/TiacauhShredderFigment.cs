@@ -21,5 +21,6 @@ public class TiacauhShredderFigment : SimpleFigment<PowerfulHitTrigger, TiacauhS
         HardTag.Tiacauh
     ];
 
-    protected override int InitialHp => 7;
+    protected override int InitialHp => 8;
+    protected override int MaxHp => 12;
 }

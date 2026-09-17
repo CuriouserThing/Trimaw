@@ -18,5 +18,6 @@ public class ZimaFigment : SimpleFigment<AnyEnergySpentTrigger, ZimaIntent>
         HardTag.UrsusRace
     ];
 
-    protected override int InitialHp => 5;
+    protected override int InitialHp => 9;
+    protected override int MaxHp => 14;
 }

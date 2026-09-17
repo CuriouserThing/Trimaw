@@ -17,7 +17,8 @@ public class ReserveMedicFigment : OneShotFigment<HpLossTrigger>
         HardTag.ReserveOp
     ];
 
-    protected override int InitialHp => 3;
+    protected override int InitialHp => 4;
+    protected override int MaxHp => 9;
 
     protected override FigmentIntent GetFigmentIntent()
     {

@@ -17,5 +17,6 @@ public class GummyFigment : SimpleFigment<AllEnergySpentTrigger, GummyIntent>
         HardTag.UrsusRace
     ];
 
-    protected override int InitialHp => 5;
+    protected override int InitialHp => 7;
+    protected override int MaxHp => 18;
 }

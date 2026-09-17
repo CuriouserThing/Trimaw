@@ -18,5 +18,6 @@ public class RosaFigment : SimpleFigment<AimShareTalent, RosaIntent>
         HardTag.UrsusRace
     ];
 
-    protected override int InitialHp => 3;
+    protected override int InitialHp => 4;
+    protected override int MaxHp => 6;
 }

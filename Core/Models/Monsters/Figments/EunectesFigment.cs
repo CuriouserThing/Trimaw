@@ -24,7 +24,8 @@ public class EunectesFigment : Figment<ImaginaryShieldPower, GestaltPower, OneCo
         HardTag.Tiacauh
     ];
 
-    protected override int InitialHp => 6;
+    protected override int InitialHp => 7;
+    protected override int MaxHp => 16;
 
     protected override int InitialTalentPowerAmount => 3;
 

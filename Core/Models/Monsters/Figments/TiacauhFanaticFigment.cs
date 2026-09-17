@@ -18,4 +18,5 @@ public class TiacauhFanaticFigment : SimpleFigment<PowerfulHitTrigger, TiacauhFa
     ];
 
     protected override int InitialHp => 6;
+    protected override int MaxHp => 11;
 }

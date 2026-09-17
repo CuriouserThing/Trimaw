@@ -16,5 +16,6 @@ public class BubbleFigment : SimpleFigment<AttackAttackerTrigger, BubbleIntent>
         HardTag.UsesAkChar
     ];
 
-    protected override int InitialHp => 7;
+    protected override int InitialHp => 8;
+    protected override int MaxHp => 19;
 }

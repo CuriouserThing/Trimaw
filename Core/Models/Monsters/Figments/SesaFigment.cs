@@ -16,7 +16,8 @@ public class SesaFigment : SimpleFigment<OneCostTrigger, SesaIntent>
         HardTag.UsesAkChar
     ];
 
-    protected override int InitialHp => 3;
+    protected override int InitialHp => 5;
+    protected override int MaxHp => 10;
 
     protected override int InitialTalentPowerAmount => 2;
 }

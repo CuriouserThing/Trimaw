@@ -35,7 +35,8 @@ public abstract class Figment : CustomMonsterModel
     public abstract IReadOnlySet<HardTag> HardTags { get; }
 
     protected abstract int InitialHp { get; }
-    protected virtual int MaxHp => 4 * InitialHp;
+    protected abstract int MaxHp { get; }
+
     public sealed override int MinInitialHp => InitialHp;
     public sealed override int MaxInitialHp => InitialHp;
 

@@ -12,7 +12,7 @@ public class BigUglyThingTrigger : MultiTriggerTalent
 {
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new HpLossVar(9)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new HpLossVar(7)];
 
     public override string Icon64Path => Pathfinder.GameIconsDotnet64("overdrive");
 

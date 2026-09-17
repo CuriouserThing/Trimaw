@@ -18,7 +18,8 @@ public class TiacauhImpalerFigment : OneShotFigment<AimShareTalent>
         HardTag.Tiacauh
     ];
 
-    protected override int InitialHp => 4;
+    protected override int InitialHp => 6;
+    protected override int MaxHp => 12;
 
     protected override FigmentIntent GetFigmentIntent()
     {

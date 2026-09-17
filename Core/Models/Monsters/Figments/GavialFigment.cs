@@ -27,6 +27,7 @@ public class GavialFigment() : AnyShotFigment<PowerfulHitTrigger>(2)
     ];
 
     protected override int InitialHp => 8;
+    protected override int MaxHp => 18;
 
     protected override FigmentIntent GetFigmentIntent(int idx)
     {

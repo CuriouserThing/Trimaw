@@ -17,5 +17,6 @@ public class BeehunterFigment : SimpleFigment<AnyEnergySpentTrigger, BeehunterIn
         HardTag.UrsusRace
     ];
 
-    protected override int InitialHp => 5;
+    protected override int InitialHp => 6;
+    protected override int MaxHp => 10;
 }

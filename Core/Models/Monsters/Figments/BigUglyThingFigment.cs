@@ -37,8 +37,8 @@ public class BigUglyThingFigment : Figment<ImaginaryShieldPower, GestaltPower, B
         HardTag.Tiacauh
     ];
 
-    protected override int InitialHp => 35;
-    protected override int MaxHp => 40;
+    protected override int InitialHp => 23;
+    protected override int MaxHp => 28;
 
     public int InitialBirdHp => 3; // Max is determined from this + explosion damage
 

@@ -19,7 +19,8 @@ public class GopnikFigment : SimpleFigment<EotGoldTrigger, GopnikIntent>
         HardTag.DuckLordAssociate
     ];
 
-    protected override int InitialHp => 7;
+    protected override int InitialHp => 9;
+    protected override int MaxHp => 23;
 
     protected override int InitialTalentPowerAmount => 110;
 }

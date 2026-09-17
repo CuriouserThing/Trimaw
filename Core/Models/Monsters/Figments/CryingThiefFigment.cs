@@ -18,6 +18,7 @@ public class CryingThiefFigment : SimpleFigment<EotGoldTrigger, CryingThiefInten
     ];
 
     protected override int InitialHp => 4;
+    protected override int MaxHp => 8;
 
     protected override int InitialTalentPowerAmount => 150;
 }

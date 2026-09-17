@@ -19,4 +19,5 @@ public class FlintFigment : SimpleFigment<PowerfulHitTrigger, FlintIntent>
     ];
 
     protected override int InitialHp => 6;
+    protected override int MaxHp => 12;
 }

@@ -33,7 +33,7 @@ public class BasicSlugFigment : SimpleFigment<PrepTrigger, BasicSlugIntent>
 
     protected override int InitialHp => 3;
     protected override int MaxHp => 5;
-
+    
     public void ExtendLegs()
     {
         _isFourLegged = true;

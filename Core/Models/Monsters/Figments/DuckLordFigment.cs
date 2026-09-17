@@ -18,6 +18,7 @@ public class DuckLordFigment : SimpleFigment<DuckLordTalent, DuckLordIntent>
     ];
 
     protected override int InitialHp => 5;
+    protected override int MaxHp => 14;
 
     protected override int InitialTalentPowerAmount => 40;
 }

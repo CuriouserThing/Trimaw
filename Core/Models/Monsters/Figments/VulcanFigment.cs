@@ -16,5 +16,6 @@ public class VulcanFigment : SimpleFigment<VulcanTalent, VulcanIntent>
         HardTag.UsesAkChar
     ];
 
-    protected override int InitialHp => 7;
+    protected override int InitialHp => 8;
+    protected override int MaxHp => 20;
 }

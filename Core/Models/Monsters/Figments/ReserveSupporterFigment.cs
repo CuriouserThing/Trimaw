@@ -17,7 +17,8 @@ public class ReserveSupporterFigment : OneShotFigment<SurviveAtOneTalent>
         HardTag.ReserveOp
     ];
 
-    protected override int InitialHp => 3;
+    protected override int InitialHp => 5;
+    protected override int MaxHp => 9;
 
     protected override FigmentIntent GetFigmentIntent()
     {

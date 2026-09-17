@@ -18,5 +18,6 @@ public class TomimiFigment : SimpleFigment<AimShareTalent, TomimiIntent>
         HardTag.Tiacauh
     ];
 
-    protected override int InitialHp => 4;
+    protected override int InitialHp => 5;
+    protected override int MaxHp => 15;
 }

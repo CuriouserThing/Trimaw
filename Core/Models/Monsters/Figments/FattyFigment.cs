@@ -21,7 +21,8 @@ public class FattyFigment : SimpleFigment<EotGoldTrigger, FattyIntent>
         HardTag.DuckLordAssociate
     ];
 
-    protected override int InitialHp => 6;
+    protected override int InitialHp => 8;
+    protected override int MaxHp => 16;
 
     protected override int InitialTalentPowerAmount => 70;
 }

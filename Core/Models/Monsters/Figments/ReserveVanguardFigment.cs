@@ -17,7 +17,8 @@ public class ReserveVanguardFigment : OneShotFigment<EotTrigger>
         HardTag.ReserveOp
     ];
 
-    protected override int InitialHp => 5;
+    protected override int InitialHp => 8;
+    protected override int MaxHp => 12;
 
     protected override FigmentIntent GetFigmentIntent()
     {
