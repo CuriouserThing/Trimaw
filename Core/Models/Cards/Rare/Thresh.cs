@@ -17,15 +17,15 @@ public class Thresh() : TrimawCard(2, CardType.Attack, CardRarity.Rare, TargetTy
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CalculationBaseVar(16),
-        new ExtraDamageVar(1),
+        new ExtraDamageVar(2),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier(GetMultiplier),
-        new(HpThresholdKey, 15)
+        new(HpThresholdKey, 30)
     ];
 
     protected override void OnUpgrade()
     {
         DynamicVars.CalculationBase.UpgradeValueBy(4);
-        DynamicVars[HpThresholdKey].UpgradeValueBy(-5);
+        DynamicVars[HpThresholdKey].UpgradeValueBy(-10);
     }
 
     private static decimal GetMultiplier(CardModel card, Creature? creature)
