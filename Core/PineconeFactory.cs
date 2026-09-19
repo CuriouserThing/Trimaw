@@ -29,7 +29,8 @@ public class PineconeFactory : ITrimawCombatManagerFactory
         Enchant<Sown>(),
         Enchant<Glam>(),
         Enchant<ReallyHot>(4),
-        
+        Enchant<ReallyCold>(4),
+
         // Costs 0-1
         Enchant<Hyperfixated>(),
 
@@ -123,7 +124,7 @@ public class PineconeFactory : ITrimawCombatManagerFactory
 
         new UpgradedRecipe<Xxl, Cargirl>(
             [Morsel.Water, Morsel.Water, Morsel.Water, Morsel.Water]),
-        
+
         new UpgradedRecipe<ChicoTequila>(
             [Enchant<Spiced>(Morsel.Pepper), Enchant<Xxl>(Morsel.Water)],
             [Morsel.Berries, Morsel.Berries, Morsel.Water]),

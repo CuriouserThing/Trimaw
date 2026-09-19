@@ -29,7 +29,7 @@ public class AimShareTalent : FigmentTalentPower
     {
         if (dealer != Owner) return 1;
 
-        return Aim is { } aim ? aim.DamageMult : 1;
+        return 1 + (Aim is { } aim ? aim.AdditionalDamageMult : 0);
     }
 
     public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer,

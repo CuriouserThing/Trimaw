@@ -15,6 +15,8 @@
   "TRIMAW-POLISHED.title": "Polished",
   "TRIMAW-POLISHED.description": "This card is free, but its cost increases by {Energy:energyIcons()} whenever played.",
   "TRIMAW-POLISHED.extraCardText": "Increase the cost of this card by {Energy:energyIcons()}.",
+  "TRIMAW-REALLY_COLD.title": "Really Cold",
+  "TRIMAW-REALLY_COLD.description": "Whenever this card enters your [gold]Hand[/gold], gain {Amount} [gold]Block[/gold], then reduce this amount by 1.",
   "TRIMAW-REALLY_HEAVY.title": "Really Heavy",
   "TRIMAW-REALLY_HEAVY.description": "[gold]Strength[/gold] and [gold]Vigor[/gold] affect this card an additional time for each [blue]{DamageDivisor:diff()}[/blue] damage it deals.",
   "TRIMAW-REALLY_HOT.title": "Really Hot",

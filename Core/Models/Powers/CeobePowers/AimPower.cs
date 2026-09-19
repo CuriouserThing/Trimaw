@@ -18,20 +18,22 @@ public class AimPower : TrimawPower
 
     public override string Icon64Path => Pathfinder.NotoEmoji64("direct_hit");
     public override string Icon256Path => Pathfinder.NotoEmoji256("direct_hit");
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new(AdditionalDamagePctKey, 25)];
 
-    public decimal DamageMult => 1 + DynamicVars[AdditionalDamagePctKey].BaseValue / 100M;
+    public decimal AdditionalDamageMult => DynamicVars[AdditionalDamagePctKey].BaseValue / 100M;
+
+    private int Repeat => Math.Min(Amount, 1 + Owner.GetPowerAmount<BifocalPower>());
 
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props,
-        Creature? dealer,
-        CardModel? cardSource, CardPlay? cardPlay)
+        Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
         if (target is not null && cardSource?.CurrentTarget is { } cardTarget && target != cardTarget)
             // Deal normal damage to enemies hit by some AoE/aftershock if they weren't *the* enemy that had a card dragged to them.
             return 1;
         if (dealer == Owner && cardSource?.TargetType == TargetType.AnyEnemy)
             // Otherwise, to make sure damage preview works, multiply all damage from cards that target an enemy.
-            return DamageMult;
+            return 1 + Repeat * AdditionalDamageMult;
         return 1;
     }
 
@@ -40,6 +42,10 @@ public class AimPower : TrimawPower
     {
         if (dealer != Owner || target != cardSource?.CurrentTarget) return;
 
-        await PowerCmd.Decrement(this);
+        var repeat = Repeat;
+        if (Repeat == 1)
+            await PowerCmd.Decrement(this);
+        else
+            await PowerCmd.ModifyAmount(choiceContext, this, -repeat, Owner, null);
     }
 }
