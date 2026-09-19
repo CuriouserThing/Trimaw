@@ -36,8 +36,7 @@ public sealed class Trimaw : PlaceholderCharacterModel
         ModelDb.Card<DefendTrimaw>(),
         ModelDb.Card<DefendTrimaw>(),
         ModelDb.Card<DoubleAxe>(),
-        ModelDb.Card<HungerPangs>(),
-        ModelDb.Card<KitchenSink>()
+        ModelDb.Card<HungerPangs>()
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
