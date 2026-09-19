@@ -130,8 +130,26 @@ public class TrimawAttackCommand
             .FromCard(_card, _cardPlay);
         cmd = WithTargets(cmd);
         cmd = WithFx(cmd);
-        cmd = await WithCeobeAnimation(cmd, hitCount);
+
+        if (_onlyPlayAnimOnce)
+            cmd = cmd.OnlyPlayAnimOnce();
+
+        if (_card.Owner.Character is Trimaw) 
+            cmd = cmd.WithNoAttackerAnim().AfterAttackerAnim(Animate);
+        
         return await cmd.Execute(choiceContext);
+    }
+
+    private async Task Animate()
+    {
+        if (_animation is not { } anim ||
+            _card.Owner.Creature.GetCreatureNode()?.Visuals.SpineBody?.GetAnimationState() is not { } animState)
+            return;
+        
+        var result = await MainFile.CombatManagerFactory.GetOrCreate(_card.Owner)
+            .AnimateAttack(animState, anim, 1, true, _timescale ?? 1f);
+        if (result.TimeBeforeFirstHit is { } wait)
+            await Cmd.Wait(wait);
     }
 
     private AttackCommand WithTargets(AttackCommand cmd)
@@ -160,37 +178,5 @@ public class TrimawAttackCommand
             CeobeAttack.Spear => cmd.WithHitFx("vfx/vfx_attack_blunt", tmpSfx: "blunt_attack.mp3"),
             _ => cmd
         };
-    }
-
-    private async Task<AttackCommand> WithCeobeAnimation(AttackCommand cmd, int hitCount)
-    {
-        if (_card.Owner.Character is not Trimaw) return cmd;
-
-        cmd = cmd.WithNoAttackerAnim();
-
-        if (hitCount < 1 ||
-            _animation is not { } anim ||
-            _card.Owner.Creature.GetCreatureNode()?.Visuals.SpineBody?.GetAnimationState() is not { } animState)
-            return cmd;
-
-        var animatedHitCount = _onlyPlayAnimOnce ? 1 : hitCount;
-        var result = await MainFile.CombatManagerFactory.GetOrCreate(_card.Owner)
-            .AnimateAttack(animState, anim, animatedHitCount, true, _timescale ?? 1f);
-
-        if (animatedHitCount == 1)
-        {
-            if (result.TimeBeforeFirstHit is { } timeBeforeFirstHit)
-                await Cmd.Wait(timeBeforeFirstHit);
-        }
-        else
-        {
-            // TODO: If there's a pending animation in the CeobeAnimator for which the above AnimateAttack call has to wait...
-            // it would be kinda nice 'n' fluid if that wait overlapped with the forced wait before the first hit here.
-            // But that's a headache to think about and honestly not that important :(
-            if (result.TimeBetweenHits is { } timeBetweenHits)
-                cmd = cmd.WithWaitBeforeHit(timeBetweenHits, timeBetweenHits);
-        }
-
-        return cmd;
     }
 }
