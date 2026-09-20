@@ -25,7 +25,6 @@ public class HuntingTrip() : TrimawCard(1, CardType.Skill, CardRarity.Uncommon, 
     {
         await PowerCmd.Apply<AimPower>(choiceContext, Owner.Creature, DynamicVars[nameof(AimPower)].BaseValue,
             Owner.Creature, this);
-        await PowerCmd.Apply<MeatNextTurnPower>(choiceContext, Owner.Creature, DynamicVars[nameof(AimPower)].BaseValue,
-            Owner.Creature, this);
+        await PowerCmd.Apply<MeatNextTurnPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
     }
 }
