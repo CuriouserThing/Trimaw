@@ -8,6 +8,26 @@ namespace Trimaw.Core.Hooks;
 
 public static class TrimawHook
 {
+    public static async Task<bool> MorselPrepIsPrevented(
+        ICombatState combatState,
+        PlayerChoiceContext choiceContext,
+        Player player,
+        Morsel morsel)
+    {
+        foreach (var hookListener in combatState.IterateHookListeners())
+        {
+            if (hookListener is not IPrepListener prepListener ||
+                !prepListener.ShouldPreventMorselPrep(player, morsel)) continue;
+            choiceContext.PushModel(hookListener);
+            await prepListener.AfterPreventingMorselPrep(choiceContext, player, morsel);
+            choiceContext.PopModel(hookListener);
+            hookListener.InvokeExecutionFinished();
+            return true;
+        }
+
+        return false;
+    }
+
     public static async Task BeforeMorselPrepped(
         ICombatState combatState,
         PlayerChoiceContext choiceContext,

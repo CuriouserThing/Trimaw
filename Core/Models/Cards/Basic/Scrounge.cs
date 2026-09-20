@@ -4,7 +4,7 @@ using Trimaw.Core.Commands;
 
 namespace Trimaw.Core.Models.Cards.Basic;
 
-public class HungerPangs() : TrimawCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
+public class Scrounge() : TrimawCard(1, CardType.Skill, CardRarity.Basic, TargetType.Self)
 {
     protected override void OnUpgrade()
     {

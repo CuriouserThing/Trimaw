@@ -26,8 +26,8 @@ public static class SnackCmd
         PileType snackPileType = PileType.Hand,
         CardPilePosition snackPilePosition = CardPilePosition.Bottom)
     {
-        var snackResult = ManagerForPlayer(player).AddMorsel(morsel);
-        return await Process(choiceContext, combatState, morsel, snackResult, player, snackPileType, snackPilePosition);
+        var manager = ManagerForPlayer(player);
+        return await Process(choiceContext, combatState, morsel, manager, player, snackPileType, snackPilePosition);
     }
 
     public static async Task<SnackCard?> PrepRandom(
@@ -39,8 +39,7 @@ public static class SnackCmd
     {
         var manager = ManagerForPlayer(player);
         var morsel = manager.GenerateRandomMorsel();
-        var snackResult = manager.AddMorsel(morsel);
-        return await Process(choiceContext, combatState, morsel, snackResult, player, snackPileType, snackPilePosition);
+        return await Process(choiceContext, combatState, morsel, manager, player, snackPileType, snackPilePosition);
     }
 
     public static async Task<SnackCard?> PrepPrevious(
@@ -58,22 +57,23 @@ public static class SnackCmd
 
         var manager = ManagerForPlayer(player);
         var morsel = manager.PreviousMorsel ?? manager.GenerateRandomMorsel();
-        var snackResult = manager.AddMorsel(morsel);
-        return await Process(choiceContext, combatState, morsel, snackResult, player, snackPileType, snackPilePosition);
+        return await Process(choiceContext, combatState, morsel, manager, player, snackPileType, snackPilePosition);
     }
 
     private static async Task<SnackCard?> Process(
         PlayerChoiceContext choiceContext,
         ICombatState? combatState,
         Morsel morsel,
-        SnackResult? result,
+        IPrepManager manager,
         Player player,
         PileType snackPileType,
         CardPilePosition snackPilePosition)
     {
         if (combatState is null) return null;
 
+        if (await TrimawHook.MorselPrepIsPrevented(combatState, choiceContext, player, morsel)) return null;
         await TrimawHook.BeforeMorselPrepped(combatState, choiceContext, player, morsel);
+        var result = manager.AddMorsel(morsel);
         MainFile.CombatManagerFactory.GetOrCreate(player).AddHistoryEntry(new MorselPreppedEntry(player, morsel));
 
         if (player.Creature.GetCreatureNode() is { } nCreature &&
