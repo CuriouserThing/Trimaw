@@ -1,22 +1,14 @@
 using Trimaw.Core.Animation;
-using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
-using Trimaw.Core.Models.Powers.SharedTalents;
+using Trimaw.Core.Models.Powers;
+using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class FlintFigment : SimpleFigment<PowerfulHitTrigger, FlintIntent>
+public class FlintFigment : SimpleFigment<MahuizzotiaTrigger, PlaceholderTalent, FlintIntent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_415_flint",
         new ActionAnimation("Skill1", 0.34, "Idle"));
-
-    public override HashSet<HardTag> HardTags =>
-    [
-        HardTag.Attacking,
-        HardTag.FromArknights,
-        HardTag.UsesAkChar,
-        HardTag.Tiacauh
-    ];
 
     protected override int InitialHp => 6;
     protected override int MaxHp => 12;

@@ -26,7 +26,6 @@ public class DuckLordIntent : LabeledFigmentIntent<DuckLordFigment>
     {
         return MainFile.CombatManagerFactory.GetOrCreate(ctx.PetOwner).AllHistoryEntries
             .OfType<GoldSpentOnFigmentEntry>()
-            .Where(e => e.Figment.HardTags.Contains(HardTag.DuckLordAssociate))
             .Sum(e => e.GoldAmount);
     }
 

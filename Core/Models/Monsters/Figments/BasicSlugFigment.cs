@@ -1,14 +1,14 @@
 using MegaCrit.Sts2.Core.Animation;
 using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using Trimaw.Core.Animation;
-using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
-using Trimaw.Core.Models.Powers.SharedTalents;
+using Trimaw.Core.Models.Powers;
+using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class BasicSlugFigment : SimpleFigment<PrepTrigger, BasicSlugIntent>
+public class BasicSlugFigment : SimpleFigment<FieldRationTrigger, PlaceholderTalent, BasicSlugIntent>
 {
     private bool _isFourLegged;
 
@@ -24,16 +24,9 @@ public class BasicSlugFigment : SimpleFigment<PrepTrigger, BasicSlugIntent>
 
     public override string CustomVisualPath => Pathfinder.Scene("sluggy");
 
-    public override HashSet<HardTag> HardTags =>
-    [
-        HardTag.FromArknights,
-        HardTag.UsesAkEnemy,
-        HardTag.Slug
-    ];
-
     protected override int InitialHp => 3;
     protected override int MaxHp => 5;
-    
+
     public void ExtendLegs()
     {
         _isFourLegged = true;

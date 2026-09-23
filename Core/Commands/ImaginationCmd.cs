@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.Models.Monsters;
+using Trimaw.Core.Models.Powers;
 
 namespace Trimaw.Core.Commands;
 
@@ -21,33 +22,32 @@ public static class ImaginationCmd
             .ThenBy(f => f.Timestamp);
     }
 
-    public static async Task ImagineGachaPull(PlayerChoiceContext choiceContext, Player owner)
+    public static async Task ImagineRandom<T>(PlayerChoiceContext choiceContext, Player owner) where T : FigmentPower
     {
         var manager = MainFile.CombatManagerFactory.GetOrCreate(owner);
-        var taggedFigment = manager.GachaPullFigment(owner);
-        await manager.ImagineFigment(choiceContext, owner, taggedFigment);
-    }
+        var figment = manager.FilterFigment(owner, ModelDb.Power<T>());
+        if (figment is null)
+        {
+            MainFile.Logger.Error($"No figment found with starting power {typeof(T)}. Cannot imagine anything");
+            return;
+        }
 
-    public static async Task Imagine(PlayerChoiceContext choiceContext, Player owner, FigmentFilter filter)
-    {
-        var manager = MainFile.CombatManagerFactory.GetOrCreate(owner);
-        var taggedFigment = manager.FilterFigment(owner, filter);
-        await manager.ImagineFigment(choiceContext, owner, taggedFigment);
+        await manager.ImagineFigment(choiceContext, owner, figment);
     }
 
     public static async Task Imagine<T>(PlayerChoiceContext choiceContext, Player owner) where T : Figment
     {
         var manager = MainFile.CombatManagerFactory.GetOrCreate(owner);
-        var taggedFigment = TaggedFigment.FromModel<T>();
-        await manager.ImagineFigment(choiceContext, owner, taggedFigment);
+        var figment = ModelDb.Monster<T>();
+        await manager.ImagineFigment(choiceContext, owner, figment);
     }
 
-    internal static async Task Imagine<T>(PlayerChoiceContext choiceContext, Player owner,
-        FigmentSlotMap slotMap) where T : Figment
+    internal static async Task Imagine(PlayerChoiceContext choiceContext, Player owner, Figment figmentModel,
+        FigmentSlotMap slotMap)
     {
-        var monster = ModelDb.Monster<T>().ToMutable();
+        var monster = figmentModel.ToMutable();
         var creature = owner.Creature.CombatState?.CreateCreature(monster, owner.Creature.Side, null);
-        if (creature is null || monster is not T newFigment)
+        if (creature is null || monster is not Figment newFigment)
         {
             MainFile.Logger.Error("Could not create figment for unknown reason.");
             return;
@@ -112,9 +112,7 @@ public static class ImaginationCmd
 
         if (oldestPopping)
         {
-            // Wait for 1) the popping figment to use and finish its move for visual clarity, and
-            // 2) live figment repositions to finish so the +HP animation plays at the correct position
-            await oldestFigment.UseMove(choiceContext, MoveParams.None, TriggerKind.Pop);
+            // Wait for live figment repositions to finish so the +HP animation plays at the correct position
             if (oldestFigment.NoAnimationPending) await oldestFigment.Pop();
             if (repositionNeeded) await Cmd.CustomScaledWait(shiftDuration, shiftDuration);
 
@@ -127,7 +125,7 @@ public static class ImaginationCmd
                 if (heal > 0) await CreatureCmd.Heal(figment.Creature, heal);
             }
 
-            // One last check to see if the animation has finished
+            // One last check to see if animations have finished
             if (oldestFigment.NoAnimationPending) await oldestFigment.Pop();
         }
 

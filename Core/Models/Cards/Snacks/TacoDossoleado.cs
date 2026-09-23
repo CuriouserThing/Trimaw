@@ -37,7 +37,7 @@ public class TacoDossoleado : SnackCard
             card = card.ToMutable();
             card.UpgradeInternal();
         }
-        
+
         return card.Type == CardType.Attack &&
                (card.EnergyCost.GetWithModifiers(CostModifiers.All) == energy || card.EnergyCost.CostsX);
     }

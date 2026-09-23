@@ -29,7 +29,7 @@ public class TiacauhShredderIntent : LabeledFigmentIntent<TiacauhShredderFigment
         var damage = ctx.CombatState.HittableEnemies.All(TargetReceivesExtra)
             ? new DamageVar(Damage.BaseValue + ExtraDamage.BaseValue, ValueProp.Move)
             : Damage;
-        FormatWithMultiCreatureDamage(label, ctx, damage);
+        FormatWithAnyCreatureDamage(label, ctx, damage);
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<TiacauhShredderFigment> ctx)

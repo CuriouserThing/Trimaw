@@ -18,12 +18,15 @@ public class FattyIntent : LabeledFigmentIntent<FattyFigment>
 
     protected override string DefaultTipIconPath => Pathfinder.VanillaPower64<PlatingPower>();
 
+    private static decimal GetAmount(MoveContext ctx)
+    {
+        var payment = ctx.GetAmount();
+        return Plating.BaseValue + payment * ExtraPlating.BaseValue;
+    }
+
     protected override void FormatIntentLabel(LocString label, MoveContext<FattyFigment> ctx)
     {
-        label.Add(Plating);
-        var payment = ctx.GetAmount(true);
-        label.Add(new BoolVar("IfRange", payment > 0));
-        if (payment > 0) label.Add(new PowerVar<PlatingPower>("ExtraPlatingPower", payment * ExtraPlating.BaseValue));
+        label.Add(new PowerVar<PlatingPower>(GetAmount(ctx)));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<FattyFigment> ctx)
@@ -41,9 +44,8 @@ public class FattyIntent : LabeledFigmentIntent<FattyFigment>
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<FattyFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        var payment = ctx.GetAmount();
-        var plating = Plating.BaseValue + payment * ExtraPlating.BaseValue;
-        await PowerCmd.Apply<PlatingPower>(choiceCtx, ctx.PetOwner.Creature, plating, ctx.MoveUser.Creature, null);
+        await PowerCmd.Apply<PlatingPower>(choiceCtx, ctx.PetOwner.Creature, GetAmount(ctx), ctx.MoveUser.Creature,
+            null);
         return FigmentMoveResult.Success;
     }
 }

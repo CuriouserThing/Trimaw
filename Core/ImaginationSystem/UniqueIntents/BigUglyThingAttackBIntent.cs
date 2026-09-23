@@ -24,7 +24,7 @@ public class BigUglyThingAttackBIntent : LabeledFigmentIntent<BigUglyThingFigmen
 
     protected override void FormatIntentLabel(LocString label, MoveContext<BigUglyThingFigment> ctx)
     {
-        FormatWithMultiCreatureDamage(label, ctx, Damage);
+        FormatWithAnyCreatureDamage(label, ctx, Damage);
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<BigUglyThingFigment> ctx)

@@ -134,9 +134,9 @@ public class TrimawAttackCommand
         if (_onlyPlayAnimOnce)
             cmd = cmd.OnlyPlayAnimOnce();
 
-        if (_card.Owner.Character is Trimaw) 
+        if (_card.Owner.Character is Trimaw)
             cmd = cmd.WithNoAttackerAnim().AfterAttackerAnim(Animate);
-        
+
         return await cmd.Execute(choiceContext);
     }
 
@@ -145,7 +145,7 @@ public class TrimawAttackCommand
         if (_animation is not { } anim ||
             _card.Owner.Creature.GetCreatureNode()?.Visuals.SpineBody?.GetAnimationState() is not { } animState)
             return;
-        
+
         var result = await MainFile.CombatManagerFactory.GetOrCreate(_card.Owner)
             .AnimateAttack(animState, anim, 1, true, _timescale ?? 1f);
         if (result.TimeBeforeFirstHit is { } wait)

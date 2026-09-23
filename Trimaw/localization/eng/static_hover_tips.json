@@ -18,9 +18,9 @@
   "TRIMAW-IMAGINE.title": "Imagine",
   "TRIMAW-IMAGINE.description": "Conjure up a [color=#50d6d6]Figment[/color] and heal it by your [gold]Vigor[/gold]. If you already had {Limit:plural:[blue]1[/blue] [color=#50d6d6]Figment[/color]|[blue]{}[/blue] [color=#50d6d6]Figments[/color]}, the oldest [gold]Pops[/gold].",
   "TRIMAW-POP.title": "Pop",
-  "TRIMAW-POP.description": "For a [color=#50d6d6]Figment[/color] to use its intended move, split its current HP between your other [color=#50d6d6]Figments[/color], and leave.",
+  "TRIMAW-POP.description": "For a [color=#50d6d6]Figment[/color] to split its current HP between your other [color=#50d6d6]Figments[/color], then vanish.",
   "TRIMAW-DUCK_LORD_ASSOCIATE.title": "Duck Lord Associate",
   "TRIMAW-DUCK_LORD_ASSOCIATE.description": "These guys love money! Maybe they'll be stronger if you have more [gold]Gold[/gold]?",
   "TRIMAW-EUNECTES.title": "Zumama",
-  "TRIMAW-EUNECTES.description" : "She's chief of one of the jungle tribes and built a REALLY BIG robot. Let's help her rebuild it!"
+  "TRIMAW-EUNECTES.description": "She's chief of one of the jungle tribes and built a REALLY BIG robot. Let's help her rebuild it!"
 }

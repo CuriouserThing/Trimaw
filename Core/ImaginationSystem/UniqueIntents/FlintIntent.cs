@@ -19,7 +19,7 @@ public class FlintIntent : LabeledFigmentIntent<FlintFigment>
 
     protected override void FormatIntentLabel(LocString label, MoveContext<FlintFigment> ctx)
     {
-        FormatWithMultiCreatureDamage(label, ctx, Damage);
+        FormatWithAnyCreatureDamage(label, ctx, Damage);
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<FlintFigment> ctx)

@@ -12,6 +12,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.MonsterMoves.Intents;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using Trimaw.Core.Models.Monsters;
+using Trimaw.Core.Models.Powers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.ImaginationSystem;
@@ -66,35 +67,30 @@ public abstract class FigmentIntent() : StatusIntent(0)
     internal abstract string? GetAnimationId(
         Figment moveUser,
         Player owner,
-        MoveParams moveParams,
-        TriggerKind trigger);
+        MoveParams moveParams);
 
     internal abstract bool CanPerform(
         Figment moveUser,
         Player owner,
         MoveParams moveParams,
-        TriggerKind trigger,
         out Creature? target);
 
     internal abstract Task BeforePerform(
         Figment moveUser,
         Player owner,
         MoveParams moveParams,
-        TriggerKind trigger,
         PlayerChoiceContext choiceCtx);
 
     internal abstract Task<FigmentMoveResult> PerformMove(
         Figment moveUser,
         Player owner,
         MoveParams moveParams,
-        TriggerKind trigger,
         PlayerChoiceContext choiceCtx);
 
     internal abstract Task AfterPerform(
         Figment moveUser,
         Player owner,
         MoveParams moveParams,
-        TriggerKind trigger,
         PlayerChoiceContext choiceCtx);
 
     /// <summary>
@@ -178,7 +174,7 @@ public abstract class FigmentIntent() : StatusIntent(0)
             damage.Props));
     }
 
-    protected void FormatWithMultiCreatureDamage(LocString str, MoveContext ctx, DamageVar damage)
+    protected void FormatWithAnyCreatureDamage(LocString str, MoveContext ctx, DamageVar damage)
     {
         str.Add(new DamageVar(
             damage.Name,
@@ -236,27 +232,39 @@ public abstract class FigmentIntent() : StatusIntent(0)
 
 public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
 {
+    private static MoveContext<T> CreateContext(T moveUser, Player petOwner, MoveParams? moveParams = null)
+    {
+        moveParams = moveUser.Creature.Powers.OfType<FigmentTalent>()
+            .Aggregate(moveParams ?? MoveParams.None, (current, talent) => talent.ModifyMoveParams(current));
+        return new MoveContext<T>(moveUser, petOwner, moveParams);
+    }
+
+    private static async Task<MoveContext<T>> CreateHardContext(T moveUser, Player petOwner, MoveParams moveParams)
+    {
+        foreach (var talent in moveUser.Creature.Powers.OfType<FigmentTalent>())
+        {
+            var newParams = talent.ModifyMoveParams(moveParams);
+            await talent.AfterModifyingMoveParams(moveParams, newParams);
+            moveParams = newParams;
+        }
+
+        return new MoveContext<T>(moveUser, petOwner, moveParams);
+    }
+
     // We do this in place of SpritePath
     public sealed override Texture2D? GetTexture(IEnumerable<Creature> targets, Creature owner)
     {
-        if (owner is { Monster: T moveUser, PetOwner: { } petOwner })
-        {
-            var path = GetCurrentTipIconPath(new MoveContext<T>(moveUser, petOwner, MoveParams.None)
-                { Trigger = TriggerKind.Unspecified });
-            return ResourceLoader.Load<Texture2D>(path);
-        }
-
-        return ResourceLoader.Load<Texture2D>(DefaultTipIconPath);
+        var path = owner is { Monster: T moveUser, PetOwner: { } petOwner }
+            ? GetCurrentTipIconPath(CreateContext(moveUser, petOwner))
+            : DefaultTipIconPath;
+        return ResourceLoader.Load<Texture2D>(path);
     }
 
     // Don't mess with this unless STS2 refactors anim hardcoding or redesigns intent anim in general
     public sealed override string GetAnimation(IEnumerable<Creature> targets, Creature owner)
     {
         if (owner is { Monster: T moveUser, PetOwner: { } petOwner })
-        {
-            var ctx = new MoveContext<T>(moveUser, petOwner, MoveParams.None) { Trigger = TriggerKind.Unspecified };
-            return GetCurrentVanillaIntent(ctx).Anim;
-        }
+            return GetCurrentVanillaIntent(CreateContext(moveUser, petOwner)).Anim;
 
         return DefaultVanillaIntent.Anim;
     }
@@ -267,8 +275,7 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
         var desc = base.GetIntentDescription(targets, owner);
 
         if (owner is { Monster: T moveUser, PetOwner: { } petOwner })
-            FormatTipDescription(desc,
-                new MoveContext<T>(moveUser, petOwner, MoveParams.None) { Trigger = TriggerKind.Unspecified });
+            FormatTipDescription(desc, CreateContext(moveUser, petOwner));
 
         return desc;
     }
@@ -278,8 +285,7 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
         if (HasIntentLabel && owner is { Monster: T moveUser, PetOwner: { } petOwner })
         {
             var label = new LocString(_locTable, $"{IntentPrefix}.label"); // custom label field
-            FormatIntentLabel(label,
-                new MoveContext<T>(moveUser, petOwner, MoveParams.None) { Trigger = TriggerKind.Unspecified });
+            FormatIntentLabel(label, CreateContext(moveUser, petOwner));
             return label;
         }
 
@@ -307,8 +313,7 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
     internal sealed override string? GetAnimationId(
         Figment moveUser,
         Player owner,
-        MoveParams moveParams,
-        TriggerKind trigger)
+        MoveParams moveParams)
     {
         if (moveUser is not T moveUserSpecial)
         {
@@ -317,7 +322,7 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
             return null;
         }
 
-        var ctx = new MoveContext<T>(moveUserSpecial, owner, moveParams) { Trigger = trigger };
+        var ctx = CreateContext(moveUserSpecial, owner, moveParams);
         return GetAnimationId(ctx);
     }
 
@@ -325,7 +330,6 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
         Figment moveUser,
         Player owner,
         MoveParams moveParams,
-        TriggerKind trigger,
         out Creature? target)
     {
         target = null;
@@ -336,15 +340,15 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
             return false;
         }
 
-        var ctx = new MoveContext<T>(moveUserSpecial, owner, moveParams) { Trigger = trigger };
+        var ctx = CreateContext(moveUserSpecial, owner, moveParams);
         return CanPerform(ctx, out target);
     }
 
     internal sealed override async Task BeforePerform(Figment moveUser, Player owner, MoveParams moveParams,
-        TriggerKind trigger, PlayerChoiceContext choiceCtx)
+        PlayerChoiceContext choiceCtx)
     {
         if (moveUser is not T moveUserSpecial) return;
-        var ctx = new MoveContext<T>(moveUserSpecial, owner, moveParams) { Trigger = trigger };
+        var ctx = CreateContext(moveUserSpecial, owner, moveParams);
         await BeforePerform(ctx, choiceCtx);
     }
 
@@ -352,19 +356,18 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
         Figment moveUser,
         Player owner,
         MoveParams moveParams,
-        TriggerKind trigger,
         PlayerChoiceContext choiceCtx)
     {
         if (moveUser is not T moveUserSpecial) return FigmentMoveResult.MismatchedFigmentType;
-        var ctx = new MoveContext<T>(moveUserSpecial, owner, moveParams) { Trigger = trigger };
+        var ctx = await CreateHardContext(moveUserSpecial, owner, moveParams);
         return await OnPerform(ctx, choiceCtx);
     }
 
     internal sealed override async Task AfterPerform(Figment moveUser, Player owner, MoveParams moveParams,
-        TriggerKind trigger, PlayerChoiceContext choiceCtx)
+        PlayerChoiceContext choiceCtx)
     {
         if (moveUser is not T moveUserSpecial) return;
-        var ctx = new MoveContext<T>(moveUserSpecial, owner, moveParams) { Trigger = trigger };
+        var ctx = CreateContext(moveUserSpecial, owner, moveParams);
         await AfterPerform(ctx, choiceCtx);
     }
 

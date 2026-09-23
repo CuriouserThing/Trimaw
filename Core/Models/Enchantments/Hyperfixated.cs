@@ -31,10 +31,10 @@ public class Hyperfixated : TrimawEnchantment
         // so we have to estimate the amount of energy spent on it.
         // Narrow corner case so if the estimate is wrong because of some timing issue it's not the end of the world :)
         var energySpentEstimate = card.EnergyCost.GetWithModifiers(CostModifiers.All);
-        
+
         // Hardcode this special case :)
         var relicBonus = card.Owner.Relics.Count(r => r is ChemicalX) * 2;
-        
+
         var remainingEnergy = card.Owner.PlayerCombatState?.Energy ?? 0;
         return playCount + energySpentEstimate + relicBonus + remainingEnergy;
     }

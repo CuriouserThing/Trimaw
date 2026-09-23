@@ -1,13 +1,13 @@
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using Trimaw.Core.Models.Monsters;
+using Trimaw.Core.Models.Powers;
 
 namespace Trimaw.Core.ImaginationSystem;
 
 public interface IFigmentFilterer
 {
-    TaggedFigment FilterFigment(Player owner, FigmentFilter filter);
+    Figment? FilterFigment(Player owner, FigmentPower power);
 
-    TaggedFigment GachaPullFigment(Player owner);
-
-    Task ImagineFigment(PlayerChoiceContext choiceContext, Player owner, TaggedFigment figment);
+    Task ImagineFigment(PlayerChoiceContext choiceContext, Player owner, Figment figment);
 }

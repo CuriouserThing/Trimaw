@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using Trimaw.Core.Commands;
+using Trimaw.Core.Models.Powers;
 
 namespace Trimaw.Core.Models.Cards.Snacks;
 
@@ -22,7 +23,7 @@ public class BoxOfTruffles : SnackCard
         for (var i = 0; i < times; i += 1)
             if (Owner.RunState.Rng.CombatCardSelection.NextBool())
             {
-                await ImaginationCmd.ImagineGachaPull(choiceContext, Owner);
+                await ImaginationCmd.ImagineRandom<ImaginaryShieldPower>(choiceContext, Owner);
             }
             else
             {

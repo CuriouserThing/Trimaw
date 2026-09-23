@@ -34,7 +34,7 @@ public class GavialAttackBIntent : LabeledFigmentIntent<GavialFigment>
 
     protected override void FormatIntentLabel(LocString label, MoveContext<GavialFigment> ctx)
     {
-        FormatWithMultiCreatureDamage(label, ctx, Damage);
+        FormatWithAnyCreatureDamage(label, ctx, Damage);
         FormatWithAttackHitCount(label, ctx, BuildCommand(ctx), Repeat);
     }
 

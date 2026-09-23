@@ -3,7 +3,7 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers;
 
-public class PlaceholderTalent : FigmentTalentPower
+public class PlaceholderTalent : FigmentTalent
 {
     public override PowerStackType StackType => PowerStackType.Single;
 

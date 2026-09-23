@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.CardPools;
 using Trimaw.Core.Commands;
+using Trimaw.Core.Models.Powers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Cards;
@@ -21,7 +22,7 @@ public class Sandbox() : BaseTrimawCard(0, CardType.Skill, CardRarity.Basic, Tar
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await ImaginationCmd.ImagineGachaPull(choiceContext, Owner);
+        await ImaginationCmd.ImagineRandom<ImaginaryShieldPower>(choiceContext, Owner);
     }
 
     protected override CardLocation GetResultLocationForCardPlay()

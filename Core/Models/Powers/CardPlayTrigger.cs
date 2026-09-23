@@ -3,7 +3,7 @@ using MegaCrit.Sts2.Core.Models;
 
 namespace Trimaw.Core.Models.Powers;
 
-public abstract class CardPlayTrigger : SingleTriggerTalent
+public abstract class CardPlayTrigger : FigmentMonoTrigger
 {
     protected abstract bool CardMatches(CardPlay cardPlay);
 
@@ -11,6 +11,7 @@ public abstract class CardPlayTrigger : SingleTriggerTalent
     {
         return new Data();
     }
+
     public override Task BeforeCardPlayed(CardPlay cardPlay)
     {
         if (cardPlay.Card.Owner == Owner.PetOwner && CardMatches(cardPlay))

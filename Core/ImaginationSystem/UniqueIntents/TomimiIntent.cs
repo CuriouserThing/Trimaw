@@ -18,7 +18,7 @@ public class TomimiIntent : LabeledFigmentIntent<TomimiFigment>
 
     protected override void FormatIntentLabel(LocString label, MoveContext<TomimiFigment> ctx)
     {
-        FormatWithMultiCreatureDamage(label, ctx, Damage);
+        FormatWithAnyCreatureDamage(label, ctx, Damage);
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<TomimiFigment> ctx)

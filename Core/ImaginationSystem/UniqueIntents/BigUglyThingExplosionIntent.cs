@@ -6,7 +6,7 @@ using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
 using Trimaw.Core.Models.Monsters.Figments;
 using Trimaw.Core.Models.Powers;
-using Trimaw.Core.Models.Powers.SharedTalents;
+using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
@@ -47,9 +47,8 @@ public class BigUglyThingExplosionIntent : UnlabeledFigmentIntent<BigUglyThingFi
         await CreatureCmd.SetMaxHp(creature, initialHp + Damage.BaseValue);
         ctx.MoveUser.ChangeToBirdPhase();
 
-        await PowerCmd.Apply<SkillTrigger>(choiceCtx, creature, 2, creature, null, true);
         await PowerCmd.Apply<ImaginaryShieldPower>(choiceCtx, creature, 1, creature, null, true);
-        await PowerCmd.Apply<EvanescentPower>(choiceCtx, creature, 1, creature, null, true);
+        await PowerCmd.Apply<SkillTrigger>(choiceCtx, creature, 2, creature, null, true);
 
         return FigmentMoveResult.Success;
     }

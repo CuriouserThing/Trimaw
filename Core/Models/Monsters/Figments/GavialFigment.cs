@@ -1,11 +1,12 @@
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
-using Trimaw.Core.Models.Powers.SharedTalents;
+using Trimaw.Core.Models.Powers.Talents;
+using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class GavialFigment() : AnyShotFigment<PowerfulHitTrigger>(2)
+public class GavialFigment() : AnyShotFigment<MahuizzotiaTrigger, HuntingBuddyTalent>(2)
 {
     public static string AttackBId => "Skill_2_Loop";
 
@@ -17,14 +18,6 @@ public class GavialFigment() : AnyShotFigment<PowerfulHitTrigger>(2)
                 EndKey = 0 // move back as soon as she starts planting her saw
             })
         .WithSecondaryAnimation(new ActionAnimation(AttackBId, 0.18, 0.40, 1.00, "Skill_2_Idle"));
-
-    public override HashSet<HardTag> HardTags =>
-    [
-        HardTag.Attacking,
-        HardTag.FromArknights,
-        HardTag.UsesAkChar,
-        HardTag.Tiacauh
-    ];
 
     protected override int InitialHp => 8;
     protected override int MaxHp => 18;

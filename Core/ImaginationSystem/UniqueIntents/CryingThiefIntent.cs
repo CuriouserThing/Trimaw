@@ -17,12 +17,15 @@ public class CryingThiefIntent : LabeledFigmentIntent<CryingThiefFigment>
 
     protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("coat");
 
+    private static decimal GetAmount(MoveContext ctx)
+    {
+        var payment = ctx.GetAmount();
+        return StrengthLoss.BaseValue + payment * ExtraStrengthLoss.BaseValue;
+    }
+
     protected override void FormatIntentLabel(LocString label, MoveContext<CryingThiefFigment> ctx)
     {
-        label.Add(StrengthLoss);
-        var payment = ctx.GetAmount(true);
-        label.Add(new BoolVar("IfRange", payment > 0));
-        if (payment > 0) label.Add(new DynamicVar("ExtraStrengthLoss", payment * ExtraStrengthLoss.BaseValue));
+        label.Add(new DynamicVar(nameof(StrengthLoss), GetAmount(ctx)));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<CryingThiefFigment> ctx)
@@ -34,10 +37,8 @@ public class CryingThiefIntent : LabeledFigmentIntent<CryingThiefFigment>
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<CryingThiefFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        var payment = ctx.GetAmount();
-        var strengthLoss = StrengthLoss.BaseValue + payment * ExtraStrengthLoss.BaseValue;
         foreach (var enemy in ctx.CombatState.HittableEnemies)
-            await PowerCmd.Apply<StrengthPower>(choiceCtx, enemy, -strengthLoss, ctx.MoveUser.Creature, null);
+            await PowerCmd.Apply<StrengthPower>(choiceCtx, enemy, -GetAmount(ctx), ctx.MoveUser.Creature, null);
         return FigmentMoveResult.Success;
     }
 }

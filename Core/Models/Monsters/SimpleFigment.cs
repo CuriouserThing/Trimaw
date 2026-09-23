@@ -4,10 +4,11 @@ using Trimaw.Core.Models.Powers;
 namespace Trimaw.Core.Models.Monsters;
 
 /// <summary>
-///     <see cref="OneShotFigment{TTalent}" /> with a parameterless intent.
+///     <see cref="OneShotFigment{TTrigger, TTalent}" /> with a parameterless intent.
 /// </summary>
-public abstract class SimpleFigment<TTalent, TIntent> : OneShotFigment<TTalent>
-    where TTalent : FigmentTalentPower
+public abstract class SimpleFigment<TTrigger, TTalent, TIntent> : OneShotFigment<TTrigger, TTalent>
+    where TTrigger : FigmentTrigger
+    where TTalent : FigmentTalent
     where TIntent : FigmentIntent, new()
 {
     protected sealed override TIntent GetFigmentIntent()

@@ -1,3 +1,4 @@
+using System.Reflection;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
@@ -9,7 +10,6 @@ using Trimaw.Core.Models.Cards;
 using Trimaw.Core.Models.Cards.Snacks;
 using Trimaw.Core.Models.Enchantments;
 using Trimaw.Core.Models.Monsters;
-using Trimaw.Core.Models.Monsters.Figments;
 using Trimaw.Core.SnackSystem;
 using Trimaw.Core.Utils;
 
@@ -81,7 +81,7 @@ public class PineconeFactory : ITrimawCombatManagerFactory
 
         return new PassthroughTrimawCombatManager(
             new MegaRngSnackFactoryPrepManager(SnackFactoryInternal, prepRng),
-            new MegaRngFigmentPoolFilterer(FigmentPoolInternal, StandardPrepass, GachaPrepass, figmentRng),
+            new MegaRngFigmentPoolFilterer(FigmentPoolInternal, figmentRng),
             new MegaRngEnchantmentPoolSuperSpecializer(SuperSpecialEnchantmentPoolInternal, superSpecialRng),
             ceobeAnimator);
     }
@@ -204,75 +204,35 @@ public class PineconeFactory : ITrimawCombatManagerFactory
 
     #endregion
 
-    #region Imagination
-
-    public static FigmentFilter StandardPrepass { get; } = FigmentFilter.All
-        .Multiplying(SoftTag.CommonRarity, 1.2M)
-        .Multiplying(SoftTag.UncommonRarity, 1.0M)
-        .Forbidding(SoftTag.ExcludedFromAllRolls);
-
-    public static FigmentFilter GachaPrepass { get; } = FigmentFilter.All
-        .Forbidding(SoftTag.ExcludedFromGacha);
-
-    public static IReadOnlyList<TaggedFigment> FigmentPool =>
-    [
-        // Generic
-        Tag<BubbleFigment>(SoftTag.CommonRarity),
-        Tag<SesaFigment>(SoftTag.UncommonRarity),
-        Tag<ShamareFigment>(SoftTag.UncommonRarity),
-        Tag<VulcanFigment>(SoftTag.UncommonRarity),
-
-        // Sluggies
-        Tag<BasicSlugFigment>(SoftTag.CommonRarity),
-        Tag<FluorescentSlugFigment>(SoftTag.CommonRarity),
-        Tag<BerrySlugFigment>(SoftTag.CommonRarity),
-
-        // ReserveOp
-        Tag<ReserveVanguardFigment>(SoftTag.CommonRarity),
-        Tag<ReserveGuardFigment>(SoftTag.CommonRarity),
-        Tag<ReserveDefenderFigment>(SoftTag.CommonRarity),
-        Tag<ReserveSniperFigment>(SoftTag.CommonRarity),
-        Tag<ReserveCasterFigment>(SoftTag.CommonRarity),
-        Tag<ReserveMedicFigment>(SoftTag.CommonRarity),
-        Tag<ReserveSupporterFigment>(SoftTag.CommonRarity),
-        Tag<ReserveSpecialistFigment>(SoftTag.CommonRarity),
-
-        // Tiacauh
-        Tag<TiacauhImpalerFigment>(SoftTag.CommonRarity),
-        Tag<TiacauhRitualistFigment>(SoftTag.CommonRarity),
-        Tag<TiacauhFanaticFigment>(SoftTag.CommonRarity),
-        Tag<TiacauhShredderFigment>(SoftTag.CommonRarity),
-        Tag<FlintFigment>(SoftTag.UncommonRarity),
-        Tag<TomimiFigment>(SoftTag.UncommonRarity),
-        Tag<GavialFigment>(SoftTag.UncommonRarity),
-        Tag<EunectesFigment>(SoftTag.UncommonRarity),
-        Tag<BigUglyThingFigment>(SoftTag.ExcludedFromAllRolls),
-
-        // DuckLordAssociate
-        Tag<DuckLordFigment>(SoftTag.UncommonRarity, SoftTag.ExcludedFromGacha),
-        Tag<CryingThiefFigment>(SoftTag.UncommonRarity),
-        Tag<FattyFigment>(SoftTag.UncommonRarity),
-
-        // DuckLordAssociate & UrsusRace
-        Tag<GopnikFigment>(SoftTag.UncommonRarity),
-
-        // UrsusRace
-        Tag<BeehunterFigment>(SoftTag.CommonRarity),
-        Tag<GummyFigment>(SoftTag.CommonRarity),
-        Tag<IstinaFigment>(SoftTag.UncommonRarity),
-        Tag<RosaFigment>(SoftTag.UncommonRarity),
-        Tag<ZimaFigment>(SoftTag.UncommonRarity)
-    ];
-
-    #endregion
-
     #region Internals
 
     private static readonly SpireField<PlayerCombatState, PassthroughTrimawCombatManager> PlayerCombatStateTable =
         new(() => null);
 
     private ISnackFactory SnackFactoryInternal => field ??= SnackFactory;
-    private IReadOnlyList<TaggedFigment> FigmentPoolInternal => field ??= FigmentPool;
+
+    private IReadOnlyList<Figment> FigmentPoolInternal { get; } =
+    [
+        .. Assembly.GetExecutingAssembly().ExportedTypes
+            .Where(TypeIsConcreteFigmentType)
+            .Select(GetFigmentModel)
+    ];
+
+    private static bool TypeIsConcreteFigmentType(Type type)
+    {
+        return type.IsAssignableTo(typeof(Figment)) &&
+               !type.IsAbstract &&
+               !type.ContainsGenericParameters;
+    }
+
+    private static Figment GetFigmentModel(Type type)
+    {
+        var method = typeof(ModelDb).GetMethod(nameof(ModelDb.Monster), BindingFlags.Public | BindingFlags.Static);
+        var genericMethod = method!.MakeGenericMethod(type);
+        var result = genericMethod.Invoke(null, null) as Figment;
+        return result!;
+    }
+
     private IReadOnlyList<IEnchanter> SuperSpecialEnchantmentPoolInternal => field ??= SuperSpecialEnchantmentPool;
 
     public ITrimawCombatManager Register(Player player, PlayerCombatState combatState)
@@ -315,15 +275,6 @@ public class PineconeFactory : ITrimawCombatManagerFactory
     private static IMorselEnchanter Enchant<T>(int amount, Morsel morsel) where T : EnchantmentModel
     {
         return new MorselEnchanter<T>(morsel, amount);
-    }
-
-    private static TaggedFigment<T> Tag<T>(params SoftTag[] softTags) where T : Figment, new()
-    {
-        var canonFigment = ModelDb.Monster<T>();
-        var tags = new HashSet<FigmentFilter.Tag>();
-        foreach (var tag in canonFigment.HardTags) tags.Add(tag);
-        foreach (var tag in softTags.Distinct()) tags.Add(tag);
-        return new TaggedFigment<T>(tags);
     }
 
     private class FallbackSnackFactory<T> : ISnackFactory where T : SnackCard

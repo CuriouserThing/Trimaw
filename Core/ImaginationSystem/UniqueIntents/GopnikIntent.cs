@@ -17,12 +17,15 @@ public class GopnikIntent : LabeledFigmentIntent<GopnikFigment>
 
     protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("chart_with_upwards_trend");
 
+    private static decimal GetAmount(MoveContext ctx)
+    {
+        var payment = ctx.GetAmount();
+        return Damage.BaseValue + payment * ExtraDamage.BaseValue;
+    }
+
     protected override void FormatIntentLabel(LocString label, MoveContext<GopnikFigment> ctx)
     {
-        FormatWithMultiCreatureDamage(label, ctx, Damage);
-        var payment = ctx.GetAmount(true);
-        label.Add(new BoolVar("IfRange", payment > 0));
-        if (payment > 0) label.Add(new DamageVar("ExtraDamage", payment * ExtraDamage.BaseValue, ValueProp.Move));
+        FormatWithAnyCreatureDamage(label, ctx, new DamageVar(GetAmount(ctx), ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<GopnikFigment> ctx)
@@ -35,9 +38,8 @@ public class GopnikIntent : LabeledFigmentIntent<GopnikFigment>
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<GopnikFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        var payment = ctx.GetAmount();
         await DamageCmd
-            .Attack(Damage.BaseValue + payment * ExtraDamage.BaseValue)
+            .Attack(GetAmount(ctx))
             .FromFigment(ctx.MoveUser)
             .TargetingRandomOpponents(ctx.CombatState)
             .Execute(choiceCtx);

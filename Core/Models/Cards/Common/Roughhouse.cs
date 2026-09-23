@@ -25,7 +25,7 @@ public class Roughhouse() : TrimawCard(0, CardType.Skill, CardRarity.Common, Tar
         ArgumentNullException.ThrowIfNull(cardPlay.Target);
         await PowerCmd.Apply<VulnerablePower>(choiceContext, cardPlay.Target,
             DynamicVars[nameof(VulnerablePower)].BaseValue, Owner.Creature, this);
-        
+
         var count = Math.Min(
             DynamicVars.Cards.IntValue,
             CardPile.MaxCardsInHand - PileType.Hand.GetPile(Owner).Cards.Count);

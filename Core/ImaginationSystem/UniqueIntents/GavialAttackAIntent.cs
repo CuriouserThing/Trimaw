@@ -5,7 +5,7 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Powers;
 using Trimaw.Core.Models.Monsters.Figments;
-using Trimaw.Core.Models.Powers.SharedTalents;
+using Trimaw.Core.Models.Powers.Talents;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
@@ -40,7 +40,7 @@ public class GavialAttackAIntent : LabeledFigmentIntent<GavialFigment>
         if (ctx.GetTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
 
         await PowerCmd.Apply<ManglePower>(choiceCtx, target, StrengthLoss.BaseValue, ctx.MoveUser.Creature, null);
-        await PowerCmd.Apply<AimShareTalent>(choiceCtx, ctx.MoveUser.Creature, 1, ctx.MoveUser.Creature, null);
+        await PowerCmd.Apply<HuntingBuddyTalent>(choiceCtx, ctx.MoveUser.Creature, 1, ctx.MoveUser.Creature, null);
         return FigmentMoveResult.Success;
     }
 }

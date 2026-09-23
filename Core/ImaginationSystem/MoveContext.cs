@@ -3,14 +3,11 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using Trimaw.Core.Models.Monsters;
-using Trimaw.Core.Models.Powers;
 
 namespace Trimaw.Core.ImaginationSystem;
 
 public abstract class MoveContext(Player petOwner, MoveParams moveParams)
 {
-    public TriggerKind Trigger { get; init; } = TriggerKind.Unknown;
-
     public abstract Figment MoveUser { get; }
 
     public Player PetOwner { get; } = petOwner;
@@ -26,19 +23,9 @@ public abstract class MoveContext(Player petOwner, MoveParams moveParams)
     ///     Non-negative numeric param for the move to use. As with <see cref="Creature.GetPowerAmount" />, 0 implies no
     ///     particular amount (the caller must pass only positive amounts).
     /// </summary>
-    /// <param name="allowEstimate">
-    ///     Whether to request an estimate if the caller passed no amount (for intent labels, tip
-    ///     descriptions, etc.).
-    /// </param>
-    public decimal GetAmount(bool allowEstimate = false)
+    public decimal GetAmount()
     {
-        if (Params.Amount is { } amount and > 0) return amount;
-        if (!allowEstimate) return 0;
-
-        return MoveUser.Creature.Powers
-            .Select(p => Math.Max(0, (p as TriggerTalent)?.EstimatedAmount ?? 0))
-            .DefaultIfEmpty(0)
-            .Max();
+        return Params.Amount is { } amount and > 0 ? amount : 0;
     }
 
     /// <summary>

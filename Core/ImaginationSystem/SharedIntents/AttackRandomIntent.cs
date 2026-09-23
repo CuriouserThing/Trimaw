@@ -18,12 +18,12 @@ public class AttackRandomIntent(int amount) : LabeledFigmentIntent<Figment>
 
     protected override void FormatIntentLabel(LocString label, MoveContext<Figment> ctx)
     {
-        FormatWithMultiCreatureDamage(label, ctx, _damage);
+        FormatWithAnyCreatureDamage(label, ctx, _damage);
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<Figment> ctx)
     {
-        FormatWithMultiCreatureDamage(desc, ctx, _damage);
+        FormatWithAnyCreatureDamage(desc, ctx, _damage);
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<Figment> ctx, PlayerChoiceContext choiceCtx)

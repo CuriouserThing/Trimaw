@@ -2,11 +2,11 @@ using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
 using Trimaw.Core.Models.Powers;
-using Trimaw.Core.Models.Powers.SharedTalents;
+using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class EunectesFigment : Figment<ImaginaryShieldPower, GestaltPower, OneCostTrigger>
+public class EunectesFigment : Figment<ImaginaryShieldPower, OneCostTrigger, PlaceholderTalent>
 {
     private const int MoveCount = 2;
 
@@ -16,13 +16,6 @@ public class EunectesFigment : Figment<ImaginaryShieldPower, GestaltPower, OneCo
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_416_zumama",
             new ActionAnimation("Attack", 0.17, 0.50, 0.75, "Idle"))
         .WithSecondaryAnimation(new ActionAnimation(SummonId, 0.16, 0.70, 0.70, null) { CutoffTime = 0.70 });
-
-    public override HashSet<HardTag> HardTags =>
-    [
-        HardTag.FromArknights,
-        HardTag.UsesAkChar,
-        HardTag.Tiacauh
-    ];
 
     protected override int InitialHp => 7;
     protected override int MaxHp => 16;

@@ -4,14 +4,12 @@ using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Random;
 using Trimaw.Core.Commands;
+using Trimaw.Core.Models.Monsters;
+using Trimaw.Core.Models.Powers;
 
 namespace Trimaw.Core.ImaginationSystem;
 
-public class MegaRngFigmentPoolFilterer(
-    IReadOnlyList<TaggedFigment> figmentPool,
-    FigmentFilter standardPrepass,
-    FigmentFilter gachaPrepass,
-    Rng rng) : IFigmentFilterer
+public class MegaRngFigmentPoolFilterer(IReadOnlyList<Figment> figmentPool, Rng rng) : IFigmentFilterer
 {
     // +1 spotlight Y to Y-sort over player
     // Deathbeds 100% higher than all idle Y levels
@@ -29,50 +27,16 @@ public class MegaRngFigmentPoolFilterer(
             new Vector2(+240, +1),
             new RectangleF(+220, -71, 100, 10)));
 
-    private readonly Queue<TaggedFigment> _queue = new();
+    private readonly Queue<Figment> _queue = new();
     private bool _activeImagination;
 
-    public TaggedFigment GachaPullFigment(Player owner)
+    public Figment? FilterFigment(Player owner, FigmentPower power)
     {
-        return FilterFigment(owner, FigmentFilter.All.Applying(gachaPrepass));
+        var candidates = figmentPool.Where(f => f.StartsWithPower(power));
+        return rng.NextItem(candidates);
     }
 
-    public TaggedFigment FilterFigment(Player owner, FigmentFilter filter)
-    {
-        var existingFigmentTypes = owner.GetFigments()
-            .Select(f => f.GetType())
-            .Distinct()
-            .ToHashSet();
-        filter = FigmentFilter.All
-            .Applying(standardPrepass)
-            .Applying(filter);
-
-        var count = figmentPool.Count;
-        var weights = new decimal[count];
-        var totalWeight = 0.0M;
-        for (var i = 0; i < count; i += 1)
-        {
-            var figment = figmentPool[i];
-            var weight = existingFigmentTypes.Contains(figment.FigmentType) ? 0 : filter.GetMult(figment);
-            weights[i] = weight;
-            totalWeight += weight;
-        }
-
-        var n = (decimal)rng.NextDouble(0.0, (double)totalWeight);
-        n = Math.Clamp(n, 0.0M, totalWeight);
-
-        var w = 0.0M;
-        for (var i = 0; i < count; i += 1)
-        {
-            w += weights[i];
-            if (w > n) return figmentPool[i];
-        }
-
-        // Astronomical chance (unless bug); just return last if here
-        return figmentPool[^1];
-    }
-
-    public async Task ImagineFigment(PlayerChoiceContext choiceContext, Player owner, TaggedFigment figment)
+    public async Task ImagineFigment(PlayerChoiceContext choiceContext, Player owner, Figment figment)
     {
         _queue.Enqueue(figment);
 
@@ -85,7 +49,7 @@ public class MegaRngFigmentPoolFilterer(
 
         _activeImagination = true;
         while (_queue.TryDequeue(out var nextFigment))
-            await nextFigment.Imagine(choiceContext, owner, DefaultFigmentMap);
+            await ImaginationCmd.Imagine(choiceContext, owner, nextFigment, DefaultFigmentMap);
         _activeImagination = false;
     }
 }

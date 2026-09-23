@@ -5,12 +5,12 @@ using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
 using Trimaw.Core.Models.Powers;
-using Trimaw.Core.Models.Powers.UniqueTalents;
+using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class BigUglyThingFigment : Figment<ImaginaryShieldPower, GestaltPower, BigUglyThingTrigger>
+public class BigUglyThingFigment : Figment<ImaginaryShieldPower, BigUglyThingTrigger, PlaceholderTalent>
 {
     private const int MoveCount = 5;
 
@@ -29,13 +29,6 @@ public class BigUglyThingFigment : Figment<ImaginaryShieldPower, GestaltPower, B
         .WithSecondaryAnimation(new ActionAnimation(SummonId, 0.50, 0.50, 0.60, "Idle_2") { CutoffTime = 1.10 });
 
     public override string CustomVisualPath => Pathfinder.Scene("big_ugly_thing");
-
-    public override HashSet<HardTag> HardTags =>
-    [
-        HardTag.FromArknights,
-        HardTag.UsesAkEnemy,
-        HardTag.Tiacauh
-    ];
 
     protected override int InitialHp => 23;
     protected override int MaxHp => 28;

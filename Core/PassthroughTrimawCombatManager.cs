@@ -5,6 +5,8 @@ using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.Animation;
 using Trimaw.Core.CombatHistory;
 using Trimaw.Core.ImaginationSystem;
+using Trimaw.Core.Models.Monsters;
+using Trimaw.Core.Models.Powers;
 using Trimaw.Core.SnackSystem;
 
 namespace Trimaw.Core;
@@ -46,17 +48,12 @@ public class PassthroughTrimawCombatManager(
         return prepManager.GenerateRandomMorsel();
     }
 
-    public TaggedFigment FilterFigment(Player owner, FigmentFilter filter)
+    public Figment? FilterFigment(Player owner, FigmentPower power)
     {
-        return figmentFilterer.FilterFigment(owner, filter);
+        return figmentFilterer.FilterFigment(owner, power);
     }
 
-    public TaggedFigment GachaPullFigment(Player owner)
-    {
-        return figmentFilterer.GachaPullFigment(owner);
-    }
-
-    public async Task ImagineFigment(PlayerChoiceContext choiceContext, Player owner, TaggedFigment figment)
+    public async Task ImagineFigment(PlayerChoiceContext choiceContext, Player owner, Figment figment)
     {
         await figmentFilterer.ImagineFigment(choiceContext, owner, figment);
     }

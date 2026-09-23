@@ -5,16 +5,26 @@ namespace Trimaw.Core.ImaginationSystem;
 
 public class MoveParams
 {
-    /// <summary>
-    ///     General-purpose number that a <see cref="TriggerTalent" /> may be passing to a <see cref="FigmentIntent" />.
-    ///     Must be positive.
-    /// </summary>
-    public decimal? Amount { get; init; } = null;
+    public MoveParams()
+    {
+    }
+
+    public MoveParams(MoveParams other)
+    {
+        Amount = other.Amount;
+        Target = other.Target;
+    }
 
     /// <summary>
-    ///     Single target that a <see cref="TriggerTalent" /> may be passing to a <see cref="FigmentIntent" />.
+    ///     General-purpose number that a <see cref="FigmentTrigger" /> may be passing to a <see cref="FigmentIntent" />.
+    ///     Must be positive.
     /// </summary>
-    public Creature? Target { get; init; } = null;
+    public decimal? Amount { get; init; }
+
+    /// <summary>
+    ///     Single target that a <see cref="FigmentTrigger" /> may be passing to a <see cref="FigmentIntent" />.
+    /// </summary>
+    public Creature? Target { get; init; }
 
     public static MoveParams None { get; } = new();
 }

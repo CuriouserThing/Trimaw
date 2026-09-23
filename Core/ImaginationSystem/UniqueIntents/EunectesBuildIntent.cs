@@ -2,7 +2,7 @@ using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using Trimaw.Core.Models.Monsters.Figments;
-using Trimaw.Core.Models.Powers.SharedTalents;
+using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
@@ -16,7 +16,7 @@ public class EunectesBuildIntent : UnlabeledFigmentIntent<EunectesFigment>
     protected override bool CanPerform(MoveContext<EunectesFigment> ctx, out Creature? target)
     {
         target = ctx.PetOwner.Creature; // turn toward player, even though this doesn't target them per se
-        return ctx.Trigger != TriggerKind.Pop;
+        return true;
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<EunectesFigment> ctx,

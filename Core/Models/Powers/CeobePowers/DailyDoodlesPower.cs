@@ -51,7 +51,8 @@ public class DailyDoodlesPower : TrimawPower
         {
             var generatedCards = CardFactory.GetDistinctForCombat(
                 player,
-                player.Character.CardPool.GetUnlockedCards(player.UnlockState, player.RunState.CardMultiplayerConstraint)
+                player.Character.CardPool
+                    .GetUnlockedCards(player.UnlockState, player.RunState.CardMultiplayerConstraint)
                     .Where(doodled.CanEnchant),
                 amountToGenerate,
                 player.RunState.Rng.CombatCardGeneration).ToArray();

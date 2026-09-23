@@ -32,8 +32,6 @@ public abstract class Figment : CustomMonsterModel
 
     protected abstract AkCombatSkeleton Skeleton { get; }
 
-    public abstract IReadOnlySet<HardTag> HardTags { get; }
-
     protected abstract int InitialHp { get; }
     protected abstract int MaxHp { get; }
 
@@ -48,7 +46,7 @@ public abstract class Figment : CustomMonsterModel
     /// </summary>
     public int OwnerHpThreshold { get; private set; }
 
-    protected virtual int InitialLifecyclePowerAmount => 1;
+    protected virtual int InitialTriggerPowerAmount => 1;
     protected virtual int InitialTalentPowerAmount => 1;
 
     public int MovesUsed { get; private set; }
@@ -178,6 +176,8 @@ public abstract class Figment : CustomMonsterModel
 
     private protected abstract Task ApplyOwnPowers(PlayerChoiceContext choiceContext);
 
+    internal abstract bool StartsWithPower(FigmentPower power);
+
     public override Task AfterCurrentHpChanged(Creature creature, decimal delta)
     {
         if (creature != PetOwner.Creature) return Task.CompletedTask;
@@ -185,21 +185,20 @@ public abstract class Figment : CustomMonsterModel
         return Task.CompletedTask;
     }
 
-    internal async Task UseAndAdvanceMove(PlayerChoiceContext choiceContext, MoveParams? moveParams,
-        TriggerKind trigger)
+    internal async Task UseAndAdvanceMove(PlayerChoiceContext choiceContext, MoveParams? moveParams)
     {
         if (!IsMutable) return;
-        await UseMove(choiceContext, moveParams ?? MoveParams.None, trigger);
+        await UseMove(choiceContext, moveParams ?? MoveParams.None);
         SetNextMove();
     }
 
-    internal async Task UseMove(PlayerChoiceContext choiceContext, MoveParams moveParams, TriggerKind trigger)
+    internal async Task UseMove(PlayerChoiceContext choiceContext, MoveParams moveParams)
     {
         // Can still use move if _markedForPopping
         if (!IsMutable || _hasPopped) return;
 
         if (CurrentIntent is not { } intent ||
-            !intent.CanPerform(this, PetOwner, moveParams, trigger, out var moveTarget))
+            !intent.CanPerform(this, PetOwner, moveParams, out var moveTarget))
         {
             if (_markedForPopping) ShiftToDeathbed();
             return;
@@ -213,7 +212,7 @@ public abstract class Figment : CustomMonsterModel
         if (Creature.GetCreatureNode() is not { } nFigment ||
             PetOwner.Creature.GetCreatureNode() is not { } nOwner)
         {
-            await intent.PerformMove(this, PetOwner, moveParams, trigger, choiceContext);
+            await intent.PerformMove(this, PetOwner, moveParams, choiceContext);
             return;
         }
 
@@ -228,14 +227,14 @@ public abstract class Figment : CustomMonsterModel
             ? new Vector2(-spotlightMult, spotlightMult)
             : new Vector2(+spotlightMult, spotlightMult);
 
-        await intent.BeforePerform(this, PetOwner, moveParams, trigger, choiceContext);
+        await intent.BeforePerform(this, PetOwner, moveParams, choiceContext);
         var shiftDuration = GetShiftDuration();
         ShiftNode(nFigment, spotlightPos, spotlightScale, shiftDuration, 0.10, 0.10, false, false);
 
-        var anim = Skeleton.GetAnimation(intent.GetAnimationId(this, PetOwner, moveParams, trigger));
+        var anim = Skeleton.GetAnimation(intent.GetAnimationId(this, PetOwner, moveParams));
         _actionAnimator = StandardActionAnimator.Begin(Creature, anim, shiftDuration);
         await _actionAnimator.WaitForActionImpact();
-        await intent.PerformMove(this, PetOwner, moveParams, trigger, choiceContext);
+        await intent.PerformMove(this, PetOwner, moveParams, choiceContext);
         if (IsGone) return; // return immediately if figment killed/popped itself
         await _actionAnimator.WaitForActionEnd();
 
@@ -244,7 +243,7 @@ public abstract class Figment : CustomMonsterModel
         else
             ShiftNode(nFigment, origPos, origScale, shiftDuration, 0.10, 0.10, false, true);
 
-        await intent.AfterPerform(this, PetOwner, moveParams, trigger, choiceContext);
+        await intent.AfterPerform(this, PetOwner, moveParams, choiceContext);
     }
 
     private void SetNextMove()
@@ -467,22 +466,29 @@ public abstract class Figment : CustomMonsterModel
     }
 }
 
-public abstract class Figment<TDefense, TLifecycle, TTalent> : Figment
+public abstract class Figment<TDefense, TTrigger, TTalent> : Figment
     where TDefense : FigmentDefensePower
-    where TLifecycle : FigmentLifecyclePower
-    where TTalent : FigmentTalentPower
+    where TTrigger : FigmentTrigger
+    where TTalent : FigmentTalent
 {
+    internal sealed override bool StartsWithPower(FigmentPower power)
+    {
+        var type = power.GetType();
+        return type.IsAssignableFrom(typeof(TDefense)) ||
+               type.IsAssignableFrom(typeof(TTrigger)) ||
+               type.IsAssignableFrom(typeof(TTalent));
+    }
+
     private protected sealed override async Task ApplyOwnPowers(PlayerChoiceContext choiceContext)
     {
         var creature = Creature;
         Creature? applier = null; // same behavior as Osty, but this is open to change if it makes sense
         CardModel? cardSource = null; // ditto
+        await PowerCmd.Apply<TTrigger>(
+            choiceContext, creature, InitialTriggerPowerAmount, applier, cardSource, true);
         await PowerCmd.Apply<TTalent>(
             choiceContext, creature, InitialTalentPowerAmount, applier, cardSource, true);
         await PowerCmd.Apply<TDefense>(
             choiceContext, creature, 1, applier, cardSource, true);
-        var lifecycle = await PowerCmd.Apply<TLifecycle>(
-            choiceContext, creature, InitialLifecyclePowerAmount, applier, cardSource, true);
-        if (lifecycle?.PreventsPopping ?? false) PreventFromPopping();
     }
 }

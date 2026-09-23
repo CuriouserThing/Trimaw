@@ -19,8 +19,8 @@ public class ZimaIntent : LabeledFigmentIntent<ZimaFigment>
 
     private void Format(LocString str, MoveContext ctx)
     {
-        FormatWithMultiCreatureDamage(str, ctx, PrimaryDamage);
-        FormatWithMultiCreatureDamage(str, ctx, AftershockDamage);
+        FormatWithAnyCreatureDamage(str, ctx, PrimaryDamage);
+        FormatWithAnyCreatureDamage(str, ctx, AftershockDamage);
     }
 
     protected override void FormatIntentLabel(LocString label, MoveContext<ZimaFigment> ctx)

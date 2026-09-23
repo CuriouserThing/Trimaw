@@ -1,7 +1,7 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using Trimaw.Core.Commands;
-using Trimaw.Core.ImaginationSystem;
+using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Enchantments;
@@ -15,6 +15,6 @@ public class Slimy : TrimawEnchantment
     {
         if (cardPlay.Card != Card || Card.CombatState is null) return;
 
-        await ImaginationCmd.Imagine(choiceContext, Card.Owner, FigmentFilter.All.Requiring(HardTag.Slug));
+        await ImaginationCmd.ImagineRandom<FieldRationTrigger>(choiceContext, Card.Owner);
     }
 }

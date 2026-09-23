@@ -3,8 +3,10 @@ using Trimaw.Core.Models.Powers;
 
 namespace Trimaw.Core.Models.Monsters;
 
-public abstract class AnyShotFigment<TTalent>(uint moveCount) : Figment<ImaginaryShieldPower, EvanescentPower, TTalent>
-    where TTalent : FigmentTalentPower
+public abstract class AnyShotFigment<TTrigger, TTalent>(uint moveCount)
+    : Figment<ImaginaryShieldPower, TTrigger, TTalent>
+    where TTrigger : FigmentTrigger
+    where TTalent : FigmentTalent
 {
     protected sealed override void CountMovesRemaining(out uint min, out uint? max)
     {
