@@ -10,7 +10,7 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class IstinaIntent : LabeledFigmentIntent<IstinaFigment>
 {
-    private static readonly EnergyVar Energy = new(2);
+    private const int Energy = 2;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Buff;
 
@@ -18,12 +18,12 @@ public class IstinaIntent : LabeledFigmentIntent<IstinaFigment>
 
     protected override void FormatIntentLabel(LocString label, MoveContext<IstinaFigment> ctx)
     {
-        label.Add(Energy);
+        label.Add(new EnergyVar((int)ctx.TransformAmount(Energy)));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<IstinaFigment> ctx)
     {
-        desc.Add(Energy);
+        desc.Add(new EnergyVar(Energy));
     }
 
     protected override bool CanPerform(MoveContext<IstinaFigment> ctx, out Creature? target)
@@ -35,7 +35,7 @@ public class IstinaIntent : LabeledFigmentIntent<IstinaFigment>
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<IstinaFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        await PlayerCmd.GainEnergy(Energy.BaseValue, ctx.PetOwner);
+        await PlayerCmd.GainEnergy((int)ctx.TransformAmount(Energy), ctx.PetOwner);
         return FigmentMoveResult.Success;
     }
 }

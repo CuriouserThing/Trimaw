@@ -11,7 +11,7 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class SesaIntent : LabeledFigmentIntent<SesaFigment>
 {
-    private static readonly DynamicVar Amount = new("Amount", 4);
+    private const decimal Amount = 3;
 
     private static DamageVar Damage => ModelDb.Power<TheBombPower>().DynamicVars.Damage;
 
@@ -27,18 +27,14 @@ public class SesaIntent : LabeledFigmentIntent<SesaFigment>
     protected override void FormatTipDescription(LocString desc, MoveContext<SesaFigment> ctx)
     {
         desc.Add(Damage);
-        desc.Add(Amount);
+        desc.Add(new DynamicVar(nameof(Amount), Amount));
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<SesaFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        await PowerCmd.Apply<TheBombPower>(
-            choiceCtx,
-            ctx.PetOwner.Creature,
-            Amount.BaseValue,
-            ctx.MoveUser.Creature,
-            null);
+        await PowerCmd.Apply<TheBombPower>(choiceCtx, ctx.PetOwner.Creature, ctx.TransformAmount(Amount),
+            ctx.MoveUser.Creature, null);
         return FigmentMoveResult.Success;
     }
 }

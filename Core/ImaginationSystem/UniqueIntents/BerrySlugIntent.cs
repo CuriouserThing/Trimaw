@@ -22,7 +22,9 @@ public class BerrySlugIntent : UnlabeledFigmentIntent<BerrySlugFigment>
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<BerrySlugFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        await SnackCmd.PrepSpecific(choiceCtx, ctx.CombatState, Morsel.Berries, ctx.PetOwner);
+        var amount = (int)ctx.TransformAmount(1);
+        for (var i = 0; i < amount; i += 1)
+            await SnackCmd.PrepSpecific(choiceCtx, ctx.CombatState, Morsel.Berries, ctx.PetOwner);
         return FigmentMoveResult.Success;
     }
 }

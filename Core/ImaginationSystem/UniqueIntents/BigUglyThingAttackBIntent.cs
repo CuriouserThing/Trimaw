@@ -11,7 +11,7 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class BigUglyThingAttackBIntent : LabeledFigmentIntent<BigUglyThingFigment>
 {
-    private static readonly DamageVar Damage = new(5, ValueProp.Move);
+    private const decimal Damage = 5;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack2;
 
@@ -24,19 +24,19 @@ public class BigUglyThingAttackBIntent : LabeledFigmentIntent<BigUglyThingFigmen
 
     protected override void FormatIntentLabel(LocString label, MoveContext<BigUglyThingFigment> ctx)
     {
-        FormatWithAnyCreatureDamage(label, ctx, Damage);
+        FormatWithAnyCreatureDamage(label, ctx, new DamageVar(ctx.TransformAmount(Damage), ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<BigUglyThingFigment> ctx)
     {
-        desc.Add(Damage);
+        desc.Add(new DamageVar(Damage, ValueProp.Move));
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<BigUglyThingFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
         await DamageCmd
-            .Attack(Damage.BaseValue)
+            .Attack(ctx.TransformAmount(Damage))
             .FromFigment(ctx.MoveUser)
             .TargetingAllOpponents(ctx.CombatState)
             .Execute(choiceCtx);

@@ -11,7 +11,7 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class GavialAttackBIntent : LabeledFigmentIntent<GavialFigment>
 {
-    private static readonly DamageVar Damage = new(8, ValueProp.Move);
+    private const decimal Damage = 5;
     private static readonly RepeatVar Repeat = new(2);
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack3;
@@ -26,7 +26,7 @@ public class GavialAttackBIntent : LabeledFigmentIntent<GavialFigment>
     private static AttackCommand BuildCommand(MoveContext ctx)
     {
         return DamageCmd
-            .Attack(Damage.BaseValue)
+            .Attack(ctx.TransformAmount(Damage))
             .FromFigment(ctx.MoveUser)
             .WithHitCount(Repeat.IntValue)
             .TargetingRandomOpponents(ctx.CombatState);
@@ -34,13 +34,13 @@ public class GavialAttackBIntent : LabeledFigmentIntent<GavialFigment>
 
     protected override void FormatIntentLabel(LocString label, MoveContext<GavialFigment> ctx)
     {
-        FormatWithAnyCreatureDamage(label, ctx, Damage);
+        FormatWithAnyCreatureDamage(label, ctx, new DamageVar(ctx.TransformAmount(Damage), ValueProp.Move));
         FormatWithAttackHitCount(label, ctx, BuildCommand(ctx), Repeat);
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<GavialFigment> ctx)
     {
-        desc.Add(Damage);
+        desc.Add(new DamageVar(Damage, ValueProp.Move));
         desc.Add(Repeat);
     }
 

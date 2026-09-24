@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using Trimaw.Core.Models.Monsters.Figments;
 using Trimaw.Core.Utils;
@@ -11,9 +12,9 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class ShamareIntent : UnlabeledFigmentIntent<ShamareFigment>
 {
-    private static readonly DynamicVar Vulnerable = new PowerVar<VulnerablePower>(2);
-    private static readonly DynamicVar Weak = new PowerVar<WeakPower>(2);
-    private static readonly DynamicVar Doom = new PowerVar<DoomPower>(6);
+    private static readonly PowerVar<VulnerablePower> Vulnerable = new(2);
+    private static readonly PowerVar<WeakPower> Weak = new(2);
+    private static readonly PowerVar<DoomPower> Doom = new(6);
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Debuff;
 
@@ -32,14 +33,21 @@ public class ShamareIntent : UnlabeledFigmentIntent<ShamareFigment>
         return target is not null;
     }
 
+    private static async Task Apply<T>(MoveContext ctx, PlayerChoiceContext choiceCtx, Creature target,
+        PowerVar<T> powerVar) where T : PowerModel
+    {
+        await PowerCmd.Apply<T>(choiceCtx, target, ctx.TransformAmount(powerVar.BaseValue), ctx.MoveUser.Creature,
+            null);
+    }
+
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<ShamareFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
         if (ctx.GetTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
 
-        await PowerCmd.Apply<VulnerablePower>(choiceCtx, target, Vulnerable.BaseValue, ctx.MoveUser.Creature, null);
-        await PowerCmd.Apply<WeakPower>(choiceCtx, target, Weak.BaseValue, ctx.MoveUser.Creature, null);
-        await PowerCmd.Apply<DoomPower>(choiceCtx, target, Doom.BaseValue, ctx.MoveUser.Creature, null);
+        await Apply(ctx, choiceCtx, target, Vulnerable);
+        await Apply(ctx, choiceCtx, target, Weak);
+        await Apply(ctx, choiceCtx, target, Doom);
         return FigmentMoveResult.Success;
     }
 }

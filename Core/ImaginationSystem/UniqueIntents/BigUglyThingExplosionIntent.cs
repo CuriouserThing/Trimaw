@@ -13,8 +13,8 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class BigUglyThingExplosionIntent : UnlabeledFigmentIntent<BigUglyThingFigment>
 {
-    private static readonly DamageVar Damage = new(4, ValueProp.Move);
-    private static readonly DynamicVar Frail = new PowerVar<FrailPower>(2);
+    private const decimal Damage = 4;
+    private const decimal Frail = 2;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.DeathBlow;
 
@@ -22,8 +22,8 @@ public class BigUglyThingExplosionIntent : UnlabeledFigmentIntent<BigUglyThingFi
 
     protected override void FormatTipDescription(LocString desc, MoveContext<BigUglyThingFigment> ctx)
     {
-        desc.Add(Damage);
-        desc.Add(Frail);
+        desc.Add(new DamageVar(Damage, ValueProp.Unpowered | ValueProp.Move));
+        desc.Add(new PowerVar<FrailPower>(Frail));
     }
 
     protected override string GetAnimationId(MoveContext<BigUglyThingFigment> ctx)
@@ -36,15 +36,16 @@ public class BigUglyThingExplosionIntent : UnlabeledFigmentIntent<BigUglyThingFi
     {
         var creature = ctx.MoveUser.Creature;
         var explosionTargets = ctx.CombatState.HittableEnemies.Concat(ctx.CombatState.PlayerCreatures).ToArray();
-        await CreatureCmd.Damage(choiceCtx, explosionTargets, Damage, creature, null, null);
-        await PowerCmd.Apply<FrailPower>(choiceCtx, explosionTargets, Frail.BaseValue, creature, null);
+        var damage = new DamageVar(ctx.TransformAmount(Damage), ValueProp.Unpowered | ValueProp.Move);
+        await CreatureCmd.Damage(choiceCtx, explosionTargets, damage, creature, null, null);
+        await PowerCmd.Apply<FrailPower>(choiceCtx, explosionTargets, ctx.TransformAmount(Frail), creature, null);
 
         foreach (var power in creature.Powers.ToArray()) await PowerCmd.Remove(power);
 
         // Pretend the explosion damaged the High Priest too for flavor :)
         var initialHp = ctx.MoveUser.InitialBirdHp;
         await CreatureCmd.SetCurrentHp(creature, initialHp);
-        await CreatureCmd.SetMaxHp(creature, initialHp + Damage.BaseValue);
+        await CreatureCmd.SetMaxHp(creature, initialHp + Damage);
         ctx.MoveUser.ChangeToBirdPhase();
 
         await PowerCmd.Apply<ImaginaryShieldPower>(choiceCtx, creature, 1, creature, null, true);

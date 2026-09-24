@@ -6,7 +6,7 @@ using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class ReserveSupporterFigment : OneShotFigment<BackToBasicsTrigger, SurviveAtOneTalent>
+public class ReserveSupporterFigment : OneShotFigment<BackToBasicsTrigger, ArtsAssimilationTalent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_606_csuppo",
         new ActionAnimation("Attack", 0.20, 0.41, 0.91, "Idle"));

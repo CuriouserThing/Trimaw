@@ -11,21 +11,21 @@ namespace Trimaw.Core.Models.Powers.Triggers;
 
 public class MahuizzotiaTrigger : FigmentMonoTrigger
 {
-    private const string DamageThresholdKey = "DamageThreshold";
+    public const decimal DamageThreshold = 10;
 
     public override PowerStackType StackType => PowerStackType.Single;
 
     public override string Icon64Path => Pathfinder.GameIconsDotnet64("rally_the_troops");
     public override string Icon256Path => Pathfinder.GameIconsDotnet256("rally_the_troops");
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new(DamageThresholdKey, 10)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new(nameof(DamageThreshold), DamageThreshold)];
 
     public override async Task AfterDamageReceived(PlayerChoiceContext choiceContext, Creature target,
         DamageResult result, ValueProp props, Creature? dealer, CardModel? cardSource)
     {
         var damage = result.TotalDamage + result.OverkillDamage;
         if (dealer is null || dealer != Owner.PetOwner?.Creature ||
-            damage < DynamicVars[DamageThresholdKey].BaseValue) return;
+            damage < DynamicVars[nameof(DamageThreshold)].BaseValue) return;
 
         await TriggerMove(choiceContext, new MoveParams { Addend = damage, Target = target });
     }

@@ -23,7 +23,10 @@ public class BasicSlugIntent : UnlabeledFigmentIntent<BasicSlugFigment>
         PlayerChoiceContext choiceCtx)
     {
         ctx.MoveUser.ExtendLegs();
-        await SnackCmd.PrepSpecific(choiceCtx, ctx.CombatState, Morsel.Meat, ctx.PetOwner);
+
+        var amount = (int)ctx.TransformAmount(1);
+        for (var i = 0; i < amount; i += 1)
+            await SnackCmd.PrepSpecific(choiceCtx, ctx.CombatState, Morsel.Meat, ctx.PetOwner);
         return FigmentMoveResult.Success;
     }
 }

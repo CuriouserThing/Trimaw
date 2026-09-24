@@ -5,13 +5,14 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using Trimaw.Core.Models.Monsters.Figments;
+using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class FlintIntent : LabeledFigmentIntent<FlintFigment>
 {
-    private static readonly DamageVar Damage = new(10, ValueProp.Move);
+    private const decimal Damage = MahuizzotiaTrigger.DamageThreshold;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack3;
 
@@ -19,12 +20,13 @@ public class FlintIntent : LabeledFigmentIntent<FlintFigment>
 
     protected override void FormatIntentLabel(LocString label, MoveContext<FlintFigment> ctx)
     {
-        FormatWithAnyCreatureDamage(label, ctx, Damage);
+        FormatWithAnyCreatureDamage(label, ctx,
+            new DamageVar(ctx.TransformAmount(Damage), ValueProp.Unpowered | ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<FlintFigment> ctx)
     {
-        desc.Add(Damage);
+        desc.Add(new DamageVar(Damage, ValueProp.Unpowered | ValueProp.Move));
     }
 
     protected override bool CanPerform(MoveContext<FlintFigment> ctx, out Creature? target)
@@ -38,12 +40,8 @@ public class FlintIntent : LabeledFigmentIntent<FlintFigment>
     {
         if (ctx.GetTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
 
-        var damage = Math.Max(Damage.BaseValue, ctx.GetAmount());
-        await DamageCmd
-            .Attack(damage)
-            .FromFigment(ctx.MoveUser)
-            .Targeting(target)
-            .Execute(choiceCtx);
+        await CreatureCmd.Damage(choiceCtx, target, new DamageVar(Damage, ValueProp.Unpowered | ValueProp.Move),
+            ctx.MoveUser.Creature);
         return FigmentMoveResult.Success;
     }
 }

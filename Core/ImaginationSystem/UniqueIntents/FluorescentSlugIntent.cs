@@ -22,7 +22,9 @@ public class FluorescentSlugIntent : UnlabeledFigmentIntent<FluorescentSlugFigme
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<FluorescentSlugFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        await SnackCmd.PrepSpecific(choiceCtx, ctx.CombatState, Morsel.Shrooms, ctx.PetOwner);
+        var amount = (int)ctx.TransformAmount(1);
+        for (var i = 0; i < amount; i += 1)
+            await SnackCmd.PrepSpecific(choiceCtx, ctx.CombatState, Morsel.Shrooms, ctx.PetOwner);
         return FigmentMoveResult.Success;
     }
 }

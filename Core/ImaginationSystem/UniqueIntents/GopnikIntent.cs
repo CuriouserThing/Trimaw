@@ -30,7 +30,6 @@ public class GopnikIntent : LabeledFigmentIntent<GopnikFigment>
 
     protected override void FormatTipDescription(LocString desc, MoveContext<GopnikFigment> ctx)
     {
-        // For the tip, show uncalculated damage to better convey what the move is doing
         desc.Add(Damage);
         desc.Add(ExtraDamage);
     }

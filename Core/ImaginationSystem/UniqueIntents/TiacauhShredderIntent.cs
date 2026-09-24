@@ -12,8 +12,8 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class TiacauhShredderIntent : LabeledFigmentIntent<TiacauhShredderFigment>
 {
-    private static readonly DamageVar Damage = new(7, ValueProp.Move);
-    private static readonly DamageVar ExtraDamage = new("ExtraDamage", 5, ValueProp.Move);
+    private const decimal Damage = 7;
+    private const decimal ExtraDamage = 5;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack3;
 
@@ -24,18 +24,22 @@ public class TiacauhShredderIntent : LabeledFigmentIntent<TiacauhShredderFigment
         return target.HasPower<VulnerablePower>() || target.HasPower<FrailPower>();
     }
 
+    private static decimal GetDamage(MoveContext ctx)
+    {
+        var damage = Damage;
+        if (ctx.CombatState.HittableEnemies.All(TargetReceivesExtra)) damage += ExtraDamage;
+        return ctx.TransformAmount(damage);
+    }
+
     protected override void FormatIntentLabel(LocString label, MoveContext<TiacauhShredderFigment> ctx)
     {
-        var damage = ctx.CombatState.HittableEnemies.All(TargetReceivesExtra)
-            ? new DamageVar(Damage.BaseValue + ExtraDamage.BaseValue, ValueProp.Move)
-            : Damage;
-        FormatWithAnyCreatureDamage(label, ctx, damage);
+        FormatWithAnyCreatureDamage(label, ctx, new DamageVar(GetDamage(ctx), ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<TiacauhShredderFigment> ctx)
     {
-        desc.Add(Damage);
-        desc.Add(ExtraDamage);
+        desc.Add(new DynamicVar(nameof(Damage), Damage));
+        desc.Add(new DynamicVar(nameof(ExtraDamage), ExtraDamage));
     }
 
     protected override bool CanPerform(MoveContext<TiacauhShredderFigment> ctx, out Creature? target)
@@ -49,10 +53,8 @@ public class TiacauhShredderIntent : LabeledFigmentIntent<TiacauhShredderFigment
     {
         if (ctx.GetTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
 
-        var damage = Damage.BaseValue;
-        if (TargetReceivesExtra(target)) damage += ExtraDamage.BaseValue;
         await DamageCmd
-            .Attack(damage)
+            .Attack(GetDamage(ctx))
             .FromFigment(ctx.MoveUser)
             .Targeting(target)
             .Execute(choiceCtx);

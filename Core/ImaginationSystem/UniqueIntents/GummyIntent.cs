@@ -22,7 +22,9 @@ public class GummyIntent : UnlabeledFigmentIntent<GummyFigment>
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<GummyFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        await SnackCmd.PrepSpecific(choiceCtx, ctx.CombatState, Morsel.Bread, ctx.PetOwner);
+        var amount = (int)ctx.TransformAmount(1);
+        for (var i = 0; i < amount; i += 1)
+            await SnackCmd.PrepSpecific(choiceCtx, ctx.CombatState, Morsel.Bread, ctx.PetOwner);
         return FigmentMoveResult.Success;
     }
 }

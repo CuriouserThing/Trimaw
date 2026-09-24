@@ -1,11 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
-using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
-using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
-using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.ValueProps;
+using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.Models.Powers.CeobePowers;
 using Trimaw.Core.Utils;
 
@@ -20,23 +16,17 @@ public class HuntingBuddyTalent : FigmentTalent
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<AimPower>()];
 
-    // General note: unlike with Aim itself, we have to assume all damage from this figment should use & consume Aim
-    // (Which it logically should, given we have control over which figments get this talent)
     private AimPower? Aim => Figment.PetOwner.Creature.GetPower<AimPower>();
 
-    public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props,
-        Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
+    protected internal override MoveParams ModifyMoveParams(MoveParams moveParams, bool dryRun)
     {
-        if (dealer != Owner) return 1;
+        if (Aim is null) return moveParams;
 
-        return 1 + (Aim is { } aim ? aim.AdditionalDamageMult : 0);
+        return new MoveParams(moveParams) { Multiplier = 2 * moveParams.Multiplier };
     }
 
-    public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer,
-        DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
+    protected internal override async Task AfterModifyingMoveParams(MoveParams originalParams, MoveParams newParams)
     {
-        if (dealer != Owner) return;
-
         if (Aim is { } aim) await PowerCmd.Decrement(aim);
     }
 }

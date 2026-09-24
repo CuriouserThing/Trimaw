@@ -10,7 +10,7 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class BubbleIntent : LabeledFigmentIntent<BubbleFigment>
 {
-    private static readonly DynamicVar Thorns = new PowerVar<ThornsPower>(2);
+    private const decimal Thorns = 2;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Buff;
 
@@ -18,23 +18,19 @@ public class BubbleIntent : LabeledFigmentIntent<BubbleFigment>
 
     protected override void FormatIntentLabel(LocString label, MoveContext<BubbleFigment> ctx)
     {
-        label.Add(Thorns);
+        label.Add(new PowerVar<ThornsPower>(ctx.TransformAmount(Thorns)));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<BubbleFigment> ctx)
     {
-        desc.Add(Thorns);
+        desc.Add(new PowerVar<ThornsPower>(Thorns));
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<BubbleFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        await PowerCmd.Apply<ThornsPower>(
-            choiceCtx,
-            ctx.PetOwner.Creature,
-            Thorns.BaseValue,
-            ctx.MoveUser.Creature,
-            null);
+        await PowerCmd.Apply<ThornsPower>(choiceCtx, ctx.PetOwner.Creature, ctx.TransformAmount(Thorns),
+            ctx.MoveUser.Creature, null);
         return FigmentMoveResult.Success;
     }
 }

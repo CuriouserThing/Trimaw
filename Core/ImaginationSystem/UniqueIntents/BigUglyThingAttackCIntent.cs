@@ -14,10 +14,10 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class BigUglyThingAttackCIntent : LabeledFigmentIntent<BigUglyThingFigment>
 {
-    private static readonly DamageVar Damage = new(6, ValueProp.Move);
-    private static readonly RepeatVar Repeat = new(2);
-    private static readonly RepeatVar RepeatPer = new("RepeatPer", 1);
-    private static readonly EnergyVar Energy = new(1);
+    private const decimal Damage = 6;
+    private const int Repeat = 2;
+    private const int RepeatPer = 1;
+    private const int Energy = 1;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack5;
 
@@ -40,13 +40,13 @@ public class BigUglyThingAttackCIntent : LabeledFigmentIntent<BigUglyThingFigmen
             .Where(e => e.HappenedThisTurn(ctx.CombatState) && e.Actor == ctx.PetOwner.Creature)
             .Select(e => e.Amount)
             .Sum();
-        return Repeat.IntValue + energySpent * RepeatPer.IntValue;
+        return Repeat + energySpent * RepeatPer;
     }
 
     private static AttackCommand BuildCommand(MoveContext ctx, Creature? target, int hitCount)
     {
         var cmd = DamageCmd
-            .Attack(Damage.BaseValue)
+            .Attack(ctx.TransformAmount(Damage))
             .FromFigment(ctx.MoveUser)
             .WithHitCount(hitCount);
         if (target is not null) cmd = cmd.Targeting(target);
@@ -58,16 +58,16 @@ public class BigUglyThingAttackCIntent : LabeledFigmentIntent<BigUglyThingFigmen
         var target = GetTarget(ctx);
         var hitCount = GetHitCount(ctx);
         var cmd = BuildCommand(ctx, target, hitCount);
-        FormatWithTargetedDamage(label, ctx, target, Damage);
+        FormatWithTargetedDamage(label, ctx, target, new DamageVar(ctx.TransformAmount(Damage), ValueProp.Move));
         FormatWithAttackHitCount(label, ctx, cmd, new RepeatVar(hitCount));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<BigUglyThingFigment> ctx)
     {
-        desc.Add(Damage);
-        desc.Add(Repeat);
-        desc.Add(RepeatPer);
-        desc.Add(Energy);
+        desc.Add(new DamageVar(Damage, ValueProp.Move));
+        desc.Add(new RepeatVar(Repeat));
+        desc.Add(new DynamicVar(nameof(RepeatPer), RepeatPer));
+        desc.Add(new EnergyVar(Energy));
     }
 
     protected override bool CanPerform(MoveContext<BigUglyThingFigment> ctx, out Creature? target)

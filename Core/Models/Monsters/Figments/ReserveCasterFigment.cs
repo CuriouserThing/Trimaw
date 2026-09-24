@@ -6,7 +6,7 @@ using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class ReserveCasterFigment : OneShotFigment<BackToBasicsTrigger, SurviveAtOneTalent>
+public class ReserveCasterFigment : OneShotFigment<BackToBasicsTrigger, ArtsAssimilationTalent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_604_ccast",
         new ActionAnimation("Attack", 0.15, 0.52, 0.92, "Idle"));
@@ -16,6 +16,6 @@ public class ReserveCasterFigment : OneShotFigment<BackToBasicsTrigger, SurviveA
 
     protected override FigmentIntent GetFigmentIntent()
     {
-        return new AttackRandomIntent(5);
+        return new AttackAnyIntent(5);
     }
 }

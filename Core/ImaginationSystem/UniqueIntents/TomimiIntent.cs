@@ -10,7 +10,7 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class TomimiIntent : LabeledFigmentIntent<TomimiFigment>
 {
-    private static readonly DamageVar Damage = new(8, ValueProp.Move);
+    private const decimal Damage = 6;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Defend;
 
@@ -18,19 +18,20 @@ public class TomimiIntent : LabeledFigmentIntent<TomimiFigment>
 
     protected override void FormatIntentLabel(LocString label, MoveContext<TomimiFigment> ctx)
     {
-        FormatWithAnyCreatureDamage(label, ctx, Damage);
+        var damage = ctx.TransformAmount(Damage);
+        FormatWithAnyCreatureDamage(label, ctx, new DamageVar(damage, ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<TomimiFigment> ctx)
     {
-        desc.Add(Damage);
+        desc.Add(new DamageVar(Damage, ValueProp.Move));
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<TomimiFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
         var cmd = await DamageCmd
-            .Attack(Damage.BaseValue)
+            .Attack(ctx.TransformAmount(Damage))
             .FromFigment(ctx.MoveUser)
             .TargetingRandomOpponents(ctx.CombatState)
             .Execute(choiceCtx);

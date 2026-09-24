@@ -10,40 +10,38 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class ZimaIntent : LabeledFigmentIntent<ZimaFigment>
 {
-    private static readonly DamageVar PrimaryDamage = new(5, ValueProp.Move);
-    private static readonly DamageVar AftershockDamage = new("Aftershock", 2, ValueProp.Move);
+    private const decimal Damage = 5;
+    private const decimal Aftershock = 2;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack2;
 
     protected override string DefaultTipIconPath => Pathfinder.GameIconsDotnet64("bear_face");
 
-    private void Format(LocString str, MoveContext ctx)
-    {
-        FormatWithAnyCreatureDamage(str, ctx, PrimaryDamage);
-        FormatWithAnyCreatureDamage(str, ctx, AftershockDamage);
-    }
-
     protected override void FormatIntentLabel(LocString label, MoveContext<ZimaFigment> ctx)
     {
-        Format(label, ctx);
+        FormatWithAnyCreatureDamage(label, ctx,
+            new DamageVar(ctx.TransformAmount(Damage), ValueProp.Move));
+        FormatWithAnyCreatureDamage(label, ctx,
+            new DamageVar(nameof(Aftershock), ctx.TransformAmount(Aftershock), ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<ZimaFigment> ctx)
     {
-        Format(desc, ctx);
+        FormatWithAnyCreatureDamage(desc, ctx, new DamageVar(Damage, ValueProp.Move));
+        FormatWithAnyCreatureDamage(desc, ctx, new DamageVar(nameof(Aftershock), Aftershock, ValueProp.Move));
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<ZimaFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
         await DamageCmd
-            .Attack(PrimaryDamage.BaseValue)
+            .Attack(ctx.TransformAmount(Damage))
             .FromFigment(ctx.MoveUser)
             .TargetingRandomOpponents(ctx.CombatState)
             .Execute(choiceCtx);
 
         await DamageCmd
-            .Attack(AftershockDamage.BaseValue)
+            .Attack(ctx.TransformAmount(Aftershock))
             .FromFigment(ctx.MoveUser)
             .TargetingAllOpponents(ctx.CombatState)
             .WithWaitBeforeHit(0.2f, 0.2f)

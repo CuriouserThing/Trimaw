@@ -12,8 +12,8 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class BigUglyThingAttackAIntent : LabeledFigmentIntent<BigUglyThingFigment>
 {
-    private static readonly DamageVar Damage = new(10, ValueProp.Move);
-    private static readonly DynamicVar Vulnerable = new PowerVar<VulnerablePower>(1);
+    private const decimal Damage = 10;
+    private const int Vulnerable = 1;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack2;
 
@@ -27,13 +27,14 @@ public class BigUglyThingAttackAIntent : LabeledFigmentIntent<BigUglyThingFigmen
 
     protected override void FormatIntentLabel(LocString label, MoveContext<BigUglyThingFigment> ctx)
     {
-        FormatWithTargetedDamage(label, ctx, GetTarget(ctx), Damage);
+        FormatWithTargetedDamage(label, ctx, GetTarget(ctx),
+            new DamageVar(ctx.TransformAmount(Damage), ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<BigUglyThingFigment> ctx)
     {
-        desc.Add(Damage);
-        desc.Add(Vulnerable);
+        desc.Add(new DamageVar(Damage, ValueProp.Move));
+        desc.Add(new PowerVar<VulnerablePower>(Vulnerable));
     }
 
     protected override bool CanPerform(MoveContext<BigUglyThingFigment> ctx, out Creature? target)
@@ -48,11 +49,12 @@ public class BigUglyThingAttackAIntent : LabeledFigmentIntent<BigUglyThingFigmen
         if (GetTarget(ctx) is not { } target) return FigmentMoveResult.NoValidTarget;
 
         await DamageCmd
-            .Attack(Damage.BaseValue)
+            .Attack(ctx.TransformAmount(Damage))
             .FromFigment(ctx.MoveUser)
             .Targeting(target)
             .Execute(choiceCtx);
-        await PowerCmd.Apply<VulnerablePower>(choiceCtx, target, Vulnerable.BaseValue, ctx.MoveUser.Creature, null);
+        await PowerCmd.Apply<VulnerablePower>(choiceCtx, target, ctx.TransformAmount(Vulnerable), ctx.MoveUser.Creature,
+            null);
         return FigmentMoveResult.Success;
     }
 }

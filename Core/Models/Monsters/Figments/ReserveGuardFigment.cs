@@ -16,6 +16,6 @@ public class ReserveGuardFigment : OneShotFigment<BackToBasicsTrigger, Placehold
 
     protected override FigmentIntent GetFigmentIntent()
     {
-        return new AttackRandomIntent(5);
+        return new AttackAnyIntent(5);
     }
 }

@@ -42,6 +42,6 @@ public class ArtsAssimilationTalent : FigmentTalent
 
         var rng = CombatState.RunState.Rng.Niche; // NOTE: nothing better at the moment, but keep this in consideration 
         var crit = Amount > rng.NextInt(0, 100);
-        return crit ? new MoveParams(moveParams) { Multiplier = 2 } : moveParams;
+        return crit ? new MoveParams(moveParams) { Multiplier = 2 * moveParams.Multiplier } : moveParams;
     }
 }

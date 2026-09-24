@@ -1,11 +1,11 @@
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
-using Trimaw.Core.Models.Powers;
+using Trimaw.Core.Models.Powers.Talents;
 using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class IstinaFigment : SimpleFigment<BearNecessitiesTrigger, PlaceholderTalent, IstinaIntent>
+public class IstinaFigment : SimpleFigment<BearNecessitiesTrigger, ArtsAssimilationTalent, IstinaIntent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_195_glassb_kitchen#1",
         new ActionAnimation("Attack", 0.20, 0.45, 1.12, "Idle"));

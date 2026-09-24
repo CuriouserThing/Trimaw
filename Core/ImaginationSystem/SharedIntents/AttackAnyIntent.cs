@@ -8,7 +8,7 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.ImaginationSystem.SharedIntents;
 
-public class AttackRandomIntent(int amount) : LabeledFigmentIntent<Figment>
+public class AttackAnyIntent(int amount) : LabeledFigmentIntent<Figment>
 {
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack3;
 

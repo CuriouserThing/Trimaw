@@ -21,7 +21,7 @@ public class AimPower : TrimawPower
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new(AdditionalDamagePctKey, 25)];
 
-    public decimal AdditionalDamageMult => DynamicVars[AdditionalDamagePctKey].BaseValue / 100M;
+    private decimal AdditionalDamageMult => DynamicVars[AdditionalDamagePctKey].BaseValue / 100M;
 
     private int Repeat => Math.Min(Amount, 1 + Owner.GetPowerAmount<BifocalPower>());
 

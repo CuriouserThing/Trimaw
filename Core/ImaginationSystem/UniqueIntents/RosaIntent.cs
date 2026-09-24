@@ -11,9 +11,9 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class RosaIntent : LabeledFigmentIntent<RosaFigment>
 {
-    private static readonly DamageVar Damage = new(10, ValueProp.Move);
-    private static readonly ExtraDamageVar ExtraDamage = new(2);
-    private static readonly DynamicVar ExtraHp = new("ExtraHp", 50);
+    private const decimal Damage = 10;
+    private const decimal ExtraDamage = 2;
+    private const int ExtraHp = 50;
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack4;
 
@@ -25,32 +25,30 @@ public class RosaIntent : LabeledFigmentIntent<RosaFigment>
         return ctx.GetTarget(c => c.CurrentHp == highest);
     }
 
-    private static DamageVar GetDamage(Creature? target)
+    private static decimal GetDamage(Creature? target, MoveContext ctx)
     {
-        var damage = Damage.BaseValue;
+        var damage = Damage;
         if (target is not null)
         {
-            var mult = target.MaxHp / ExtraHp.IntValue;
-            damage += ExtraDamage.BaseValue * mult;
+            var mult = target.MaxHp / ExtraHp;
+            damage += ExtraDamage * mult;
         }
 
-        return new DamageVar(damage, ValueProp.Move);
+        return ctx.TransformAmount(damage);
     }
 
     protected override void FormatIntentLabel(LocString label, MoveContext<RosaFigment> ctx)
     {
-        // For the label, show the calculated damage
         var target = GetTarget(ctx);
-        var damage = GetDamage(target);
-        FormatWithTargetedDamage(label, ctx, target, damage);
+        var damage = GetDamage(target, ctx);
+        FormatWithTargetedDamage(label, ctx, target, new DamageVar(damage, ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<RosaFigment> ctx)
     {
-        // For the tip, show uncalculated damage to better convey what the move is doing
-        desc.Add(Damage);
-        desc.Add(ExtraDamage);
-        desc.Add(ExtraHp);
+        desc.Add(new DamageVar(Damage, ValueProp.Move));
+        desc.Add(new ExtraDamageVar(ExtraDamage));
+        desc.Add(new DynamicVar(nameof(ExtraHp), ExtraHp));
     }
 
     protected override bool CanPerform(MoveContext<RosaFigment> ctx, out Creature? target)
@@ -64,9 +62,8 @@ public class RosaIntent : LabeledFigmentIntent<RosaFigment>
     {
         if (GetTarget(ctx) is not { } target) return FigmentMoveResult.NoValidTarget;
 
-        var damage = GetDamage(target);
         await DamageCmd
-            .Attack(damage.BaseValue)
+            .Attack(GetDamage(target, ctx))
             .FromFigment(ctx.MoveUser)
             .Targeting(target)
             .Execute(choiceCtx);

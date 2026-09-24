@@ -18,6 +18,6 @@ public class TiacauhRitualistFigment : OneShotFigment<MahuizzotiaTrigger, ArtsAs
 
     protected override FigmentIntent GetFigmentIntent()
     {
-        return new AttackRandomIntent(10);
+        return new AttackAnyIntent(10);
     }
 }
