@@ -44,4 +44,9 @@ public class ArtsAssimilationTalent : FigmentTalent
         var crit = Amount > rng.NextInt(0, 100);
         return crit ? new MoveParams(moveParams) { Multiplier = 2 * moveParams.Multiplier } : moveParams;
     }
+
+    protected internal override async Task AfterModifyingMoveParams(MoveParams originalParams, MoveParams newParams)
+    {
+        await PowerCmd.Remove(this);
+    }
 }

@@ -28,5 +28,7 @@ public class BusinessAsUsualTalent : FigmentTalent
         await PlayerCmd.LoseGold(payment, Figment.PetOwner, GoldLossType.Spent);
         var historyEntry = new GoldSpentOnFigmentEntry(Figment.PetOwner, payment, Figment);
         MainFile.CombatManagerFactory.GetOrCreate(Figment.PetOwner).AddHistoryEntry(historyEntry);
+        
+        await PowerCmd.Remove(this);
     }
 }

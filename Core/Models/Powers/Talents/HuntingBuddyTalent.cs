@@ -28,5 +28,6 @@ public class HuntingBuddyTalent : FigmentTalent
     protected internal override async Task AfterModifyingMoveParams(MoveParams originalParams, MoveParams newParams)
     {
         if (Aim is { } aim) await PowerCmd.Decrement(aim);
+        await PowerCmd.Remove(this);
     }
 }
