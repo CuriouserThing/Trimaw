@@ -12,6 +12,4 @@ public class ShamareFigment : SimpleFigment<TargetTrigger, PlaceholderTalent, Sh
 
     protected override int InitialHp => 4;
     protected override int MaxHp => 7;
-
-    protected override int InitialTalentPowerAmount => 2;
 }

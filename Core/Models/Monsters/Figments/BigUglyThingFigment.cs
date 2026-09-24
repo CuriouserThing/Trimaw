@@ -35,7 +35,7 @@ public class BigUglyThingFigment : Figment<ImaginaryShieldPower, BigUglyThingTri
 
     public int InitialBirdHp => 3; // Max is determined from this + explosion damage
 
-    protected override int InitialTalentPowerAmount => MoveCount - 1;
+    protected override int InitialTriggerPowerAmount => MoveCount - 1;
 
     protected override void CountMovesRemaining(out uint min, out uint? max)
     {

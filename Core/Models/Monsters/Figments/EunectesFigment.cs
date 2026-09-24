@@ -20,7 +20,7 @@ public class EunectesFigment : Figment<ImaginaryShieldPower, OneCostTrigger, Pla
     protected override int InitialHp => 7;
     protected override int MaxHp => 16;
 
-    protected override int InitialTalentPowerAmount => 3;
+    protected override int InitialTriggerPowerAmount => 3;
 
     protected override void CountMovesRemaining(out uint min, out uint? max)
     {

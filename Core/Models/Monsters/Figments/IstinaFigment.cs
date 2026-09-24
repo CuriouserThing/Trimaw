@@ -12,6 +12,4 @@ public class IstinaFigment : SimpleFigment<BearNecessitiesTrigger, PlaceholderTa
 
     protected override int InitialHp => 4;
     protected override int MaxHp => 7;
-
-    protected override int InitialTalentPowerAmount => 3;
 }
