@@ -10,10 +10,7 @@ namespace Trimaw.Core.Models.Cards.Rare;
 public class Eunectes() : TrimawCard(1, CardType.Skill, CardRarity.Rare, TargetType.Self)
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-    [
-        HoverTipHelper.ForImagine(this),
-        HoverTipFactory.Static(StaticHoverTip.Eunectes)
-    ];
+        HoverTipHelper.ForImagine(this).Concat([HoverTipFactory.Static(StaticHoverTip.Eunectes)]);
 
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 

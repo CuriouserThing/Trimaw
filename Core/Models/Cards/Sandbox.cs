@@ -14,11 +14,7 @@ public class Sandbox() : BaseTrimawCard(0, CardType.Skill, CardRarity.Basic, Tar
 {
     public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Innate];
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-    [
-        HoverTipHelper.ForImagine(this),
-        HoverTipFactory.Static(StaticHoverTip.Pop)
-    ];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipHelper.ForImagine(this);
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {

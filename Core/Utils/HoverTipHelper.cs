@@ -8,13 +8,17 @@ namespace Trimaw.Core.Utils;
 
 public static class HoverTipHelper
 {
-    public static IHoverTip ForImagine(CardModel card)
+    public static IEnumerable<IHoverTip> ForImagine(CardModel card)
     {
         var owner = card.IsCanonical ? null : card.Owner;
         var limit = owner is null
             ? ImaginationCmd.DefaultConcurrentFigmentLimit
             : MainFile.CombatManagerFactory.GetOrCreate(owner).ConcurrentFigmentLimit;
-        return HoverTipFactory.Static(StaticHoverTip.Imagine, new DynamicVar("Limit", limit));
+        return
+        [
+            HoverTipFactory.Static(StaticHoverTip.Imagine, new DynamicVar("Limit", limit)),
+            HoverTipFactory.Static(StaticHoverTip.Pop)
+        ];
     }
 
     public static IEnumerable<IHoverTip> ForMorselPrep(Morsel morsel)
