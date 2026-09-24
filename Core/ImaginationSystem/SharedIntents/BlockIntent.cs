@@ -10,25 +10,24 @@ namespace Trimaw.Core.ImaginationSystem.SharedIntents;
 
 public class BlockIntent(int amount) : LabeledFigmentIntent<Figment>
 {
-    private readonly BlockVar _block = new(amount, ValueProp.Move);
-
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Defend;
 
     protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("shield");
 
     protected override void FormatIntentLabel(LocString label, MoveContext<Figment> ctx)
     {
-        FormatWithBlock(label, ctx, ctx.PetOwner.Creature, _block);
+        FormatWithBlock(label, ctx, ctx.PetOwner.Creature, new BlockVar(ctx.TransformAmount(amount), ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<Figment> ctx)
     {
-        FormatWithBlock(desc, ctx, ctx.PetOwner.Creature, _block);
+        FormatWithBlock(desc, ctx, ctx.PetOwner.Creature, new BlockVar(amount, ValueProp.Move));
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<Figment> ctx, PlayerChoiceContext choiceCtx)
     {
-        await CreatureCmd.GainBlock(ctx.PetOwner.Creature, _block, null);
+        await CreatureCmd.GainBlock(ctx.PetOwner.Creature, new BlockVar(ctx.TransformAmount(amount), ValueProp.Move),
+            null);
         return FigmentMoveResult.Success;
     }
 }

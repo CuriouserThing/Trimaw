@@ -11,8 +11,6 @@ namespace Trimaw.Core.ImaginationSystem.SharedIntents;
 
 public class AttackLowestIntent(int amount) : LabeledFigmentIntent<Figment>
 {
-    private readonly DamageVar _damage = new(amount, ValueProp.Move);
-
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack2;
 
     protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("dagger_knife");
@@ -24,12 +22,13 @@ public class AttackLowestIntent(int amount) : LabeledFigmentIntent<Figment>
 
     protected override void FormatIntentLabel(LocString label, MoveContext<Figment> ctx)
     {
-        FormatWithTargetedDamage(label, ctx, GetTarget(ctx), _damage);
+        FormatWithTargetedDamage(label, ctx, GetTarget(ctx),
+            new DamageVar(ctx.TransformAmount(amount), ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<Figment> ctx)
     {
-        FormatWithTargetedDamage(desc, ctx, GetTarget(ctx), _damage);
+        FormatWithTargetedDamage(desc, ctx, GetTarget(ctx), new DamageVar(amount, ValueProp.Move));
     }
 
     protected override bool CanPerform(MoveContext<Figment> ctx, out Creature? target)
@@ -42,7 +41,7 @@ public class AttackLowestIntent(int amount) : LabeledFigmentIntent<Figment>
     {
         if (GetTarget(ctx) is { } target)
             await DamageCmd
-                .Attack(_damage.BaseValue)
+                .Attack(ctx.TransformAmount(amount))
                 .FromFigment(ctx.MoveUser)
                 .Targeting(target)
                 .Execute(choiceCtx);

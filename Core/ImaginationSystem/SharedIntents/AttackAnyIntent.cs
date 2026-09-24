@@ -14,25 +14,20 @@ public class AttackAnyIntent(int amount) : LabeledFigmentIntent<Figment>
 
     protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("collision");
 
-    private DamageVar GetDamage(MoveContext ctx)
-    {
-        return new DamageVar(ctx.TransformAmount(amount), ValueProp.Move);
-    }
-
     protected override void FormatIntentLabel(LocString label, MoveContext<Figment> ctx)
     {
-        FormatWithAnyCreatureDamage(label, ctx, GetDamage(ctx));
+        FormatWithAnyCreatureDamage(label, ctx, new DamageVar(ctx.TransformAmount(amount), ValueProp.Move));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<Figment> ctx)
     {
-        FormatWithAnyCreatureDamage(desc, ctx, GetDamage(ctx));
+        FormatWithAnyCreatureDamage(desc, ctx, new DamageVar(amount, ValueProp.Move));
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<Figment> ctx, PlayerChoiceContext choiceCtx)
     {
         await DamageCmd
-            .Attack(GetDamage(ctx).BaseValue)
+            .Attack(ctx.TransformAmount(amount))
             .FromFigment(ctx.MoveUser)
             .TargetingRandomOpponents(ctx.CombatState)
             .Execute(choiceCtx);

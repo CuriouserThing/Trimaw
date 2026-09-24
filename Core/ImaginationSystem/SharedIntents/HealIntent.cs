@@ -11,8 +11,6 @@ namespace Trimaw.Core.ImaginationSystem.SharedIntents;
 
 public class HealIntent(int amount) : LabeledFigmentIntent<Figment>
 {
-    private readonly HealVar _heal = new(amount);
-
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Heal;
 
     protected override string DefaultTipIconPath => Pathfinder.VanillaPower64<RegenPower>();
@@ -21,7 +19,7 @@ public class HealIntent(int amount) : LabeledFigmentIntent<Figment>
     {
         var threshold = ctx.MoveUser.OwnerHpThreshold;
         var current = ctx.PetOwner.Creature.CurrentHp;
-        return Math.Min(_heal.BaseValue, threshold - current);
+        return Math.Min(ctx.TransformAmount(amount), threshold - current);
     }
 
     protected override void FormatIntentLabel(LocString label, MoveContext<Figment> ctx)
@@ -33,7 +31,7 @@ public class HealIntent(int amount) : LabeledFigmentIntent<Figment>
 
     protected override void FormatTipDescription(LocString desc, MoveContext<Figment> ctx)
     {
-        desc.Add(_heal);
+        desc.Add(new HealVar(amount));
         desc.Add("Threshold", ctx.MoveUser.OwnerHpThreshold);
     }
 
@@ -48,7 +46,7 @@ public class HealIntent(int amount) : LabeledFigmentIntent<Figment>
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<Figment> ctx, PlayerChoiceContext choiceCtx)
     {
-        await ImaginationCmd.RefreshHp(ctx.MoveUser, amount);
+        await ImaginationCmd.RefreshHp(ctx.MoveUser, (int)ctx.TransformAmount(amount));
         return FigmentMoveResult.Success;
     }
 }
