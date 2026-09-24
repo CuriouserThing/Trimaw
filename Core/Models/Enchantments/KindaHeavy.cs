@@ -7,7 +7,7 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Enchantments;
 
-public class ReallyHeavy : TrimawEnchantment
+public class KindaHeavy : TrimawEnchantment
 {
     private const string DamageDivisorKey = "DamageDivisor";
     public override string Icon64Path => Pathfinder.GameIconsDotnet64("weight");

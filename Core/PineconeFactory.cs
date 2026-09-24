@@ -30,6 +30,8 @@ public class PineconeFactory : ITrimawCombatManagerFactory
         Enchant<Glam>(),
         Enchant<ReallyHot>(4),
         Enchant<ReallyCold>(4),
+        Enchant<ReallyDry>(4),
+        Enchant<ReallyWet>(4),
 
         // Costs 0-1
         Enchant<Hyperfixated>(),
@@ -52,7 +54,7 @@ public class PineconeFactory : ITrimawCombatManagerFactory
         Enchant<Focused>(),
 
         // Is an Attack that deals N+ damage
-        Enchant<ReallyHeavy>(),
+        Enchant<KindaHeavy>(),
 
         // Gains block
         Enchant<Nimble>(3)

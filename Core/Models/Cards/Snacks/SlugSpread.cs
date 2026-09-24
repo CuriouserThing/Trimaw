@@ -11,14 +11,14 @@ public class SlugSpread : SnackCard
 {
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var reallyHeavy = ModelDb.Enchantment<ReallyHeavy>();
+        var reallyHeavy = ModelDb.Enchantment<KindaHeavy>();
         var pool = Owner.Character.CardPool
             .GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint)
             .Where(reallyHeavy.CanEnchant);
         var attack = CardFactory.GetDistinctForCombat(Owner, pool, 1, Owner.RunState.Rng.CombatCardGeneration)
             .FirstOrDefault();
         if (attack is null) return;
-        CardCmd.Enchant<ReallyHeavy>(attack, 1);
+        CardCmd.Enchant<KindaHeavy>(attack, 1);
         if (IsUpgraded) CardCmd.Upgrade(attack);
         await CardPileCmd.AddGeneratedCardToCombat(attack, PileType.Hand, Owner);
     }

@@ -8,7 +8,7 @@ using Trimaw.Core.SnackSystem;
 
 namespace Trimaw.Core.Models.Cards.Common;
 
-public class ReallyDryBread() : TrimawCard(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
+public class ReallyHardBread() : TrimawCard(2, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
