@@ -4,7 +4,7 @@ namespace Trimaw.Core.Models.Powers;
 
 public abstract class FigmentTalent : FigmentPower
 {
-    protected internal virtual MoveParams ModifyMoveParams(MoveParams moveParams)
+    protected internal virtual MoveParams ModifyMoveParams(MoveParams moveParams, bool dryRun)
     {
         return moveParams;
     }

@@ -14,16 +14,16 @@ public class BusinessAsUsualTalent : FigmentTalent
     public override string Icon64Path => Pathfinder.NotoEmoji64("money_bag");
     public override string Icon256Path => Pathfinder.NotoEmoji256("money_bag");
 
-    protected internal override MoveParams ModifyMoveParams(MoveParams moveParams)
+    protected internal override MoveParams ModifyMoveParams(MoveParams moveParams, bool dryRun)
     {
-        var oldAmount = moveParams.Amount ?? 0;
+        var oldAmount = moveParams.Addend ?? 0;
         var payment = Figment.PetOwner.Gold / Amount;
-        return new MoveParams(moveParams) { Amount = oldAmount + payment };
+        return new MoveParams(moveParams) { Addend = oldAmount + payment };
     }
 
     protected internal override async Task AfterModifyingMoveParams(MoveParams originalParams, MoveParams newParams)
     {
-        var payment = (int)((newParams.Amount ?? 0) - (originalParams.Amount ?? 0));
+        var payment = (int)((newParams.Addend ?? 0) - (originalParams.Addend ?? 0));
         if (payment <= 0) return;
         await PlayerCmd.LoseGold(payment, Figment.PetOwner, GoldLossType.Spent);
         var historyEntry = new GoldSpentOnFigmentEntry(Figment.PetOwner, payment, Figment);

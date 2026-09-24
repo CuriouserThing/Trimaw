@@ -235,7 +235,7 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
     private static MoveContext<T> CreateContext(T moveUser, Player petOwner, MoveParams? moveParams = null)
     {
         moveParams = moveUser.Creature.Powers.OfType<FigmentTalent>()
-            .Aggregate(moveParams ?? MoveParams.None, (current, talent) => talent.ModifyMoveParams(current));
+            .Aggregate(moveParams ?? MoveParams.None, (current, talent) => talent.ModifyMoveParams(current, true));
         return new MoveContext<T>(moveUser, petOwner, moveParams);
     }
 
@@ -243,7 +243,7 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
     {
         foreach (var talent in moveUser.Creature.Powers.OfType<FigmentTalent>())
         {
-            var newParams = talent.ModifyMoveParams(moveParams);
+            var newParams = talent.ModifyMoveParams(moveParams, false);
             await talent.AfterModifyingMoveParams(moveParams, newParams);
             moveParams = newParams;
         }

@@ -19,13 +19,16 @@ public abstract class MoveContext(Player petOwner, MoveParams moveParams)
     public MegaAnimationState? AnimationState =>
         MoveUser.Creature.GetCreatureNode()?.Visuals.SpineBody?.TryGetAnimationState();
 
-    /// <summary>
-    ///     Non-negative numeric param for the move to use. As with <see cref="Creature.GetPowerAmount" />, 0 implies no
-    ///     particular amount (the caller must pass only positive amounts).
-    /// </summary>
     public decimal GetAmount()
     {
-        return Params.Amount is { } amount and > 0 ? amount : 0;
+        return TransformAmount(0);
+    }
+
+    public decimal TransformAmount(decimal amount)
+    {
+        amount += Params.Addend is { } addend and > 0 ? addend : 0;
+        amount *= Params.Multiplier is { } multiplier and > 1 ? multiplier : 1;
+        return amount;
     }
 
     /// <summary>

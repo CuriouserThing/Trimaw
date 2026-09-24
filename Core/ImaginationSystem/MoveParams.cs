@@ -11,15 +11,14 @@ public class MoveParams
 
     public MoveParams(MoveParams other)
     {
-        Amount = other.Amount;
+        Addend = other.Addend;
+        Multiplier = other.Multiplier;
         Target = other.Target;
     }
 
-    /// <summary>
-    ///     General-purpose number that a <see cref="FigmentTrigger" /> may be passing to a <see cref="FigmentIntent" />.
-    ///     Must be positive.
-    /// </summary>
-    public decimal? Amount { get; init; }
+    public decimal? Addend { get; init; }
+
+    public decimal? Multiplier { get; init; }
 
     /// <summary>
     ///     Single target that a <see cref="FigmentTrigger" /> may be passing to a <see cref="FigmentIntent" />.

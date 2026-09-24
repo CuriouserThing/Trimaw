@@ -27,6 +27,6 @@ public class MahuizzotiaTrigger : FigmentMonoTrigger
         if (dealer is null || dealer != Owner.PetOwner?.Creature ||
             damage < DynamicVars[DamageThresholdKey].BaseValue) return;
 
-        await TriggerMove(choiceContext, new MoveParams { Amount = damage, Target = target });
+        await TriggerMove(choiceContext, new MoveParams { Addend = damage, Target = target });
     }
 }

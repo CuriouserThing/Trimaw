@@ -10,26 +10,29 @@ namespace Trimaw.Core.ImaginationSystem.SharedIntents;
 
 public class AttackRandomIntent(int amount) : LabeledFigmentIntent<Figment>
 {
-    private readonly DamageVar _damage = new(amount, ValueProp.Move);
-
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack3;
 
     protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("collision");
 
+    private DamageVar GetDamage(MoveContext ctx)
+    {
+        return new DamageVar(ctx.TransformAmount(amount), ValueProp.Move);
+    }
+
     protected override void FormatIntentLabel(LocString label, MoveContext<Figment> ctx)
     {
-        FormatWithAnyCreatureDamage(label, ctx, _damage);
+        FormatWithAnyCreatureDamage(label, ctx, GetDamage(ctx));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<Figment> ctx)
     {
-        FormatWithAnyCreatureDamage(desc, ctx, _damage);
+        FormatWithAnyCreatureDamage(desc, ctx, GetDamage(ctx));
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<Figment> ctx, PlayerChoiceContext choiceCtx)
     {
         await DamageCmd
-            .Attack(_damage.BaseValue)
+            .Attack(GetDamage(ctx).BaseValue)
             .FromFigment(ctx.MoveUser)
             .TargetingRandomOpponents(ctx.CombatState)
             .Execute(choiceCtx);
