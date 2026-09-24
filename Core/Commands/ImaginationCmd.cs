@@ -2,7 +2,10 @@ using Godot;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
+using MegaCrit.Sts2.Core.Models.Powers;
+using MegaCrit.Sts2.Core.ValueProps;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.Models.Monsters;
 using Trimaw.Core.Models.Powers;
@@ -74,18 +77,14 @@ public static class ImaginationCmd
         if (oldestPopping) oldestFigment.MarkForPopping();
 
         // Init and sort spans
-        //      We distribute the popping figment's HP to live figments *here* without physically healing them,
-        //      since we need to wait until they're in physical position before triggering the heal animation
         var allFigments = figmentBuffer.AsSpan();
         var allFigmentSlots = slotBuffer.AsSpan();
         var liveFigments = allFigments[liveRange];
         var liveFigmentSlots = allFigmentSlots[liveRange];
-        var liveFigmentHpMap = DistributeHp(liveFigments,
-            oldestPopping ? oldestFigment.Creature.CurrentHp : 0);
         liveFigments.Sort((x, y) =>
         {
             // Sort by hit priority from back (low) to front (high)
-            var hpDelta = liveFigmentHpMap[x] - liveFigmentHpMap[y];
+            var hpDelta = x.Creature.CurrentHp - y.Creature.CurrentHp;
             if (hpDelta != 0) return hpDelta;
             return (x.Timestamp ?? 0) - (y.Timestamp ?? 0);
         });
@@ -97,9 +96,8 @@ public static class ImaginationCmd
         if (repositionNeeded) FillCleanSlots(liveFigments, liveFigmentSlots, slotsAvailable);
         if (oldestPopping) allFigmentSlots[0] = oldestFigment.CurrentSlotIndex ?? 0;
 
-        // Physically place *all* figments into assigned slots (even the popping figment),
+        // Physically place *all* figments into assigned slots (even the popping figment, which will then move to its deathbed),
         // creating reposition tweens as needed
-        const float shiftDuration = 0.50f;
         if (owner.Creature.GetCreatureNode() is { } nOwner)
         {
             var parent = nOwner.GetParent<CanvasItem>();
@@ -107,35 +105,32 @@ public static class ImaginationCmd
             nOwner.YSortEnabled = true;
 
             for (var i = 0; i < allFigments.Length; i += 1)
-                allFigments[i].SetSlot(allFigmentSlots[i], slotMap, nOwner, shiftDuration);
+                allFigments[i].SetSlot(allFigmentSlots[i], slotMap, nOwner);
         }
 
+        // Convert popping figment HP into block
         if (oldestPopping)
         {
-            // Wait for live figment repositions to finish so the +HP animation plays at the correct position
-            if (oldestFigment.NoAnimationPending) await oldestFigment.Pop();
-            if (repositionNeeded) await Cmd.CustomScaledWait(shiftDuration, shiftDuration);
-
-            // *Now* heal live figments up to their calculated HP values 
-            for (var i = 1; i < figmentBuffer.Length; i += 1)
-            {
-                if (oldestFigment.NoAnimationPending) await oldestFigment.Pop();
-                var figment = figmentBuffer[i];
-                var heal = liveFigmentHpMap[figment] - figment.Creature.CurrentHp;
-                if (heal > 0) await CreatureCmd.Heal(figment.Creature, heal);
-            }
-
-            // One last check to see if animations have finished
-            if (oldestFigment.NoAnimationPending) await oldestFigment.Pop();
+            var block = new BlockVar(oldestFigment.Creature.CurrentHp, ValueProp.Unpowered);
+            await CreatureCmd.GainBlock(owner.Creature, block, null);
+            await oldestFigment.Pop();
         }
 
-        // Finish new figment initialization
-        // NOTE: if there's a figment power that uses a hook that the above move/heals trigger,
-        // the choice to put it here *is* mechanically significant -- food for thought
+        // Finish new figment init
         await newFigment.SetMoveAndPowers(choiceContext);
 
+        // Heal new figment by vigor
+        var ownerVigor = owner.Creature.GetPower<VigorPower>();
+        var hpToHeal = Math.Min(
+            newFigment.Creature.MaxHp - newFigment.Creature.CurrentHp,
+            ownerVigor?.Amount ?? 0);
+        if (hpToHeal > 0 && ownerVigor is not null)
+        {
+            await PowerCmd.ModifyAmount(choiceContext, ownerVigor, -hpToHeal, owner.Creature, null);
+            await CreatureCmd.Heal(newFigment.Creature, hpToHeal);
+        }
+
         // Done!
-        if (oldestPopping) await oldestFigment.Pop();
         await imagineTimerTask;
         MainFile.Logger.Info($"Finished adding {newFigment.GetType().Name} instance.");
     }

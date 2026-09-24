@@ -17,15 +17,15 @@ public class MegaRngFigmentPoolFilterer(IReadOnlyList<Figment> figmentPool, Rng 
         new FigmentSlot(
             new Vector2(-210, -55),
             new Vector2(-200, +1),
-            new RectangleF(-200, -71, 100, 10)),
+            new RectangleF(-200, -81, 100, 10)),
         new FigmentSlot(
             new Vector2(+160, -70),
             new Vector2(+230, +1),
-            new RectangleF(+180, -80, 100, 10)),
+            new RectangleF(+180, -81, 100, 10)),
         new FigmentSlot(
             new Vector2(+350, -50),
             new Vector2(+240, +1),
-            new RectangleF(+220, -71, 100, 10)));
+            new RectangleF(+220, -81, 100, 10)));
 
     private readonly Queue<Figment> _queue = new();
     private bool _activeImagination;

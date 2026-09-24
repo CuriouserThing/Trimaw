@@ -8,7 +8,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.MonsterMoves.MonsterMoveStateMachine;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using MegaCrit.Sts2.Core.Nodes.Rooms;
@@ -92,11 +91,8 @@ public abstract class Figment : CustomMonsterModel
         _petOwner = owner;
 
         // Set HP
-        var maxHp = MaxHp;
-        var additional = owner.Creature.GetPowerAmount<VigorPower>();
-        var initial = Math.Min(maxHp, InitialHp + additional);
-        await CreatureCmd.SetMaxHp(Creature, maxHp);
-        await CreatureCmd.SetCurrentHp(Creature, initial);
+        await CreatureCmd.SetMaxHp(Creature, MaxHp);
+        await CreatureCmd.SetCurrentHp(Creature, InitialHp);
 
         // Find the highest timestamp among all pets (default of 0) and increment it
         var maxTimestamp = owner.Creature.Pets
@@ -110,7 +106,7 @@ public abstract class Figment : CustomMonsterModel
         await PlayerCmd.AddPet(Creature, owner);
     }
 
-    internal void SetSlot(int slotIndex, FigmentSlotMap slotMap, NCreature nOwner, double shiftDuration)
+    internal void SetSlot(int slotIndex, FigmentSlotMap slotMap, NCreature nOwner)
     {
         if (!IsMutable) return;
 
@@ -123,13 +119,23 @@ public abstract class Figment : CustomMonsterModel
         nFigment.Position = oldPos;
         nFigment.ToggleIsInteractable(true);
 
-        var newSlot = slotMap.Slots[slotIndex];
-        var newPos = nOwner.Position + newSlot.IdlePosition;
-        if (newPos != oldPos) ShiftNode(nFigment, newPos, null, shiftDuration, 0.25, 0.15, true, true);
-
         var parent = nFigment.GetParent<CanvasItem>();
         parent.YSortEnabled = true;
         nFigment.YSortEnabled = true;
+
+        if (_markedForPopping)
+        {
+            ShiftToDeathbed();
+            return;
+        }
+
+        var newSlot = slotMap.Slots[slotIndex];
+        var newPos = nOwner.Position + newSlot.IdlePosition;
+        if (newPos != oldPos)
+        {
+            var shiftDuration = GetShiftDuration();
+            ShiftNode(nFigment, newPos, null, shiftDuration, 0.25, 0.15, true, true);
+        }
 
         CurrentSlotIndex = slotIndex;
         CurrentSlotMap = slotMap;
@@ -192,7 +198,7 @@ public abstract class Figment : CustomMonsterModel
         SetNextMove();
     }
 
-    internal async Task UseMove(PlayerChoiceContext choiceContext, MoveParams moveParams)
+    private async Task UseMove(PlayerChoiceContext choiceContext, MoveParams moveParams)
     {
         // Can still use move if _markedForPopping
         if (!IsMutable || _hasPopped) return;
@@ -333,10 +339,9 @@ public abstract class Figment : CustomMonsterModel
         _hasPopped = true;
         if (NCombatRoom.Instance?.GetCreatureNode(creature) is { } node)
         {
-            await Task.WhenAll(
-                _actionAnimator.FinishAllAnimations(),
-                _tweenTimer?.WaitForTimeout() ?? Task.CompletedTask);
+            await _actionAnimator.FinishAllAnimations();
             node.StartDeathAnim(true);
+            await (_tweenTimer?.WaitForTimeout() ?? Task.CompletedTask);
             NCombatRoom.Instance.RemoveCreatureNode(node);
         }
 
@@ -356,7 +361,7 @@ public abstract class Figment : CustomMonsterModel
             return;
 
         var deathbed = nOwner.Position + slot.GetRandomDeathbedPosition();
-        var shiftDuration = GetShiftDuration();
+        var shiftDuration = GetShiftDuration() * 0.5;
         ShiftNode(nFigment, deathbed, scale, shiftDuration, 0.10, 0.10, false, false);
     }
 
