@@ -42,16 +42,16 @@ public class TiacauhShredderIntent : LabeledFigmentIntent<TiacauhShredderFigment
         desc.Add(new DynamicVar(nameof(ExtraDamage), ExtraDamage));
     }
 
-    protected override bool CanPerform(MoveContext<TiacauhShredderFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<TiacauhShredderFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.GetTarget();
-        return target is not null;
+        visualTarget = ctx.GetEnemyTarget();
+        return visualTarget is not null;
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<TiacauhShredderFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        if (ctx.GetTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
+        if (ctx.GetEnemyTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
 
         await DamageCmd
             .Attack(GetDamage(ctx))

@@ -13,9 +13,9 @@ public class GummyIntent : UnlabeledFigmentIntent<GummyFigment>
 
     protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("cookie");
 
-    protected override bool CanPerform(MoveContext<GummyFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<GummyFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.PetOwner.Creature;
+        visualTarget = ctx.PetOwner.Creature;
         return ctx.PetOwner.Creature.IsAlive;
     }
 

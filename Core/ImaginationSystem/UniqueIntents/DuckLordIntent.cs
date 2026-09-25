@@ -34,9 +34,9 @@ public class DuckLordIntent : LabeledFigmentIntent<DuckLordFigment>
         label.Add(new RepeatVar(GetAmount(ctx)));
     }
 
-    protected override bool CanPerform(MoveContext<DuckLordFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<DuckLordFigment> ctx, out Creature? visualTarget)
     {
-        target = null;
+        visualTarget = null;
         return GetAmount(ctx) > 0;
     }
 

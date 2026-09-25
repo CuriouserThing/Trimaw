@@ -39,9 +39,9 @@ public abstract class MoveContext(Player petOwner, MoveParams moveParams)
     ///     Optional predicate to narrow down any random selection from the set of all hittable
     ///     enemies.
     /// </param>
-    public Creature? GetTarget(Predicate<Creature>? validTargetPredicate = null)
+    public Creature? GetEnemyTarget(Predicate<Creature>? validTargetPredicate = null)
     {
-        if (Params.Target is { IsAlive: true } target) return target;
+        if (Params.EnemyTarget is { IsAlive: true } target) return target;
 
         IEnumerable<Creature> enemies = MoveUser.CombatState.HittableEnemies;
         if (validTargetPredicate is { } isValidTarget)

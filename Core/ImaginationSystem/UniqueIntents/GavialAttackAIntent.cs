@@ -27,16 +27,16 @@ public class GavialAttackAIntent : LabeledFigmentIntent<GavialFigment>
         desc.Add(new DynamicVar(nameof(StrengthLoss), StrengthLoss));
     }
 
-    protected override bool CanPerform(MoveContext<GavialFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<GavialFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.GetTarget();
-        return target is not null;
+        visualTarget = ctx.GetEnemyTarget();
+        return visualTarget is not null;
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<GavialFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        if (ctx.GetTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
+        if (ctx.GetEnemyTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
 
         await PowerCmd.Apply<ManglePower>(choiceCtx, target, ctx.TransformAmount(StrengthLoss), ctx.MoveUser.Creature,
             null);

@@ -19,9 +19,9 @@ public class VulcanIntent : UnlabeledFigmentIntent<VulcanFigment>
         return PileType.Hand.GetPile(ctx.PetOwner).Cards.Where(c => c.IsUpgradable);
     }
 
-    protected override bool CanPerform(MoveContext<VulcanFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<VulcanFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.PetOwner.Creature;
+        visualTarget = ctx.PetOwner.Creature;
         return ctx.PetOwner.Creature.IsAlive && GetCards(ctx).Any();
     }
 

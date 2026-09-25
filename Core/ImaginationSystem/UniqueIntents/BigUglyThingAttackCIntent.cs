@@ -31,7 +31,7 @@ public class BigUglyThingAttackCIntent : LabeledFigmentIntent<BigUglyThingFigmen
     private static Creature? GetTarget(MoveContext ctx)
     {
         var highest = ctx.CombatState.HittableEnemies.Max(c => c.CurrentHp);
-        return ctx.GetTarget(c => c.CurrentHp == highest);
+        return ctx.GetEnemyTarget(c => c.CurrentHp == highest);
     }
 
     private static int GetHitCount(MoveContext ctx)
@@ -70,10 +70,10 @@ public class BigUglyThingAttackCIntent : LabeledFigmentIntent<BigUglyThingFigmen
         desc.Add(new EnergyVar(Energy));
     }
 
-    protected override bool CanPerform(MoveContext<BigUglyThingFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<BigUglyThingFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.GetTarget();
-        return target is not null;
+        visualTarget = ctx.GetEnemyTarget();
+        return visualTarget is not null;
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<BigUglyThingFigment> ctx,

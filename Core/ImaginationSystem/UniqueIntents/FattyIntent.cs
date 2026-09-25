@@ -35,9 +35,9 @@ public class FattyIntent : LabeledFigmentIntent<FattyFigment>
         desc.Add(ExtraPlating);
     }
 
-    protected override bool CanPerform(MoveContext<FattyFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<FattyFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.PetOwner.Creature;
+        visualTarget = ctx.PetOwner.Creature;
         return ctx.PetOwner.Creature.IsAlive;
     }
 

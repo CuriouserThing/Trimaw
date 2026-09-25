@@ -18,6 +18,6 @@ public class TargetTrigger : FigmentMonoTrigger
         if (cardPlay.Player != Owner.PetOwner ||
             cardPlay.Target is not { } target) return;
 
-        await TriggerMove(choiceContext, new MoveParams { Target = target });
+        await TriggerMove(choiceContext, new MoveParams { EnemyTarget = target });
     }
 }

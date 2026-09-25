@@ -35,10 +35,10 @@ public class TiacauhFanaticIntent : LabeledFigmentIntent<TiacauhFanaticFigment>
         desc.Add(Poison);
     }
 
-    protected override bool CanPerform(MoveContext<TiacauhFanaticFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<TiacauhFanaticFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.GetTarget();
-        return target is not null;
+        visualTarget = ctx.GetEnemyTarget();
+        return visualTarget is not null;
     }
 
     private static async Task Apply<T>(MoveContext ctx, PlayerChoiceContext choiceCtx, Creature target,
@@ -51,7 +51,7 @@ public class TiacauhFanaticIntent : LabeledFigmentIntent<TiacauhFanaticFigment>
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<TiacauhFanaticFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        if (ctx.GetTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
+        if (ctx.GetEnemyTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
 
         await Apply(ctx, choiceCtx, target, Weak);
         await Apply(ctx, choiceCtx, target, Frail);

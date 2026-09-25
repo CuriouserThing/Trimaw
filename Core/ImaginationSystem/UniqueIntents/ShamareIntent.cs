@@ -27,10 +27,10 @@ public class ShamareIntent : UnlabeledFigmentIntent<ShamareFigment>
         desc.Add(Doom);
     }
 
-    protected override bool CanPerform(MoveContext<ShamareFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<ShamareFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.GetTarget();
-        return target is not null;
+        visualTarget = ctx.GetEnemyTarget();
+        return visualTarget is not null;
     }
 
     private static async Task Apply<T>(MoveContext ctx, PlayerChoiceContext choiceCtx, Creature target,
@@ -43,7 +43,7 @@ public class ShamareIntent : UnlabeledFigmentIntent<ShamareFigment>
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<ShamareFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        if (ctx.GetTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
+        if (ctx.GetEnemyTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
 
         await Apply(ctx, choiceCtx, target, Vulnerable);
         await Apply(ctx, choiceCtx, target, Weak);

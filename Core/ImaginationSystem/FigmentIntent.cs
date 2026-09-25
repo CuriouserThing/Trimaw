@@ -73,7 +73,7 @@ public abstract class FigmentIntent() : StatusIntent(0)
         Figment moveUser,
         Player owner,
         MoveParams moveParams,
-        out Creature? target);
+        out Creature? visualTarget);
 
     internal abstract Task BeforePerform(
         Figment moveUser,
@@ -332,9 +332,9 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
         Figment moveUser,
         Player owner,
         MoveParams moveParams,
-        out Creature? target)
+        out Creature? visualTarget)
     {
-        target = null;
+        visualTarget = null;
         if (moveUser is not T moveUserSpecial)
         {
             MainFile.Logger.Warn(
@@ -343,7 +343,7 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
         }
 
         var ctx = CreateContext(moveUserSpecial, owner, moveParams);
-        return CanPerform(ctx, out target);
+        return CanPerform(ctx, out visualTarget);
     }
 
     internal sealed override async Task BeforePerform(Figment moveUser, Player owner, MoveParams moveParams,
@@ -382,12 +382,12 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
     }
 
     /// <summary>
-    ///     Override if the intent may need to return false to report the move is unperformable, or to return a target ahead of
-    ///     time (to help the animator etc.)
+    ///     Override if the intent may need to return false to report the move is unperformable, or to specify a visual target
+    ///     ahead of time (to help the animator etc.)
     /// </summary>
-    protected virtual bool CanPerform(MoveContext<T> ctx, out Creature? target)
+    protected virtual bool CanPerform(MoveContext<T> ctx, out Creature? visualTarget)
     {
-        target = null;
+        visualTarget = null;
         return true;
     }
 

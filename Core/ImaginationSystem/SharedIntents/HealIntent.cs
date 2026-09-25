@@ -1,3 +1,4 @@
+using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
@@ -15,38 +16,36 @@ public class HealIntent(int amount) : LabeledFigmentIntent<Figment>
 
     protected override string DefaultTipIconPath => Pathfinder.VanillaPower64<RegenPower>();
 
-    private decimal CalculateHeal(MoveContext<Figment> ctx)
-    {
-        var threshold = ctx.MoveUser.OwnerHpThreshold;
-        var current = ctx.PetOwner.Creature.CurrentHp;
-        return Math.Min(ctx.TransformAmount(amount), threshold - current);
-    }
-
     protected override void FormatIntentLabel(LocString label, MoveContext<Figment> ctx)
     {
-        var heal = CalculateHeal(ctx);
-        label.Add(new HealVar(heal));
-        label.Add("IfCapped", heal < amount);
+        label.Add(new HealVar(ctx.TransformAmount(amount)));
     }
 
     protected override void FormatTipDescription(LocString desc, MoveContext<Figment> ctx)
     {
         desc.Add(new HealVar(amount));
-        desc.Add("Threshold", ctx.MoveUser.OwnerHpThreshold);
     }
 
-    protected override bool CanPerform(MoveContext<Figment> ctx, out Creature? target)
+    private static Creature? GetTarget(MoveContext ctx)
     {
-        // Turn only if healing player
-        target = ctx.MoveUser.OwnerHpThreshold > ctx.PetOwner.Creature.CurrentHp
-            ? ctx.PetOwner.Creature
-            : null;
-        return ctx.PetOwner.Creature.IsAlive;
+        return ctx.PetOwner.GetFigments()
+            .Select(f => f.Creature)
+            .Where(c => c.CurrentHp < c.MaxHp)
+            .OrderBy(c => c.CurrentHp)
+            .FirstOrDefault();
+    }
+
+    protected override bool CanPerform(MoveContext<Figment> ctx, out Creature? visualTarget)
+    {
+        var target = GetTarget(ctx);
+        visualTarget = target;
+        return target is not null;
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<Figment> ctx, PlayerChoiceContext choiceCtx)
     {
-        await ImaginationCmd.RefreshHp(ctx.MoveUser, (int)ctx.TransformAmount(amount));
+        if (GetTarget(ctx) is not { } target) return FigmentMoveResult.NoValidTarget;
+        await CreatureCmd.Heal(target, ctx.TransformAmount(amount));
         return FigmentMoveResult.Success;
     }
 }

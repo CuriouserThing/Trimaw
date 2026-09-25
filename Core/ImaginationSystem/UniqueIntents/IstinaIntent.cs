@@ -26,9 +26,9 @@ public class IstinaIntent : LabeledFigmentIntent<IstinaFigment>
         desc.Add(new EnergyVar(Energy));
     }
 
-    protected override bool CanPerform(MoveContext<IstinaFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<IstinaFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.PetOwner.Creature;
+        visualTarget = ctx.PetOwner.Creature;
         return true;
     }
 

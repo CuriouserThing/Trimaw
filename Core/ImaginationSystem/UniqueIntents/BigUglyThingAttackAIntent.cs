@@ -22,7 +22,7 @@ public class BigUglyThingAttackAIntent : LabeledFigmentIntent<BigUglyThingFigmen
     private static Creature? GetTarget(MoveContext ctx)
     {
         var highest = ctx.CombatState.HittableEnemies.Max(c => c.CurrentHp);
-        return ctx.GetTarget(c => c.CurrentHp == highest);
+        return ctx.GetEnemyTarget(c => c.CurrentHp == highest);
     }
 
     protected override void FormatIntentLabel(LocString label, MoveContext<BigUglyThingFigment> ctx)
@@ -37,10 +37,10 @@ public class BigUglyThingAttackAIntent : LabeledFigmentIntent<BigUglyThingFigmen
         desc.Add(new PowerVar<VulnerablePower>(Vulnerable));
     }
 
-    protected override bool CanPerform(MoveContext<BigUglyThingFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<BigUglyThingFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.GetTarget();
-        return target is not null;
+        visualTarget = ctx.GetEnemyTarget();
+        return visualTarget is not null;
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<BigUglyThingFigment> ctx,

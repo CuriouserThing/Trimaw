@@ -22,7 +22,7 @@ public class RosaIntent : LabeledFigmentIntent<RosaFigment>
     private static Creature? GetTarget(MoveContext ctx)
     {
         var highest = ctx.CombatState.HittableEnemies.Max(c => c.CurrentHp);
-        return ctx.GetTarget(c => c.CurrentHp == highest);
+        return ctx.GetEnemyTarget(c => c.CurrentHp == highest);
     }
 
     private static decimal GetDamage(Creature? target, MoveContext ctx)
@@ -51,10 +51,10 @@ public class RosaIntent : LabeledFigmentIntent<RosaFigment>
         desc.Add(new DynamicVar(nameof(ExtraHp), ExtraHp));
     }
 
-    protected override bool CanPerform(MoveContext<RosaFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<RosaFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.GetTarget();
-        return target is not null;
+        visualTarget = ctx.GetEnemyTarget();
+        return visualTarget is not null;
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<RosaFigment> ctx,

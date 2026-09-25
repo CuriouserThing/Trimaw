@@ -29,16 +29,16 @@ public class FlintIntent : LabeledFigmentIntent<FlintFigment>
         desc.Add(new DamageVar(Damage, ValueProp.Unpowered | ValueProp.Move));
     }
 
-    protected override bool CanPerform(MoveContext<FlintFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<FlintFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.GetTarget();
-        return target is not null;
+        visualTarget = ctx.GetEnemyTarget();
+        return visualTarget is not null;
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<FlintFigment> ctx,
         PlayerChoiceContext choiceCtx)
     {
-        if (ctx.GetTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
+        if (ctx.GetEnemyTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
 
         await CreatureCmd.Damage(choiceCtx, target, new DamageVar(Damage, ValueProp.Unpowered | ValueProp.Move),
             ctx.MoveUser.Creature);

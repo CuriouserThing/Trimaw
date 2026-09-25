@@ -13,9 +13,9 @@ public class EunectesBuildIntent : UnlabeledFigmentIntent<EunectesFigment>
 
     protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("nut_and_bolt");
 
-    protected override bool CanPerform(MoveContext<EunectesFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<EunectesFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.PetOwner.Creature; // turn toward player, even though this doesn't target them per se
+        visualTarget = ctx.PetOwner.Creature; // turn toward player, even though this doesn't target them per se
         return true;
     }
 

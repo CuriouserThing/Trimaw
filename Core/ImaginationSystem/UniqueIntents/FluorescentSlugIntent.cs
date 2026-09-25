@@ -13,9 +13,9 @@ public class FluorescentSlugIntent : UnlabeledFigmentIntent<FluorescentSlugFigme
 
     protected override string DefaultTipIconPath => Pathfinder.GameIconsDotnet64("knife_fork");
 
-    protected override bool CanPerform(MoveContext<FluorescentSlugFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<FluorescentSlugFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.PetOwner.Creature;
+        visualTarget = ctx.PetOwner.Creature;
         return true;
     }
 

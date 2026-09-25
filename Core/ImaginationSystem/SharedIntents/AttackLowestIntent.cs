@@ -31,10 +31,10 @@ public class AttackLowestIntent(int amount) : LabeledFigmentIntent<Figment>
         FormatWithTargetedDamage(desc, ctx, GetTarget(ctx), new DamageVar(amount, ValueProp.Move));
     }
 
-    protected override bool CanPerform(MoveContext<Figment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<Figment> ctx, out Creature? visualTarget)
     {
-        target = GetTarget(ctx);
-        return target is not null;
+        visualTarget = GetTarget(ctx);
+        return visualTarget is not null;
     }
 
     protected override async Task<FigmentMoveResult> OnPerform(MoveContext<Figment> ctx, PlayerChoiceContext choiceCtx)

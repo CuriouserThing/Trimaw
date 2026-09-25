@@ -13,9 +13,9 @@ public class BeehunterIntent : UnlabeledFigmentIntent<BeehunterFigment>
 
     protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("honey_pot");
 
-    protected override bool CanPerform(MoveContext<BeehunterFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<BeehunterFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.PetOwner.Creature;
+        visualTarget = ctx.PetOwner.Creature;
         return ctx.PetOwner.Creature.IsAlive;
     }
 

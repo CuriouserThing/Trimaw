@@ -13,9 +13,9 @@ public class BerrySlugIntent : UnlabeledFigmentIntent<BerrySlugFigment>
 
     protected override string DefaultTipIconPath => Pathfinder.GameIconsDotnet64("knife_fork");
 
-    protected override bool CanPerform(MoveContext<BerrySlugFigment> ctx, out Creature? target)
+    protected override bool CanPerform(MoveContext<BerrySlugFigment> ctx, out Creature? visualTarget)
     {
-        target = ctx.PetOwner.Creature;
+        visualTarget = ctx.PetOwner.Creature;
         return true;
     }
 

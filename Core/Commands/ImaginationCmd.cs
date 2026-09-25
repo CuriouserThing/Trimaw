@@ -135,62 +135,6 @@ public static class ImaginationCmd
         MainFile.Logger.Info($"Finished adding {newFigment.GetType().Name} instance.");
     }
 
-    public static async Task RefreshHp(Figment healer, int amount)
-    {
-        if (amount < 1)
-        {
-            MainFile.Logger.Error($"Can only refresh a positive amount of HP (attempted to refresh {amount}.");
-            return;
-        }
-
-        var petOwner = healer.PetOwner;
-        var threshold = healer.OwnerHpThreshold;
-        var current = petOwner.Creature.CurrentHp;
-        var playerHeal = Math.Min(amount, threshold - current);
-        if (playerHeal > 0) await CreatureCmd.Heal(petOwner.Creature, playerHeal);
-
-        var figments = petOwner.GetFigments().ToArray();
-        var hpMap = DistributeHp(figments, amount - playerHeal);
-        foreach (var figment in figments)
-        {
-            var heal = hpMap[figment] - figment.Creature.CurrentHp;
-            if (heal > 0) await CreatureCmd.Heal(figment.Creature, heal);
-        }
-    }
-
-    private static Dictionary<Figment, int> DistributeHp(ReadOnlySpan<Figment> figments, int hp)
-    {
-        var figmentHpMap = new Dictionary<Figment, int>();
-        foreach (var figment in figments) figmentHpMap.Add(figment, figment.Creature.CurrentHp);
-
-        var figmentsToShareWith = figments.Length;
-        while (figmentsToShareWith > 0 && hp >= figmentsToShareWith)
-        {
-            var cap = hp / figmentsToShareWith; // truncated for even HP sharing
-            figmentsToShareWith = 0; // recount figments
-            foreach (var figment in figments)
-            {
-                var gap = figment.Creature.MaxHp - figmentHpMap[figment];
-                var heal = Math.Min(cap, gap);
-                if (heal < gap) figmentsToShareWith += 1; // can still take more HP
-                figmentHpMap[figment] += heal;
-                hp -= heal;
-            }
-        }
-
-        // There may be a miniscule amount of HP left, so just parcel it out as able in figment order
-        foreach (var figment in figments)
-        {
-            var cap = hp;
-            var gap = figment.Creature.MaxHp - figmentHpMap[figment];
-            var heal = Math.Min(cap, gap);
-            figmentHpMap[figment] += heal;
-            hp -= heal;
-        }
-
-        return figmentHpMap;
-    }
-
     private static bool TryFillSlotsWithoutRepositioning(ReadOnlySpan<Figment> figments, Span<int> slotBuffer,
         int slotsAvailable)
     {
