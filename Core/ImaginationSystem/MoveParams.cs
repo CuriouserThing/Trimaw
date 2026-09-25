@@ -16,6 +16,8 @@ public class MoveParams
         EnemyTarget = other.EnemyTarget;
     }
 
+    public decimal? BaseAmount { get; init; }
+
     public decimal? Addend { get; init; }
 
     public decimal? Multiplier { get; init; }
