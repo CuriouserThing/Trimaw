@@ -16,7 +16,7 @@ public class AlleyOopTalent : FigmentTalent
 
     public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (player != Owner.Player) return;
+        if (player != Figment.PetOwner) return;
 
         Flash();
         var card = CombatState.CreateCard<UltimateStrike>(player);
