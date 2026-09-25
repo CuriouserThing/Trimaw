@@ -24,7 +24,7 @@
   "TRIMAW-REALLY_HOT.title": "Really Hot",
   "TRIMAW-REALLY_HOT.description": "Whenever this card enters your [gold]Hand[/gold], gain {Amount} [gold]Vigor[/gold], then reduce this amount by [blue]1[/blue].",
   "TRIMAW-REALLY_WET.title": "Really Wet",
-  "TRIMAW-REALLY_WET_DESCRIPTION.title": "Whenever this card enters your [gold]Hand[/gold], draw [blue]{Amount}[/blue] {Amount:plural:card|cards and discard all but one at random}, then reduce this amount by [blue]1[/blue].",
+  "TRIMAW-REALLY_WET.description": "Whenever this card enters your [gold]Hand[/gold], draw [blue]{Amount}[/blue] {Amount:plural:card|cards and discard all but one at random}, then reduce this amount by [blue]1[/blue].",
   "TRIMAW-SKEWERED.title": "Skewered",
   "TRIMAW-SKEWERED.description": "When played, add a [gold]Dart[/gold] into your [gold]Hand[/gold].",
   "TRIMAW-SKEWERED.extraCardText": "Add a [gold]Dart[/gold] into your [gold]Hand[/gold].",
