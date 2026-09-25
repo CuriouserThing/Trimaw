@@ -1,11 +1,11 @@
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
-using Trimaw.Core.Models.Powers;
+using Trimaw.Core.Models.Powers.Talents;
 using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class FlintFigment : SimpleFigment<MahuizzotiaTrigger, PlaceholderTalent, FlintIntent>
+public class FlintFigment : SimpleFigment<MahuizzotiaTrigger, AlleyOopTalent, FlintIntent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_415_flint",
         new ActionAnimation("Skill1", 0.34, "Idle"));

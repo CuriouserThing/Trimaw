@@ -6,7 +6,7 @@ using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class GavialFigment() : AnyShotFigment<MahuizzotiaTrigger, HuntingBuddyTalent>(2)
+public class GavialFigment() : AnyShotFigment<MahuizzotiaTrigger, PromotionTalent>(2)
 {
     public static string AttackBId => "Skill_2_Loop";
 

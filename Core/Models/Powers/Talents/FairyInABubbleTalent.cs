@@ -5,7 +5,7 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.Talents;
 
-public class SurviveAtOneTalent : FigmentTalent
+public class FairyInABubbleTalent : FigmentTalent
 {
     public override PowerStackType StackType => PowerStackType.Counter;
 

@@ -241,7 +241,9 @@ public abstract class FigmentIntent<T> : FigmentIntent where T : Figment
 
     private static async Task<MoveContext<T>> CreateHardContext(T moveUser, Player petOwner, MoveParams moveParams)
     {
-        foreach (var talent in moveUser.Creature.Powers.OfType<FigmentTalent>())
+        // Can't enumerate normally because talents may remove themselves
+        var talents = moveUser.Creature.Powers.OfType<FigmentTalent>().ToArray();
+        foreach (var talent in talents)
         {
             var newParams = talent.ModifyMoveParams(moveParams, false);
             await talent.AfterModifyingMoveParams(moveParams, newParams);
