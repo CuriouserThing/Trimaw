@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using Trimaw.Core.Models.Monsters.Figments;
+using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
@@ -17,7 +18,11 @@ public class FlintIntent : LabeledFigmentIntent<FlintFigment>
 
     private static DamageVar GetDamage(MoveContext ctx)
     {
-        return new DamageVar(ctx.GetAmount(), ValueProp.Unpowered | ValueProp.Move);
+        // Manually include damage threshold as a fallback for label display
+        var damage = Math.Max(
+            ctx.GetAmount(),
+            ctx.TransformAmount(MahuizzotiaTrigger.DamageThreshold));
+        return new DamageVar(damage, ValueProp.Unpowered | ValueProp.Move);
     }
 
     protected override void FormatIntentLabel(LocString label, MoveContext<FlintFigment> ctx)
