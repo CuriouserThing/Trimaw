@@ -18,6 +18,8 @@ public class HuntingBuddyTalent : FigmentTalent
 
     private AimPower? Aim => Figment.PetOwner.Creature.GetPower<AimPower>();
 
+    protected override bool ShouldRemoveWhenNoMoves => true;
+
     protected internal override MoveParams ModifyMoveParams(MoveParams moveParams, bool dryRun)
     {
         if (Aim is null) return moveParams;
@@ -28,6 +30,5 @@ public class HuntingBuddyTalent : FigmentTalent
     protected internal override async Task AfterModifyingMoveParams(MoveParams originalParams, MoveParams newParams)
     {
         if (Aim is { } aim) await PowerCmd.Decrement(aim);
-        await PowerCmd.Remove(this);
     }
 }

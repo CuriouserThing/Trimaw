@@ -39,14 +39,13 @@ public abstract class FigmentTrigger : FigmentPower
     {
         TriggerCount += 1;
         var player = Owner.PetOwner;
-        if (player is not null)
-        {
-            if (CombatState.CurrentSide == CombatSide.Enemy || !LocalContext.NetId.HasValue)
-                choiceContext ??= new BlockingPlayerChoiceContext();
-            else
-                choiceContext ??= new HookPlayerChoiceContext(player, LocalContext.NetId.Value, GameActionType.Combat);
+        if (player is null) return;
 
-            await Figment.UseAndAdvanceMove(choiceContext, moveParams);
-        }
+        if (CombatState.CurrentSide == CombatSide.Enemy || !LocalContext.NetId.HasValue)
+            choiceContext ??= new BlockingPlayerChoiceContext();
+        else
+            choiceContext ??= new HookPlayerChoiceContext(player, LocalContext.NetId.Value, GameActionType.Combat);
+
+        await Figment.UseAndAdvanceMove(choiceContext, moveParams);
     }
 }

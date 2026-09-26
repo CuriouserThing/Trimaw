@@ -1,12 +1,15 @@
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
+using Trimaw.Core.Models.Powers;
 using Trimaw.Core.Models.Powers.Talents;
 using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class GavialFigment() : AnyShotFigment<MahuizzotiaTrigger, PromotionTalent>(2)
+public class GavialFigment : Figment<ImaginaryShieldPower, MahuizzotiaTrigger, PromotionTalent>
 {
     public static string AttackBId => "Skill_2_Loop";
 
@@ -22,12 +25,17 @@ public class GavialFigment() : AnyShotFigment<MahuizzotiaTrigger, PromotionTalen
     protected override int InitialHp => 8;
     protected override int MaxHp => 18;
 
-    protected override FigmentIntent GetFigmentIntent(int idx)
+    protected override async Task<FigmentIntent?> ReadyNextIntent(PlayerChoiceContext choiceContext)
     {
-        return MovesUsed switch
+        switch (MovesUsed)
         {
-            0 => new GavialAttackAIntent(),
-            _ => new GavialAttackBIntent()
-        };
+            case 0:
+                return new GavialAttackAIntent();
+            case 1:
+                await PowerCmd.Apply<MahuizzotiaTrigger>(choiceContext, Creature, 1, Creature, null);
+                return new GavialAttackBIntent();
+            default:
+                return null;
+        }
     }
 }

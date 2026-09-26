@@ -1,5 +1,6 @@
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.Models.Monsters;
 
 namespace Trimaw.Core.Models.Powers;
@@ -14,6 +15,11 @@ public abstract class FigmentPower : TrimawPower
     protected Figment Figment =>
         Owner.Monster as Figment
         ?? throw new InvalidOperationException($"Only apply {GetType()} power to a {typeof(Figment)} monster.");
+
+    internal virtual Task AfterMovePerformed(FigmentIntent oldIntent, FigmentIntent? newIntent)
+    {
+        return Task.CompletedTask;
+    }
 
     /// <summary>
     ///     For simplicity and expedience in <see cref="Figment.Pop" />, regulate access to this hook.

@@ -14,6 +14,8 @@ public class BusinessAsUsualTalent : FigmentTalent
     public override string Icon64Path => Pathfinder.NotoEmoji64("money_bag");
     public override string Icon256Path => Pathfinder.NotoEmoji256("money_bag");
 
+    protected override bool ShouldRemoveWhenNoMoves => true;
+
     protected internal override MoveParams ModifyMoveParams(MoveParams moveParams, bool dryRun)
     {
         var oldAmount = moveParams.Addend ?? 0;
@@ -28,7 +30,5 @@ public class BusinessAsUsualTalent : FigmentTalent
         await PlayerCmd.LoseGold(payment, Figment.PetOwner, GoldLossType.Spent);
         var historyEntry = new GoldSpentOnFigmentEntry(Figment.PetOwner, payment, Figment);
         MainFile.CombatManagerFactory.GetOrCreate(Figment.PetOwner).AddHistoryEntry(historyEntry);
-        
-        await PowerCmd.Remove(this);
     }
 }

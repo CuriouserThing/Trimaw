@@ -50,9 +50,6 @@ public abstract class Figment : CustomMonsterModel
 
     public int MovesUsed { get; private set; }
 
-    public uint MinRemainingMoves { get; private set; }
-    public uint? MaxRemainingMoves { get; private set; }
-
     public FigmentIntent? CurrentIntent { get; private set; }
 
     public bool NoAnimationPending => _actionAnimator.AllAnimationsHaveFinished &&
@@ -176,7 +173,7 @@ public abstract class Figment : CustomMonsterModel
     {
         if (!IsMutable) return;
         OwnerHpThreshold = Math.Max(PetOwner.Creature.CurrentHp, OwnerHpThreshold);
-        SetNextMove();
+        await SetNextMove(choiceContext);
         await ApplyOwnPowers(choiceContext);
     }
 
@@ -193,9 +190,17 @@ public abstract class Figment : CustomMonsterModel
 
     internal async Task UseAndAdvanceMove(PlayerChoiceContext choiceContext, MoveParams? moveParams)
     {
-        if (!IsMutable) return;
+        if (!IsMutable || CurrentIntent is null) return;
+
+        var oldIntent = CurrentIntent;
         await UseMove(choiceContext, moveParams ?? MoveParams.None);
-        SetNextMove();
+        await SetNextMove(choiceContext);
+        var newIntent = CurrentIntent;
+
+        // Enumerate outside loop in case a power removes itself
+        var powers = Creature.Powers.OfType<FigmentPower>().ToArray();
+        for (var i = 0; i < powers.Length; i += 1)
+            await powers[i].AfterMovePerformed(oldIntent, newIntent);
     }
 
     private async Task UseMove(PlayerChoiceContext choiceContext, MoveParams moveParams)
@@ -204,7 +209,7 @@ public abstract class Figment : CustomMonsterModel
         if (!IsMutable || _hasPopped) return;
 
         if (CurrentIntent is not { } intent ||
-            !intent.CanPerform(this, PetOwner, moveParams, out var moveTarget))
+            !intent.CanPerform(this, PetOwner, moveParams, out var visualTarget))
         {
             if (_markedForPopping) ShiftToDeathbed();
             return;
@@ -229,7 +234,7 @@ public abstract class Figment : CustomMonsterModel
             ? nOwner.Position + CurrentSlot.SpotlightPosition
             : new Vector2(origPos.X, nOwner.Position.Y);
         const float spotlightMult = 0.6f / 0.5f; // hardcoded for now (matches original scales in Godot scene)
-        var spotlightScale = moveTarget is not null && CreatureIsToLeft(nFigment, moveTarget)
+        var spotlightScale = visualTarget is not null && CreatureIsToLeft(nFigment, visualTarget)
             ? new Vector2(-spotlightMult, spotlightMult)
             : new Vector2(+spotlightMult, spotlightMult);
 
@@ -252,37 +257,24 @@ public abstract class Figment : CustomMonsterModel
         await intent.AfterPerform(this, PetOwner, moveParams, choiceContext);
     }
 
-    private void SetNextMove()
+    private async Task SetNextMove(PlayerChoiceContext choiceContext)
     {
         if (!IsAvailable) return;
 
-        CountMovesRemaining(out var min, out var max);
-        if (max < min)
-            MainFile.Logger.Warn(
-                $"{GetType().Name} returned max < min from {nameof(CountMovesRemaining)}.");
-
-        MinRemainingMoves = min;
-        MaxRemainingMoves = max < min ? null : max;
-        if (MaxRemainingMoves == 0 || GetNextFigmentIntent() is not { } intent)
+        CurrentIntent = await ReadyNextIntent(choiceContext);
+        if (CurrentIntent is null)
         {
-            if (MinRemainingMoves > 0)
-                MainFile.Logger.Warn(
-                    $"{GetType().Name} returned min > 0 from {nameof(CountMovesRemaining)}, but could not get intent.");
-
-            CurrentIntent = null;
             SetMoveImmediate(new MoveState("EMPTY_MOVE", _ => Task.CompletedTask));
             MainFile.Logger.Info($"{GetType().Name} has no more moves to intend.");
-            return;
         }
-
-        CurrentIntent = intent;
-        SetMoveImmediate(new MoveState("INTENT_ONLY_MOVE", _ => Task.CompletedTask, intent));
-        MainFile.Logger.Info($"{GetType().Name} intends to use {intent.IntentType} move.");
+        else
+        {
+            SetMoveImmediate(new MoveState("INTENT_ONLY_MOVE", _ => Task.CompletedTask, CurrentIntent));
+            MainFile.Logger.Info($"{GetType().Name} intends to use {CurrentIntent.IntentType} move.");
+        }
     }
 
-    protected abstract void CountMovesRemaining(out uint min, out uint? max);
-
-    protected abstract FigmentIntent? GetNextFigmentIntent();
+    protected abstract Task<FigmentIntent?> ReadyNextIntent(PlayerChoiceContext choiceContext);
 
     protected sealed override MonsterMoveStateMachine GenerateMoveStateMachine()
     {

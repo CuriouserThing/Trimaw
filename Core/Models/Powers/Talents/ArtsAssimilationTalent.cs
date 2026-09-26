@@ -19,6 +19,8 @@ public class ArtsAssimilationTalent : FigmentTalent
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new(StepKey, 5)];
 
+    protected override bool ShouldRemoveWhenNoMoves => true;
+
     public override async Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? clonedBy)
     {
         if (card.Owner != Figment.PetOwner ||
@@ -43,10 +45,5 @@ public class ArtsAssimilationTalent : FigmentTalent
         var rng = CombatState.RunState.Rng.Niche; // NOTE: nothing better at the moment, but keep this in consideration 
         var crit = Amount > rng.NextInt(0, 100);
         return crit ? new MoveParams(moveParams) { Multiplier = 2 * moveParams.Multiplier } : moveParams;
-    }
-
-    protected internal override async Task AfterModifyingMoveParams(MoveParams originalParams, MoveParams newParams)
-    {
-        await PowerCmd.Remove(this);
     }
 }

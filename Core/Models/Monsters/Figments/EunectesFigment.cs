@@ -1,3 +1,5 @@
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
@@ -22,19 +24,17 @@ public class EunectesFigment : Figment<ImaginaryShieldPower, OneCostTrigger, Pla
 
     protected override int InitialTriggerPowerAmount => 3;
 
-    protected override void CountMovesRemaining(out uint min, out uint? max)
+    protected override async Task<FigmentIntent?> ReadyNextIntent(PlayerChoiceContext choiceContext)
     {
-        min = (uint)Math.Max(0, MoveCount - MovesUsed);
-        max = min;
-    }
-
-    protected override FigmentIntent? GetNextFigmentIntent()
-    {
-        return MovesUsed switch
+        switch (MovesUsed)
         {
-            0 => new EunectesBuildIntent(),
-            1 => new EunectesSummonIntent(),
-            _ => null
-        };
+            case 0:
+                return new EunectesBuildIntent();
+            case 1:
+                await PowerCmd.Apply<AnyCardTrigger>(choiceContext, Creature, 1, Creature, null);
+                return new EunectesSummonIntent();
+            default:
+                return null;
+        }
     }
 }

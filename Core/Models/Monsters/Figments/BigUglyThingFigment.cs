@@ -1,6 +1,8 @@
 using Godot;
 using MegaCrit.Sts2.Core.Animation;
 using MegaCrit.Sts2.Core.Bindings.MegaSpine;
+using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
@@ -33,30 +35,33 @@ public class BigUglyThingFigment : Figment<ImaginaryShieldPower, BigUglyThingTri
     protected override int InitialHp => 23;
     protected override int MaxHp => 28;
 
-    public int InitialBirdHp => 3; // Max is determined from this + explosion damage
+    // Pretend the explosion damaged the High Priest too for flavor :)
+    private static int InitialBirdHp => 3;
+    private static int MaxBirdHp => InitialBirdHp + (int)BigUglyThingExplosionIntent.ExplosionDamage;
 
     protected override int InitialTriggerPowerAmount => MoveCount - 1;
 
-    protected override void CountMovesRemaining(out uint min, out uint? max)
+    protected override async Task<FigmentIntent?> ReadyNextIntent(PlayerChoiceContext choiceContext)
     {
-        min = (uint)Math.Max(0, MoveCount - MovesUsed);
-        max = min;
-    }
-
-    protected override FigmentIntent? GetNextFigmentIntent()
-    {
-        return MovesUsed switch
+        switch (MovesUsed)
         {
-            0 => new BigUglyThingAttackAIntent(),
-            1 => new BigUglyThingAttackBIntent(),
-            2 => new BigUglyThingAttackCIntent(),
-            3 => new BigUglyThingExplosionIntent(),
-            4 => new BigUglyThingSummonIntent(),
-            _ => null
-        };
+            case 0:
+                return new BigUglyThingAttackAIntent();
+            case 1:
+                return new BigUglyThingAttackBIntent();
+            case 2:
+                return new BigUglyThingAttackCIntent();
+            case 3:
+                return new BigUglyThingExplosionIntent();
+            case 4:
+                await ChangeToBirdPhase(choiceContext);
+                return new BigUglyThingSummonIntent();
+            default:
+                return null;
+        }
     }
 
-    public void ChangeToBirdPhase()
+    private async Task ChangeToBirdPhase(PlayerChoiceContext choiceContext)
     {
         if (_isInBirdPhase)
         {
@@ -65,11 +70,18 @@ public class BigUglyThingFigment : Figment<ImaginaryShieldPower, BigUglyThingTri
         }
 
         _isInBirdPhase = true;
+        await CreatureCmd.SetCurrentHp(Creature, InitialBirdHp);
+        await CreatureCmd.SetMaxHp(Creature, MaxBirdHp);
+
+        // Move intent down to this shorty's new height
         if (Creature.GetCreatureNode() is { } node)
         {
             var pos = node.IntentContainer.GetPosition();
             node.IntentContainer.SetPosition(new Vector2(pos.X, pos.Y + 180));
         }
+
+        await PowerCmd.Apply<SkillTrigger>(choiceContext, Creature, 2, Creature, null, true);
+        await PowerCmd.Apply<ImaginaryShieldPower>(choiceContext, Creature, 1, Creature, null, true);
     }
 
     public bool IsInMechPhase()
