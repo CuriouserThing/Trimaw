@@ -1,12 +1,12 @@
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
-using Trimaw.Core.Models.Powers;
+using Trimaw.Core.Models.Powers.Talents;
 using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class TiacauhShredderFigment : SimpleFigment<MahuizzotiaTrigger, PlaceholderTalent, TiacauhShredderIntent>
+public class TiacauhShredderFigment : SimpleFigment<MahuizzotiaTrigger, ScrapMetalTalent, TiacauhShredderIntent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.Build("enemy_1097_cclmbjk",
         new ActionAnimation("Attack", 0.40, 1.40, 1.95, "Idle") { Timescale = 2.0 });

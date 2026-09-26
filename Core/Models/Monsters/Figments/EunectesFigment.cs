@@ -8,7 +8,7 @@ using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class EunectesFigment : Figment<ImaginaryShieldPower, OneCostTrigger, PlaceholderTalent>
+public class EunectesFigment : Figment<ImaginaryShieldPower, AssemblyRequiredTrigger, PlaceholderTalent>
 {
     private const int MoveCount = 2;
 
@@ -22,7 +22,7 @@ public class EunectesFigment : Figment<ImaginaryShieldPower, OneCostTrigger, Pla
     protected override int InitialHp => 7;
     protected override int MaxHp => 16;
 
-    protected override int InitialTriggerPowerAmount => 3;
+    protected override int InitialTriggerPowerAmount => 10;
 
     protected override async Task<FigmentIntent?> ReadyNextIntent(PlayerChoiceContext choiceContext)
     {

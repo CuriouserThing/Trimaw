@@ -9,8 +9,8 @@ public class FairyInABubbleTalent : FigmentTalent
 {
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    public override string Icon64Path => Pathfinder.NotoEmoji64("man_fairy_medium_dark_skin_tone");
-    public override string Icon256Path => Pathfinder.NotoEmoji256("man_fairy_medium_dark_skin_tone");
+    public override string Icon64Path => Pathfinder.GameIconsDotnet64("fairy");
+    public override string Icon256Path => Pathfinder.GameIconsDotnet256("fairy");
 
     public override bool ShouldDie(Creature creature)
     {

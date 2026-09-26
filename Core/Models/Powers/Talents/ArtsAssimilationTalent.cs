@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.ImaginationSystem;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.Talents;
 
@@ -16,6 +17,9 @@ public class ArtsAssimilationTalent : FigmentTalent
     private const string StepKey = "Step";
 
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    public override string Icon64Path => Pathfinder.GameIconsDotnet64("star_swirl");
+    public override string Icon256Path => Pathfinder.GameIconsDotnet256("star_swirl");
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new(StepKey, 5)];
 

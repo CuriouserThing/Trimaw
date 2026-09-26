@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://1lx2wihno7ay"
-path="res://.godot/imported/man_fairy_medium_dark_skin_tone.png-dd6c277c42bde920e095da197a792618.ctex"
+uid="uid://ci3l76behornl"
+path="res://.godot/imported/tree-beehive.png-0723e16e9327d0e9b181edc668f5b5bd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Trimaw/images/noto_emoji_64px/man_fairy_medium_dark_skin_tone.png"
-dest_files=["res://.godot/imported/man_fairy_medium_dark_skin_tone.png-dd6c277c42bde920e095da197a792618.ctex"]
+source_file="res://Trimaw/images/game_icons_dotnet_256px/tree-beehive.png"
+dest_files=["res://.godot/imported/tree-beehive.png-0723e16e9327d0e9b181edc668f5b5bd.ctex"]
 
 [params]
 

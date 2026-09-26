@@ -7,12 +7,13 @@ using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
 using Trimaw.Core.Models.Powers;
+using Trimaw.Core.Models.Powers.Talents;
 using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class BigUglyThingFigment : Figment<ImaginaryShieldPower, BigUglyThingTrigger, PlaceholderTalent>
+public class BigUglyThingFigment : Figment<ImaginaryShieldPower, BigUglyThingTrigger, ScrapMetalTalent>
 {
     private const int MoveCount = 5;
 

@@ -1,11 +1,15 @@
 using MegaCrit.Sts2.Core.Entities.Powers;
 using Trimaw.Core.ImaginationSystem;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.Talents;
 
 public class PromotionTalent : FigmentTalent
 {
     public override PowerStackType StackType => PowerStackType.Single;
+
+    public override string Icon64Path => Pathfinder.NotoEmoji64("military_medal");
+    public override string Icon256Path => Pathfinder.NotoEmoji256("military_medal");
 
     protected override bool ShouldRemoveWhenNoMoves => true;
 

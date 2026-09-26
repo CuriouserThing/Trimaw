@@ -5,7 +5,7 @@ using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class TomimiFigment : SimpleFigment<MahuizzotiaTrigger, HuntingBuddyTalent, TomimiIntent>
+public class TomimiFigment : SimpleFigment<MahuizzotiaTrigger, ArtsAssimilationTalent, TomimiIntent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_411_tomimi",
         new ActionAnimation("Attack", 0.20, 0.60, 1.00, "Idle"));

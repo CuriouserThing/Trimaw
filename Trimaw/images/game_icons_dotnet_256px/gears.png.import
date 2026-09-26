@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7l26iwjevlx"
-path="res://.godot/imported/man_fairy_medium_dark_skin_tone.png-b2e7637a4669e55b01d66c2d951e0ce7.ctex"
+uid="uid://bvj1v3d0cj1qq"
+path="res://.godot/imported/gears.png-12ea5afd333681102215fd3168c25525.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Trimaw/images/noto_emoji_256px/man_fairy_medium_dark_skin_tone.png"
-dest_files=["res://.godot/imported/man_fairy_medium_dark_skin_tone.png-b2e7637a4669e55b01d66c2d951e0ce7.ctex"]
+source_file="res://Trimaw/images/game_icons_dotnet_256px/gears.png"
+dest_files=["res://.godot/imported/gears.png-12ea5afd333681102215fd3168c25525.ctex"]
 
 [params]
 
