@@ -18,6 +18,7 @@ public class FetchTrigger : FigmentMonoTrigger
     public override async Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? clonedBy)
     {
         if (card.Owner != Figment.Creature.PetOwner ||
+            oldPileType == PileType.Play ||
             card.Pile?.Type != PileType.Hand)
             return;
 
