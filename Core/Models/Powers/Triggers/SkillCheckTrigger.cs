@@ -3,7 +3,7 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.Triggers;
 
-public class SkillTrigger : MultiCardPlayTrigger
+public class SkillCheckTrigger : MultiCardPlayTrigger
 {
     public override string Icon64Path => Pathfinder.GameIconsDotnet64("confirmed");
     public override string Icon256Path => Pathfinder.GameIconsDotnet256("confirmed");

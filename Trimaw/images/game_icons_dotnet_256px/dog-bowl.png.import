@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5bpkt4twni3m"
-path="res://.godot/imported/pager.png-74d6d0bb04db6010c2182ef556f06ec4.ctex"
+uid="uid://vxoerlhmxa5w"
+path="res://.godot/imported/dog-bowl.png-935d08bb120eb52e5099a218bcf9aea5.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Trimaw/images/noto_emoji_256px/pager.png"
-dest_files=["res://.godot/imported/pager.png-74d6d0bb04db6010c2182ef556f06ec4.ctex"]
+source_file="res://Trimaw/images/game_icons_dotnet_256px/dog-bowl.png"
+dest_files=["res://.godot/imported/dog-bowl.png-935d08bb120eb52e5099a218bcf9aea5.ctex"]
 
 [params]
 

@@ -1,11 +1,10 @@
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
 using Trimaw.Core.Models.Powers;
-using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class ShamareFigment : SimpleFigment<TargetTrigger, PlaceholderTalent, ShamareIntent>
+public class ShamareFigment : SimpleFigment<PlaceholderTrigger, PlaceholderTalent, ShamareIntent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_254_vodfox_witch#2",
         new ActionAnimation("Attack", 0.15, 0.53, 1.00, "Idle"));

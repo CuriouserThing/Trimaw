@@ -81,7 +81,7 @@ public class BigUglyThingFigment : Figment<ImaginaryShieldPower, BigUglyThingTri
             node.IntentContainer.SetPosition(new Vector2(pos.X, pos.Y + 180));
         }
 
-        await PowerCmd.Apply<SkillTrigger>(choiceContext, Creature, 2, Creature, null, true);
+        await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 2, Creature, null, true);
         await PowerCmd.Apply<ImaginaryShieldPower>(choiceContext, Creature, 1, Creature, null, true);
     }
 

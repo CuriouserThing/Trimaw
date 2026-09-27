@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dcunvybrxvq5d"
-path="res://.godot/imported/arrowhead.png-5aa45316b773c7d0c7e8ac5fe9119875.ctex"
+uid="uid://die8dcj86o83y"
+path="res://.godot/imported/dog-bowl.png-a59f0c09165cca8d2ca52be41f174932.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Trimaw/images/game_icons_dotnet_256px/arrowhead.png"
-dest_files=["res://.godot/imported/arrowhead.png-5aa45316b773c7d0c7e8ac5fe9119875.ctex"]
+source_file="res://Trimaw/images/game_icons_dotnet_64px/dog-bowl.png"
+dest_files=["res://.godot/imported/dog-bowl.png-a59f0c09165cca8d2ca52be41f174932.ctex"]
 
 [params]
 

@@ -31,7 +31,7 @@ public class EunectesFigment : Figment<ImaginaryShieldPower, AssemblyRequiredTri
             case 0:
                 return new EunectesBuildIntent();
             case 1:
-                await PowerCmd.Apply<AnyCardTrigger>(choiceContext, Creature, 1, Creature, null);
+                await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 1, Creature, null);
                 return new EunectesSummonIntent();
             default:
                 return null;

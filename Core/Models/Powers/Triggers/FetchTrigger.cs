@@ -6,14 +6,14 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.Triggers;
 
-public class CardsAddedTrigger : FigmentMonoTrigger
+public class FetchTrigger : FigmentMonoTrigger
 {
     public override PowerStackType StackType => PowerStackType.Counter;
 
     protected override bool ShouldTriggerOnRemoval => true;
 
-    public override string Icon64Path => Pathfinder.NotoEmoji64("pencil");
-    public override string Icon256Path => Pathfinder.NotoEmoji256("pencil");
+    public override string Icon64Path => Pathfinder.GameIconsDotnet64("dog_bowl");
+    public override string Icon256Path => Pathfinder.GameIconsDotnet256("dog_bowl");
 
     public override async Task AfterCardChangedPiles(CardModel card, PileType oldPileType, AbstractModel? clonedBy)
     {
