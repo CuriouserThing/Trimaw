@@ -9,7 +9,7 @@ public class VillagePot : SnackCard
 {
     private async Task Imagine(PlayerChoiceContext choiceContext)
     {
-        await ImaginationCmd.ImagineRandom<ImaginaryShieldPower>(choiceContext, Owner);
+        await ImaginationCmd.ImagineRandom<ImaginaryFriendPower>(choiceContext, Owner);
     }
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)

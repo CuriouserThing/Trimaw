@@ -23,7 +23,7 @@ public class BoxOfTruffles : SnackCard
         for (var i = 0; i < times; i += 1)
             if (Owner.RunState.Rng.CombatCardSelection.NextBool())
             {
-                await ImaginationCmd.ImagineRandom<ImaginaryShieldPower>(choiceContext, Owner);
+                await ImaginationCmd.ImagineRandom<ImaginaryFriendPower>(choiceContext, Owner);
             }
             else
             {

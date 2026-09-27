@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7mus0w6ju7pe"
-path="res://.godot/imported/snake-spiral.png-31bd082611c6c4c2523eca06a00d6b93.ctex"
+uid="uid://dyf15gowie31q"
+path="res://.godot/imported/curled-leaf.png-36ba692176e0c0c99588ea0f06445aba.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Trimaw/images/game_icons_dotnet_256px/snake-spiral.png"
-dest_files=["res://.godot/imported/snake-spiral.png-31bd082611c6c4c2523eca06a00d6b93.ctex"]
+source_file="res://Trimaw/images/game_icons_dotnet_256px/curled-leaf.png"
+dest_files=["res://.godot/imported/curled-leaf.png-36ba692176e0c0c99588ea0f06445aba.ctex"]
 
 [params]
 

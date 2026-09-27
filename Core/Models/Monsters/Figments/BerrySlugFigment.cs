@@ -6,7 +6,7 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class BerrySlugFigment : SimpleFigment<FieldRationTrigger, PlaceholderTalent, BerrySlugIntent>
+public class BerrySlugFigment : WispFigment<FieldRationTrigger, PlaceholderTalent, BerrySlugIntent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.Build("enemy_10002_trtrsl",
         new ActionAnimation("Move", 0.25, 0.50, 0.75, "Idle"));

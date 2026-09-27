@@ -8,7 +8,7 @@ using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class EunectesFigment : Figment<ImaginaryShieldPower, AssemblyRequiredTrigger, PlaceholderTalent>
+public class EunectesFigment : Figment<ImaginaryFriendPower, AssemblyRequiredTrigger, PlaceholderTalent>
 {
     private const int MoveCount = 2;
 

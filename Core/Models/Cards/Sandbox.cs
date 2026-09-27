@@ -18,7 +18,7 @@ public class Sandbox() : BaseTrimawCard(0, CardType.Skill, CardRarity.Basic, Tar
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay play)
     {
-        await ImaginationCmd.ImagineRandom<ImaginaryShieldPower>(choiceContext, Owner);
+        await ImaginationCmd.ImagineRandom<ImaginaryFriendPower>(choiceContext, Owner);
     }
 
     protected override CardLocation GetResultLocationForCardPlay()

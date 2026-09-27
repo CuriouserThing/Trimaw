@@ -9,7 +9,7 @@ using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class GavialFigment : Figment<ImaginaryShieldPower, MahuizzotiaTrigger, PromotionTalent>
+public class GavialFigment : Figment<ImaginaryFriendPower, MahuizzotiaTrigger, PromotionTalent>
 {
     public static string AttackBId => "Skill_2_Loop";
 

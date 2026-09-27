@@ -6,7 +6,7 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class FluorescentSlugFigment : SimpleFigment<FieldRationTrigger, PlaceholderTalent, FluorescentSlugIntent>
+public class FluorescentSlugFigment : WispFigment<FieldRationTrigger, PlaceholderTalent, FluorescentSlugIntent>
 {
     // This little guy does actually have a Start animation!
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("enemy_6008_mtslms",

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c7mus0w6ju7pe"
-path="res://.godot/imported/snake-spiral.png-31bd082611c6c4c2523eca06a00d6b93.ctex"
+uid="uid://c6u08vuhvn6ow"
+path="res://.godot/imported/ghost-ally.png-926265ea7d8300e7b4685417655328ef.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Trimaw/images/game_icons_dotnet_256px/snake-spiral.png"
-dest_files=["res://.godot/imported/snake-spiral.png-31bd082611c6c4c2523eca06a00d6b93.ctex"]
+source_file="res://Trimaw/images/game_icons_dotnet_64px/ghost-ally.png"
+dest_files=["res://.godot/imported/ghost-ally.png-926265ea7d8300e7b4685417655328ef.ctex"]
 
 [params]
 

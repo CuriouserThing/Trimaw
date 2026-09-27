@@ -9,7 +9,7 @@ public class FairyRing : SnackCard
 {
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await ImaginationCmd.ImagineRandom<ImaginaryShieldPower>(choiceContext, Owner);
-        if (IsUpgraded) await ImaginationCmd.ImagineRandom<ImaginaryShieldPower>(choiceContext, Owner);
+        await ImaginationCmd.ImagineRandom<ImaginaryFriendPower>(choiceContext, Owner);
+        if (IsUpgraded) await ImaginationCmd.ImagineRandom<ImaginaryFriendPower>(choiceContext, Owner);
     }
 }

@@ -13,7 +13,7 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class BigUglyThingFigment : Figment<ImaginaryShieldPower, BigUglyThingTrigger, ScrapMetalTalent>
+public class BigUglyThingFigment : Figment<PhantasmagoriaPower, BigUglyThingTrigger, ScrapMetalTalent>
 {
     private const int MoveCount = 5;
 
@@ -82,7 +82,7 @@ public class BigUglyThingFigment : Figment<ImaginaryShieldPower, BigUglyThingTri
         }
 
         await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 2, Creature, null, true);
-        await PowerCmd.Apply<ImaginaryShieldPower>(choiceContext, Creature, 1, Creature, null, true);
+        await PowerCmd.Apply<ImaginaryFriendPower>(choiceContext, Creature, 1, Creature, null, true);
     }
 
     public bool IsInMechPhase()

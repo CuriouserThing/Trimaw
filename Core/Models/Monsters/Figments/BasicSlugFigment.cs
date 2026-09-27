@@ -8,7 +8,7 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class BasicSlugFigment : SimpleFigment<FieldRationTrigger, PlaceholderTalent, BasicSlugIntent>
+public class BasicSlugFigment : WispFigment<FieldRationTrigger, PlaceholderTalent, BasicSlugIntent>
 {
     private bool _isFourLegged;
 
