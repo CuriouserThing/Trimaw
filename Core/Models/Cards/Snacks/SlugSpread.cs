@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Enchantments;
 
 namespace Trimaw.Core.Models.Cards.Snacks;
@@ -21,32 +22,60 @@ public class SlugSpread : SnackCard
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
+        // var rng = Owner.RunState.Rng.CombatCardSelection;
+        //
+        // var momentum = ModelDb.Enchantment<Momentum>();
+        // var hand = PileType.Hand.GetPile(Owner).Cards
+        //     .Where(c => c.Type == CardType.Attack && momentum.CanEnchant(c))
+        //     .ToArray();
+        // var handMin = hand.Min(GetCost);
+        // var handCheapest = hand.Where(c => GetCost(c) == handMin).ToArray();
+        // if (handCheapest.Length > 0 && rng.NextItem(handCheapest) is { } handCard)
+        // {
+        //     var clone = handCard.CreateClone();
+        //     if (clone.Enchantment is not null) CardCmd.ClearEnchantment(clone);
+        //     CardCmd.Enchant<Momentum>(clone, DynamicVars[nameof(Momentum)].BaseValue);
+        //     await CardCmd.Transform(handCard, clone);
+        // }
+
+        await Transform<Momentum>(PileType.Hand, false, DynamicVars[nameof(Momentum)].IntValue);
+        await Transform<Slither>(PileType.Draw, true, 1);
+
+        // var slither = ModelDb.Enchantment<Slither>();
+        // var drawPile = PileType.Draw.GetPile(Owner).Cards
+        //     .Where(c => c.Type == CardType.Attack && slither.CanEnchant(c))
+        //     .ToArray();
+        // var drawPileMax = drawPile.Max(GetCost);
+        // var drawPileCostliest = drawPile.Where(c => GetCost(c) == drawPileMax).ToArray();
+        // if (drawPileCostliest.Length > 0 && rng.NextItem(drawPileCostliest) is { } drawPileCard)
+        // {
+        //     var clone = drawPileCard.CreateClone();
+        //     if (clone.Enchantment is not null) CardCmd.ClearEnchantment(clone);
+        //     CardCmd.Enchant<Slither>(clone, 1);
+        //     await CardCmd.Transform(drawPileCard, clone);
+        // }
+    }
+
+    private async Task Transform<T>(PileType pileType, bool max, int amount) where T : EnchantmentModel
+    {
+        var enchantment = ModelDb.Enchantment<T>();
+        var pile = pileType.GetPile(Owner).Cards
+            .Where(c => c.Type == CardType.Attack && enchantment.CanEnchant(c))
+            .ToArray();
+        var pileExtreme = max ? pile.Max(GetCost) : pile.Min(GetCost);
+        var pileExtremes = pile.Where(c => GetCost(c) == pileExtreme).ToArray();
         var rng = Owner.RunState.Rng.CombatCardSelection;
-
-        var handCheapest = PileType.Hand.GetPile(Owner).Cards
-            .Where(c => c.Type == CardType.Attack)
-            .GroupBy(c => c.EnergyCost.GetWithModifiers(CostModifiers.All))
-            .OrderBy(g => g.Key)
-            .FirstOrDefault();
-        if (handCheapest is not null && rng.NextItem(handCheapest) is { } handCard)
+        if (pileExtremes.Length > 0 && rng.NextItem(pileExtremes) is { } pileCard)
         {
-            handCard = handCard.CreateClone();
-            if (handCard.Enchantment is not null) CardCmd.ClearEnchantment(handCard);
-            CardCmd.Enchant<Momentum>(handCard, DynamicVars[nameof(Momentum)].BaseValue);
-            await CardPileCmd.AddGeneratedCardToCombat(handCard, PileType.Hand, Owner);
+            var clone = pileCard.CreateClone();
+            if (clone.Enchantment is not null) CardCmd.ClearEnchantment(clone);
+            CardCmd.Enchant<T>(clone, amount);
+            await CardCmd.Transform(pileCard, clone);
         }
+    }
 
-        var deckCostliest = PileType.Deck.GetPile(Owner).Cards
-            .Where(c => c.Type == CardType.Attack)
-            .GroupBy(c => c.EnergyCost.GetWithModifiers(CostModifiers.All))
-            .OrderByDescending(g => g.Key)
-            .FirstOrDefault();
-        if (deckCostliest is not null && rng.NextItem(deckCostliest) is { } deckCard)
-        {
-            deckCard = deckCard.CreateClone();
-            if (deckCard.Enchantment is not null) CardCmd.ClearEnchantment(deckCard);
-            CardCmd.Enchant<Slither>(deckCard, 1);
-            await CardPileCmd.AddGeneratedCardToCombat(deckCard, PileType.Hand, Owner);
-        }
+    private static int GetCost(CardModel card)
+    {
+        return card.EnergyCost.GetWithModifiers(CostModifiers.All);
     }
 }
