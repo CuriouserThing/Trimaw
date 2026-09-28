@@ -5,9 +5,9 @@ using Trimaw.Core.Commands;
 using Trimaw.Core.Models.Monsters.Figments;
 using Trimaw.Core.Utils;
 
-namespace Trimaw.Core.Models.Cards.Common;
+namespace Trimaw.Core.Models.Cards.Uncommon;
 
-public class BubbleCrisis() : TrimawCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
+public class BubbleCrisis() : TrimawCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipHelper.ForImagine(this);
 

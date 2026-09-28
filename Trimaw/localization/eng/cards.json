@@ -61,6 +61,8 @@
   "TRIMAW-PUPPY_DOG_EYES.description": "Apply {WeakPower:diff()} [gold]Weak[/gold].\nAdd a random [purple]Super Special[/purple] Skill into your [gold]Hand[/gold].",
   "TRIMAW-REALLY_HARD_BREAD.title": "Really Hard Bread",
   "TRIMAW-REALLY_HARD_BREAD.description": "Deal {Damage:diff()} damage.\n[gold]Prep[/gold] [color=#ff9047]Bread[/color].",
+  "TRIMAW-RECRUITMENT_VOUCHER.title": "Recruitment Voucher",
+  "TRIMAW-RECRUITMENT_VOUCHER.description": "[gold]Imagine[/gold] a Figment with [gold]Back to Basics[/gold].",
   "TRIMAW-ROUGHHOUSE.title": "Roughhouse",
   "TRIMAW-ROUGHHOUSE.description": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].\nPut {Cards:diff()} random 1{energyPrefix:energyIcons(1)} {Cards:plural:card|cards} from your [gold]Discard Pile[/gold] into your [gold]Hand[/gold].",
   "TRIMAW-STARING_DAGGERS.title": "Staring Daggers",

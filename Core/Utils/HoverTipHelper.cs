@@ -2,12 +2,18 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.Commands;
+using Trimaw.Core.Models.Powers;
 using Trimaw.Core.SnackSystem;
 
 namespace Trimaw.Core.Utils;
 
 public static class HoverTipHelper
 {
+    public static IEnumerable<IHoverTip> ForImagineRandom<T>(CardModel card) where T : FigmentPower
+    {
+        return ForImagine(card).Concat([HoverTipFactory.FromPower<T>()]);
+    }
+    
     public static IEnumerable<IHoverTip> ForImagine(CardModel card)
     {
         var owner = card.IsCanonical ? null : card.Owner;
