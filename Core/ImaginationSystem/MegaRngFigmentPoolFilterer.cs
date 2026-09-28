@@ -32,7 +32,9 @@ public class MegaRngFigmentPoolFilterer(IReadOnlyList<Figment> figmentPool, Rng 
 
     public Figment? FilterFigment(Player owner, FigmentPower power)
     {
-        var candidates = figmentPool.Where(f => f.StartsWithPower(power));
+        var currentFigments = owner.GetFigments().ToArray();
+        var candidates = figmentPool.Where(f => f.StartsWithPower(power) &&
+                                                currentFigments.All(f2 => f.GetType() != f2.GetType()));
         return rng.NextItem(candidates);
     }
 
