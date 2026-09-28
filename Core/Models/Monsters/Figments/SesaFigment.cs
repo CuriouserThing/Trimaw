@@ -10,8 +10,8 @@ public class SesaFigment : SimpleFigment<AssemblyRequiredTrigger, HuntingBuddyTa
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_379_sesa",
         new ActionAnimation("Skill", 0.30, 1.63, 2.10, "Idle") { Timescale = 1.5 });
 
-    protected override int InitialHp => 5;
-    protected override int MaxHp => 10;
+    protected override int InitialHp => 3;
+    protected override int MaxHp => 5;
 
     protected override int InitialTriggerPowerAmount => 6;
 }

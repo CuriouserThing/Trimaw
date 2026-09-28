@@ -22,8 +22,8 @@ public class GavialFigment : Figment<ImaginaryFriendPower, MahuizzotiaTrigger, P
             })
         .WithSecondaryAnimation(new ActionAnimation(AttackBId, 0.18, 0.40, 1.00, "Skill_2_Idle"));
 
-    protected override int InitialHp => 8;
-    protected override int MaxHp => 18;
+    protected override int InitialHp => 6;
+    protected override int MaxHp => 15;
 
     protected override async Task<FigmentIntent?> ReadyNextIntent(PlayerChoiceContext choiceContext)
     {
@@ -32,7 +32,7 @@ public class GavialFigment : Figment<ImaginaryFriendPower, MahuizzotiaTrigger, P
             case 0:
                 return new GavialAttackAIntent();
             case 1:
-                await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 1, Creature, null);
+                await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 2, Creature, null);
                 return new GavialAttackBIntent();
             default:
                 return null;

@@ -13,6 +13,6 @@ public class TiacauhShredderFigment : SimpleFigment<MahuizzotiaTrigger, ScrapMet
 
     public override string CustomVisualPath => Pathfinder.Scene("tiacauh_shredder");
 
-    protected override int InitialHp => 8;
-    protected override int MaxHp => 12;
+    protected override int InitialHp => 6;
+    protected override int MaxHp => 10;
 }

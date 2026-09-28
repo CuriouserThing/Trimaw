@@ -10,6 +10,6 @@ public class FlintFigment : SimpleFigment<MahuizzotiaTrigger, AlleyOopTalent, Fl
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_415_flint",
         new ActionAnimation("Skill1", 0.34, "Idle"));
 
-    protected override int InitialHp => 6;
-    protected override int MaxHp => 12;
+    protected override int InitialHp => 4;
+    protected override int MaxHp => 8;
 }

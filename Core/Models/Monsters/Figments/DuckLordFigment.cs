@@ -13,9 +13,10 @@ public class DuckLordFigment : Figment<PhantasmagoriaPower, SkillCheckTrigger, B
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.Build("enemy_2001_duckmi",
         new ActionAnimation("Move", 0, null));
 
-    protected override int InitialHp => 5;
-    protected override int MaxHp => 14;
+    protected override int InitialHp => 4;
+    protected override int MaxHp => 9;
 
+    protected override int InitialTriggerPowerAmount => 5;
     protected override int InitialTalentPowerAmount => 40;
 
     protected override Task<FigmentIntent?> ReadyNextIntent(PlayerChoiceContext choiceContext)

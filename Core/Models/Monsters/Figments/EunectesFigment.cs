@@ -18,10 +18,10 @@ public class EunectesFigment : Figment<ImaginaryFriendPower, AssemblyRequiredTri
             new ActionAnimation("Attack", 0.17, 0.50, 0.75, "Idle"))
         .WithSecondaryAnimation(new ActionAnimation(SummonId, 0.16, 0.70, 0.70, null) { CutoffTime = 0.70 });
 
-    protected override int InitialHp => 7;
+    protected override int InitialHp => 6;
     protected override int MaxHp => 16;
 
-    protected override int InitialTriggerPowerAmount => 10;
+    protected override int InitialTriggerPowerAmount => 20;
 
     protected override async Task<FigmentIntent?> ReadyNextIntent(PlayerChoiceContext choiceContext)
     {
@@ -30,7 +30,7 @@ public class EunectesFigment : Figment<ImaginaryFriendPower, AssemblyRequiredTri
             case 0:
                 return new EunectesBuildIntent();
             case 1:
-                await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 1, Creature, null);
+                await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 2, Creature, null);
                 return new EunectesSummonIntent();
             default:
                 return null;

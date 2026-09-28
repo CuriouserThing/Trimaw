@@ -10,8 +10,10 @@ public class GopnikFigment : SimpleFigment<BearNecessitiesTrigger, BusinessAsUsu
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.Build("enemy_2002_bearmi",
         new ActionAnimation("Attack", 0.30, 1.27, 2.60, "Idle") { Timescale = 2.0 });
 
-    protected override int InitialHp => 9;
-    protected override int MaxHp => 23;
+    protected override int InitialHp => 6;
+    protected override int MaxHp => 14;
 
+
+    protected override int InitialTriggerPowerAmount => 4;
     protected override int InitialTalentPowerAmount => 110;
 }

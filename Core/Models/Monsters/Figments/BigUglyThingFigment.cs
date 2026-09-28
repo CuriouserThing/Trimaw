@@ -35,11 +35,11 @@ public class BigUglyThingFigment : Figment<PhantasmagoriaPower, BigUglyThingTrig
 
     public override string CustomVisualPath => Pathfinder.Scene("big_ugly_thing");
 
-    protected override int InitialHp => 23;
-    protected override int MaxHp => 28;
+    protected override int InitialHp => 16;
+    protected override int MaxHp => 24;
 
     // Pretend the explosion damaged the High Priest too for flavor :)
-    private static int InitialBirdHp => 3;
+    private static int InitialBirdHp => 1;
     private static int MaxBirdHp => InitialBirdHp + (int)BigUglyThingExplosionIntent.ExplosionDamage;
 
     protected override int InitialTriggerPowerAmount => MoveCount - 1;

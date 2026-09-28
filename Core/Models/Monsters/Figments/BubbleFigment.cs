@@ -10,6 +10,8 @@ public class BubbleFigment : SimpleFigment<FetchTrigger, PlaytimeTalent, BubbleI
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_381_bubble",
         new ActionAnimation("Skill_Start", 0.14, 0.47, null, "Skill_Loop"));
 
-    protected override int InitialHp => 8;
-    protected override int MaxHp => 19;
+    protected override int InitialHp => 6;
+    protected override int MaxHp => 13;
+
+    protected override int InitialTriggerPowerAmount => 1;
 }

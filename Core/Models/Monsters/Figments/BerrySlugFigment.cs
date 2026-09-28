@@ -13,6 +13,6 @@ public class BerrySlugFigment : WispFigment<FieldRationTrigger, ScaredyCatTalent
 
     public override string CustomVisualPath => Pathfinder.Scene("sluggy");
 
-    protected override int InitialHp => 3;
-    protected override int MaxHp => 5;
+    protected override int InitialHp => 1;
+    protected override int MaxHp => 2;
 }

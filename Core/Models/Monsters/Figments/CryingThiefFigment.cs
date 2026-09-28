@@ -10,8 +10,8 @@ public class CryingThiefFigment : SimpleFigment<FetchTrigger, BusinessAsUsualTal
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.Build("enemy_2034_sythef",
         new ActionAnimation("Attack", 0.30, 0.76, 1.20, "Idle"));
 
-    protected override int InitialHp => 4;
-    protected override int MaxHp => 8;
+    protected override int InitialHp => 3;
+    protected override int MaxHp => 6;
 
     protected override int InitialTriggerPowerAmount => 5;
     protected override int InitialTalentPowerAmount => 150;

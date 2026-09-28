@@ -12,7 +12,7 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 public class BigUglyThingExplosionIntent : UnlabeledFigmentIntent<BigUglyThingFigment>
 {
     private const decimal Damage = 4;
-    private const decimal Frail = 2;
+    private const decimal Frail = 4;
 
     public static decimal ExplosionDamage => Damage;
 

@@ -11,8 +11,10 @@ public class ReserveSniperFigment : OneShotFigment<BackToBasicsTrigger, AlleyOop
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_603_csnipe",
         new ActionAnimation("Attack", 0.10, 0.54, 0.90, "Idle"));
 
-    protected override int InitialHp => 5;
-    protected override int MaxHp => 8;
+    protected override int InitialHp => 3;
+    protected override int MaxHp => 6;
+
+    protected override int InitialTriggerPowerAmount => 1;
 
     protected override FigmentIntent GetFigmentIntent()
     {

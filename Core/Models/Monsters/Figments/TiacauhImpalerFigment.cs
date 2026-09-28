@@ -11,8 +11,8 @@ public class TiacauhImpalerFigment : OneShotFigment<MahuizzotiaTrigger, HuntingB
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.Build("enemy_1094_ccspm",
         new ActionAnimation("Attack", 0.18, 0.46, 0.70, "Idle"));
 
-    protected override int InitialHp => 6;
-    protected override int MaxHp => 12;
+    protected override int InitialHp => 3;
+    protected override int MaxHp => 7;
 
     protected override FigmentIntent GetFigmentIntent()
     {

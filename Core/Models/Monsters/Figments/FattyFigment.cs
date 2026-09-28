@@ -14,8 +14,10 @@ public class FattyFigment : SimpleFigment<SkillCheckTrigger, BusinessAsUsualTale
             CutoffTime = 2.00
         });
 
-    protected override int InitialHp => 8;
-    protected override int MaxHp => 16;
+    protected override int InitialHp => 6;
+    protected override int MaxHp => 10;
 
+
+    protected override int InitialTriggerPowerAmount => 3;
     protected override int InitialTalentPowerAmount => 70;
 }

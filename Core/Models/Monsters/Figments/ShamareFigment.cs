@@ -10,6 +10,6 @@ public class ShamareFigment : SimpleFigment<FollowTheLeaderTrigger, PlaytimeTale
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_254_vodfox_witch#2",
         new ActionAnimation("Attack", 0.15, 0.53, 1.00, "Idle"));
 
-    protected override int InitialHp => 4;
-    protected override int MaxHp => 7;
+    protected override int InitialHp => 2;
+    protected override int MaxHp => 4;
 }

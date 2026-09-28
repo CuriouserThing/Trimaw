@@ -11,11 +11,14 @@ public class ReserveCasterFigment : OneShotFigment<BackToBasicsTrigger, ArtsAssi
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_604_ccast",
         new ActionAnimation("Attack", 0.15, 0.52, 0.92, "Idle"));
 
-    protected override int InitialHp => 4;
-    protected override int MaxHp => 6;
+    protected override int InitialHp => 2;
+    protected override int MaxHp => 4;
+
+    protected override int InitialTriggerPowerAmount => 2;
+    protected override int InitialTalentPowerAmount => 50;
 
     protected override FigmentIntent GetFigmentIntent()
     {
-        return new AttackAnyIntent(5);
+        return new AttackAnyIntent(7);
     }
 }

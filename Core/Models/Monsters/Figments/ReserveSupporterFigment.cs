@@ -11,11 +11,14 @@ public class ReserveSupporterFigment : OneShotFigment<BackToBasicsTrigger, ArtsA
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_606_csuppo",
         new ActionAnimation("Attack", 0.20, 0.41, 0.91, "Idle"));
 
-    protected override int InitialHp => 5;
-    protected override int MaxHp => 9;
+    protected override int InitialHp => 3;
+    protected override int MaxHp => 5;
+
+    protected override int InitialTalentPowerAmount => 40;
+    protected override int InitialTriggerPowerAmount => 1;
 
     protected override FigmentIntent GetFigmentIntent()
     {
-        return new HealIntent(5);
+        return new HealIntent(4);
     }
 }

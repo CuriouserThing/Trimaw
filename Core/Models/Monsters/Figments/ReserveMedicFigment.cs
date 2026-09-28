@@ -11,8 +11,10 @@ public class ReserveMedicFigment : OneShotFigment<BackToBasicsTrigger, FairyInAB
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_605_cmedic",
         new ActionAnimation("Attack", 0.17, 0.37, 0.81, "Idle"));
 
-    protected override int InitialHp => 4;
-    protected override int MaxHp => 9;
+    protected override int InitialHp => 2;
+    protected override int MaxHp => 6;
+
+    protected override int InitialTriggerPowerAmount => 2;
 
     protected override FigmentIntent GetFigmentIntent()
     {

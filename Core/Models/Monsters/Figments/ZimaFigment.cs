@@ -10,6 +10,8 @@ public class ZimaFigment : SimpleFigment<BearNecessitiesTrigger, PromotionTalent
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_115_headbr_it#1",
         new ActionAnimation("Attack", 0.15, 0.43, 1.00, "Idle"));
 
-    protected override int InitialHp => 9;
-    protected override int MaxHp => 14;
+    protected override int InitialHp => 7;
+    protected override int MaxHp => 11;
+
+    protected override int InitialTriggerPowerAmount => 1;
 }

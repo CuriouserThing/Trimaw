@@ -11,8 +11,8 @@ public class TiacauhRitualistFigment : OneShotFigment<MahuizzotiaTrigger, ArtsAs
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.Build("enemy_1096_ccwitch",
         new ActionAnimation("Attack_01", 1.20, 1.61, 1.80, "Idle") { Timescale = 1.5 });
 
-    protected override int InitialHp => 5;
-    protected override int MaxHp => 9;
+    protected override int InitialHp => 3;
+    protected override int MaxHp => 6;
 
     protected override int InitialTalentPowerAmount => 30;
 

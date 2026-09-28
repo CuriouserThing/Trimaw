@@ -10,6 +10,8 @@ public class TomimiFigment : SimpleFigment<MahuizzotiaTrigger, ArtsAssimilationT
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_411_tomimi",
         new ActionAnimation("Attack", 0.20, 0.60, 1.00, "Idle"));
 
-    protected override int InitialHp => 5;
-    protected override int MaxHp => 15;
+    protected override int InitialHp => 4;
+    protected override int MaxHp => 8;
+
+    protected override int InitialTalentPowerAmount => 40;
 }

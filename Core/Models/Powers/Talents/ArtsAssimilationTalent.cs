@@ -21,7 +21,7 @@ public class ArtsAssimilationTalent : FigmentTalent
     public override string Icon64Path => Pathfinder.GameIconsDotnet64("star_swirl");
     public override string Icon256Path => Pathfinder.GameIconsDotnet256("star_swirl");
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new(StepKey, 5)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new(StepKey, 10)];
 
     protected override bool ShouldRemoveWhenNoMoves => true;
 

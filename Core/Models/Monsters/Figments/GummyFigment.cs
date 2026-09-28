@@ -10,6 +10,8 @@ public class GummyFigment : SimpleFigment<BearNecessitiesTrigger, PlaytimeTalent
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_196_sunbr_summer#1",
         new ActionAnimation("Skill", 0.20, 0.50, 1.05, "Idle"));
 
-    protected override int InitialHp => 7;
-    protected override int MaxHp => 18;
+    protected override int InitialHp => 5;
+    protected override int MaxHp => 12;
+
+    protected override int InitialTriggerPowerAmount => 2;
 }

@@ -11,8 +11,10 @@ public class ReserveSpecialistFigment : OneShotFigment<BackToBasicsTrigger, Fair
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_607_cspec",
         new ActionAnimation("Attack", 0.17, 0.32, 0.68, "Idle"));
 
-    protected override int InitialHp => 6;
-    protected override int MaxHp => 11;
+    protected override int InitialHp => 4;
+    protected override int MaxHp => 8;
+
+    protected override int InitialTriggerPowerAmount => 2;
 
     protected override FigmentIntent GetFigmentIntent()
     {

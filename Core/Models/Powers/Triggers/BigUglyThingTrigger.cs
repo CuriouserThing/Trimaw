@@ -12,7 +12,7 @@ public class BigUglyThingTrigger : FigmentPolyTrigger
 {
     public override PowerStackType StackType => PowerStackType.Counter;
 
-    protected override IEnumerable<DynamicVar> CanonicalVars => [new HpLossVar(7)];
+    protected override IEnumerable<DynamicVar> CanonicalVars => [new HpLossVar(6)];
 
     public override string Icon64Path => Pathfinder.GameIconsDotnet64("overdrive");
 

@@ -10,6 +10,8 @@ public class RosaFigment : SimpleFigment<BearNecessitiesTrigger, HuntingBuddyTal
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.BuildWithStart("char_197_poca_epoque#12",
         new ActionAnimation("Attack", 0.20, 0.56, 2.17, "Idle"));
 
-    protected override int InitialHp => 4;
+    protected override int InitialHp => 3;
     protected override int MaxHp => 6;
+
+    protected override int InitialTriggerPowerAmount => 4;
 }
