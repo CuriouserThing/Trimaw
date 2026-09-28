@@ -12,9 +12,8 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class ShamareIntent : UnlabeledFigmentIntent<ShamareFigment>
 {
-    private static readonly PowerVar<VulnerablePower> Vulnerable = new(2);
-    private static readonly PowerVar<WeakPower> Weak = new(2);
-    private static readonly PowerVar<DoomPower> Doom = new(6);
+    private static readonly PowerVar<DemisePower> Demise = new(1);
+    private static readonly PowerVar<DoomPower> Doom = new(13);
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Debuff;
 
@@ -22,8 +21,7 @@ public class ShamareIntent : UnlabeledFigmentIntent<ShamareFigment>
 
     protected override void FormatTipDescription(LocString desc, MoveContext<ShamareFigment> ctx)
     {
-        desc.Add(Vulnerable);
-        desc.Add(Weak);
+        desc.Add(Demise);
         desc.Add(Doom);
     }
 
@@ -45,8 +43,7 @@ public class ShamareIntent : UnlabeledFigmentIntent<ShamareFigment>
     {
         if (ctx.GetEnemyTarget() is not { } target) return FigmentMoveResult.NoValidTarget;
 
-        await Apply(ctx, choiceCtx, target, Vulnerable);
-        await Apply(ctx, choiceCtx, target, Weak);
+        await Apply(ctx, choiceCtx, target, Demise);
         await Apply(ctx, choiceCtx, target, Doom);
         return FigmentMoveResult.Success;
     }

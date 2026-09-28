@@ -75,7 +75,7 @@
   "TRIMAW-SESA.label": "{Damage}",
   "TRIMAW-SESA.description": "[color=#50d6d6]Sesa[/color] will give you a [gold]Bomb[/gold] that deals [blue]{Damage}[/blue] damage to ALL enemies after [blue]{Amount}[/blue] turns.",
   "TRIMAW-SHAMARE.title": "Malediction",
-  "TRIMAW-SHAMARE.description": "[color=#50d6d6]Shamare[/color] will apply [blue]{VulnerablePower}[/blue] [gold]Vulnerable[/gold], [blue]{WeakPower}[/blue] [gold]Weak[/gold], and [blue]{DoomPower}[/blue] [gold]Doom[/gold] to an enemy.",
+  "TRIMAW-SHAMARE.description": "[color=#50d6d6]Shamare[/color] will apply [blue]{DemisePower}[/blue] [gold]Demise[/gold] and [blue]{DoomPower}[/blue] [gold]Doom[/gold] to an enemy.",
   "TRIMAW-TIACAUH_FANATIC.title": "Poison Claws",
   "TRIMAW-TIACAUH_FANATIC.label": "{Amount}",
   "TRIMAW-TIACAUH_FANATIC.description": "The [color=#50d6d6]Fanatic[/color] will apply [blue]{WeakPower}[/blue] [gold]Weak[/gold], [blue]{FrailPower}[/blue] [gold]Frail[/gold], and [blue]{PoisonPower}[/blue] [gold]Poison[/gold] to an enemy.",
