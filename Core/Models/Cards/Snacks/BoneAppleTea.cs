@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using Trimaw.Core.Commands;
 using Trimaw.Core.SnackSystem;
@@ -9,6 +10,13 @@ namespace Trimaw.Core.Models.Cards.Snacks;
 
 public class BoneAppleTea : SnackCard
 {
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+    [
+        HoverTipFactory.Static(StaticHoverTip.Prep),
+        HoverTipFactory.Static(StaticHoverTip.Shrooms),
+        HoverTipFactory.Static(StaticHoverTip.Bread)
+    ];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new CardsVar(1)];
 
     protected override void OnUpgrade()

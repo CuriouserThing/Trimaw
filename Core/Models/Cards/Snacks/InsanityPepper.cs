@@ -6,12 +6,15 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using Trimaw.Core.Commands;
 using Trimaw.Core.Models.Powers.CeobePowers;
 using Trimaw.Core.Models.Powers.Triggers;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Cards.Snacks;
 
 public class InsanityPepper : SnackCard
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<MahuizzotiaTrigger>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        HoverTipHelper.ForImagineRandom<MahuizzotiaTrigger>(this)
+            .Concat([HoverTipFactory.FromPower<AimPower>()]);
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<AimPower>(3)];
 

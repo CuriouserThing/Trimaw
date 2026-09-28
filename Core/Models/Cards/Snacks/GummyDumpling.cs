@@ -5,6 +5,7 @@ using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using Trimaw.Core.Commands;
 using Trimaw.Core.Models.Powers.Triggers;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Cards.Snacks;
 
@@ -13,7 +14,8 @@ namespace Trimaw.Core.Models.Cards.Snacks;
 /// </remarks>
 public class GummyDumpling : SnackCard
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<BearNecessitiesTrigger>()];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
+        HoverTipHelper.ForImagineRandom<BearNecessitiesTrigger>(this);
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
