@@ -3,16 +3,20 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using Trimaw.Core.Commands;
 using Trimaw.Core.Models.Powers.CeobePowers;
+using Trimaw.Core.Models.Powers.Talents;
 using Trimaw.Core.SnackSystem;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Cards.Uncommon;
 
-public class HuntingTrip() : TrimawCard(1, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
+public class HuntingTrip() : TrimawCard(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self)
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-        new[] { HoverTipFactory.FromPower<AimPower>() }.Concat(HoverTipHelper.ForMorselPrep(Morsel.Meat));
+        new[] { HoverTipFactory.FromPower<AimPower>() }
+            .Concat(HoverTipHelper.ForImagineRandom<HuntingBuddyTalent>(this))
+            .Concat(HoverTipHelper.ForMorselPrep(Morsel.Meat));
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new PowerVar<AimPower>(6)];
 
@@ -25,6 +29,7 @@ public class HuntingTrip() : TrimawCard(1, CardType.Skill, CardRarity.Uncommon, 
     {
         await PowerCmd.Apply<AimPower>(choiceContext, Owner.Creature, DynamicVars[nameof(AimPower)].BaseValue,
             Owner.Creature, this);
+        await ImaginationCmd.ImagineRandom<HuntingBuddyTalent>(choiceContext, Owner);
         await PowerCmd.Apply<MeatNextTurnPower>(choiceContext, Owner.Creature, 2, Owner.Creature, this);
     }
 }
