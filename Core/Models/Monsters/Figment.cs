@@ -83,12 +83,16 @@ public abstract class Figment : CustomMonsterModel
     internal async Task Initialize(Player owner)
     {
         if (!IsMutable) return;
-        _petOwner = owner;
 
-        // Set HP
+        _petOwner = owner;
         await CreatureCmd.SetMaxHp(Creature, MaxHp);
         await CreatureCmd.SetCurrentHp(Creature, InitialHp);
+        SetTimestamp(owner);
+        await PlayerCmd.AddPet(Creature, owner);
+    }
 
+    protected void SetTimestamp(Player owner)
+    {
         // Find the highest timestamp among all pets (default of 0) and increment it
         var maxTimestamp = owner.Creature.Pets
             .Where(c => c != Creature)
@@ -96,9 +100,6 @@ public abstract class Figment : CustomMonsterModel
             .DefaultIfEmpty(0)
             .Max();
         Timestamp = maxTimestamp + 1;
-
-        // And add pet!
-        await PlayerCmd.AddPet(Creature, owner);
     }
 
     internal void SetSlot(int slotIndex, FigmentSlotMap slotMap, NCreature nOwner)

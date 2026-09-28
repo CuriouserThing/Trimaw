@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using Trimaw.Core.CombatHistory;
 using Trimaw.Core.Hooks;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.Models.Monsters;
@@ -161,6 +162,8 @@ public static class ImaginationCmd
         // Done!
         await imagineTimerTask;
         MainFile.Logger.Info($"Finished adding {newFigment.GetType().Name} instance.");
+        var historyEntry = new FigmentImaginedEntry(owner, newFigment);
+        MainFile.CombatManagerFactory.GetOrCreate(owner).AddHistoryEntry(historyEntry);
         await TrimawHook.AfterFigmentImagined(newFigment.CombatState, choiceContext, owner, newFigment);
     }
 

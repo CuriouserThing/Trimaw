@@ -4,6 +4,8 @@ using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using Trimaw.Core.Animation;
+using Trimaw.Core.CombatHistory;
+using Trimaw.Core.Hooks;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
 using Trimaw.Core.Models.Powers;
@@ -70,9 +72,12 @@ public class BigUglyThingFigment : Figment<PhantasmagoriaPower, BigUglyThingTrig
             return;
         }
 
+        await TrimawHook.BeforeFigmentImagined(CombatState, choiceContext, PetOwner);
+
         _isInBirdPhase = true;
         await CreatureCmd.SetCurrentHp(Creature, InitialBirdHp);
         await CreatureCmd.SetMaxHp(Creature, MaxBirdHp);
+        SetTimestamp(PetOwner);
 
         // Move intent down to this shorty's new height
         if (Creature.GetCreatureNode() is { } node)
@@ -84,6 +89,10 @@ public class BigUglyThingFigment : Figment<PhantasmagoriaPower, BigUglyThingTrig
         await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 5, Creature, null, true);
         await PowerCmd.Apply<TechnocracyTalent>(choiceContext, Creature, 2, Creature, null, true);
         await PowerCmd.Apply<ImaginaryFriendPower>(choiceContext, Creature, 1, Creature, null, true);
+
+        var historyEntry = new FigmentImaginedEntry(PetOwner, this);
+        MainFile.CombatManagerFactory.GetOrCreate(PetOwner).AddHistoryEntry(historyEntry);
+        await TrimawHook.AfterFigmentImagined(CombatState, choiceContext, PetOwner, this);
     }
 
     public bool IsInMechPhase()
