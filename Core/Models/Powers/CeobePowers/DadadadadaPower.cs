@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.CeobePowers;
 
@@ -11,6 +12,9 @@ public class DadadadadaPower : TrimawPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    public override string Icon64Path => Pathfinder.GameIconsDotnet64("assassin_pocket");
+    public override string Icon256Path => Pathfinder.GameIconsDotnet256("assassin_pocket");
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

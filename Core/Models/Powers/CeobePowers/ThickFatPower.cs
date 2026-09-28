@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.ValueProps;
 using Trimaw.Core.Models.Cards;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.CeobePowers;
 
@@ -11,6 +12,9 @@ public class ThickFatPower : TrimawPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    public override string Icon64Path => Pathfinder.GameIconsDotnet64("roast_chicken");
+    public override string Icon256Path => Pathfinder.GameIconsDotnet256("roast_chicken");
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

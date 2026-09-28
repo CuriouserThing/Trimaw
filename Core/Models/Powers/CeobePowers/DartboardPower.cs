@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.Models.Cards.Tokens;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.CeobePowers;
 
@@ -13,6 +14,9 @@ public class DartboardPower : TrimawPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    public override string Icon64Path => Pathfinder.GameIconsDotnet64("dart");
+    public override string Icon256Path => Pathfinder.GameIconsDotnet256("dart");
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromCard<Dart>()];
 

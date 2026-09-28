@@ -9,7 +9,7 @@ using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class EunectesFigment : Figment<ImaginaryFriendPower, AssemblyRequiredTrigger, EunectesTalent>
+public class EunectesFigment : Figment<ImaginaryFriendPower, AssemblyRequiredTrigger, TechnocracyTalent>
 {
     public static string SummonId => "Skill_2_Begin";
 

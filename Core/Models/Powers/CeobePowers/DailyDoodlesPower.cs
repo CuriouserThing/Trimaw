@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.Models.Enchantments;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.CeobePowers;
 
@@ -15,6 +16,9 @@ public class DailyDoodlesPower : TrimawPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    public override string Icon64Path => Pathfinder.NotoEmoji64("frame_with_picture");
+    public override string Icon256Path => Pathfinder.NotoEmoji256("frame_with_picture");
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipFactory.FromEnchantment<Doodled>();
 

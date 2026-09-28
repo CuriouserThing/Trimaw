@@ -15,7 +15,7 @@ public class GopnikIntent : LabeledFigmentIntent<GopnikFigment>
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Attack4;
 
-    protected override string DefaultTipIconPath => Pathfinder.NotoEmoji64("chart_with_upwards_trend");
+    protected override string DefaultTipIconPath => Pathfinder.GameIconsDotnet64("punch");
 
     private static decimal GetAmount(MoveContext ctx)
     {

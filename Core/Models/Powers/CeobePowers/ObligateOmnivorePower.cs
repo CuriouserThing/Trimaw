@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using Trimaw.Core.Hooks;
 using Trimaw.Core.SnackSystem;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.CeobePowers;
 
@@ -11,6 +12,9 @@ public class ObligateOmnivorePower : TrimawPower, IPrepListener
 {
     public override PowerType Type => PowerType.Debuff;
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    public override string Icon64Path => Pathfinder.NotoEmoji64("tooth");
+    public override string Icon256Path => Pathfinder.NotoEmoji256("tooth");
 
     public bool ShouldPreventMorselPrep(Player player, Morsel morsel)
     {

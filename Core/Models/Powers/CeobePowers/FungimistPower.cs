@@ -4,6 +4,7 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using Trimaw.Core.Commands;
 using Trimaw.Core.SnackSystem;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.CeobePowers;
 
@@ -11,6 +12,9 @@ public class FungimistPower : TrimawPower
 {
     public override PowerType Type => PowerType.Buff;
     public override PowerStackType StackType => PowerStackType.Counter;
+
+    public override string Icon64Path => Pathfinder.GameIconsDotnet64("fragrance");
+    public override string Icon256Path => Pathfinder.GameIconsDotnet256("fragrance");
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [

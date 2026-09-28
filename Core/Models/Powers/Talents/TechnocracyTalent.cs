@@ -5,12 +5,16 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.Hooks;
 using Trimaw.Core.Models.Monsters;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Powers.Talents;
 
-public class EunectesTalent : FigmentTalent, IFigmentListener
+public class TechnocracyTalent : FigmentTalent, IFigmentListener
 {
     public override PowerStackType StackType => PowerStackType.Single;
+
+    public override string Icon64Path => Pathfinder.GameIconsDotnet64("ophanim");
+    public override string Icon256Path => Pathfinder.GameIconsDotnet256("ophanim");
 
     public bool ShouldPreventFigmentPop(Player player, Figment figment)
     {

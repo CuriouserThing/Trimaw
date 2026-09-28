@@ -81,7 +81,8 @@ public class BigUglyThingFigment : Figment<PhantasmagoriaPower, BigUglyThingTrig
             node.IntentContainer.SetPosition(new Vector2(pos.X, pos.Y + 180));
         }
 
-        await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 2, Creature, null, true);
+        await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 5, Creature, null, true);
+        await PowerCmd.Apply<TechnocracyTalent>(choiceContext, Creature, 2, Creature, null, true);
         await PowerCmd.Apply<ImaginaryFriendPower>(choiceContext, Creature, 1, Creature, null, true);
     }
 

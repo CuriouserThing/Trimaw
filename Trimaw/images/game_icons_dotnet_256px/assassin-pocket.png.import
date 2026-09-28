@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl66fokikjweo"
-path="res://.godot/imported/chart_with_upwards_trend.png-f14131b259f834010cb051f6ec5d497c.ctex"
+uid="uid://colsfd1vaetjs"
+path="res://.godot/imported/assassin-pocket.png-fa71e2bc4ea5c1b3a37eddf540f66379.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Trimaw/images/noto_emoji_64px/chart_with_upwards_trend.png"
-dest_files=["res://.godot/imported/chart_with_upwards_trend.png-f14131b259f834010cb051f6ec5d497c.ctex"]
+source_file="res://Trimaw/images/game_icons_dotnet_256px/assassin-pocket.png"
+dest_files=["res://.godot/imported/assassin-pocket.png-fa71e2bc4ea5c1b3a37eddf540f66379.ctex"]
 
 [params]
 
