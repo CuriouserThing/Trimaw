@@ -38,8 +38,8 @@ public class KitchenSink() : TrimawCard(0, CardType.Skill, CardRarity.Uncommon, 
             CardModel[] transformedCards =
             [
                 // ReallyCold first so it appears visually to the right on the transform pop-up (hot/cold spigots)
-                Clone<ReallyCold>(cardsToTransform[1], DynamicVars[nameof(ReallyCold)].BaseValue),
-                Clone<ReallyHot>(cardsToTransform[0], DynamicVars[nameof(ReallyHot)].BaseValue)
+                Clone<ReallyCold>(cardsToTransform[0], DynamicVars[nameof(ReallyCold)].BaseValue),
+                Clone<ReallyHot>(cardsToTransform[1], DynamicVars[nameof(ReallyHot)].BaseValue)
             ];
             var transforms = cardsToTransform.Zip(transformedCards, (a, b) => new CardTransformation(a, b));
             await CardCmd.Transform(transforms, null);
