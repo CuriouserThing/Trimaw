@@ -35,5 +35,7 @@ public class VulcanTalent : FigmentTalent
         if (cards.Count == 0) return;
         var block = cards.Count * DynamicVars.Block.IntValue;
         await CreatureCmd.GainBlock(petOwner.Creature, block, ValueProp.Unpowered, null);
+
+        await PowerCmd.Remove(this);
     }
 }
