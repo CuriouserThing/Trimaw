@@ -14,6 +14,10 @@ public abstract class WispFigment<TTrigger, TTalent, TIntent> : Figment<WispPowe
 {
     protected sealed override Task<FigmentIntent?> ReadyNextIntent(PlayerChoiceContext choiceContext)
     {
-        return Task.FromResult<FigmentIntent?>(new TIntent());
+        return MovesUsed switch
+        {
+            0 => Task.FromResult<FigmentIntent?>(new TIntent()),
+            _ => Task.FromResult<FigmentIntent?>(null)
+        };
     }
 }

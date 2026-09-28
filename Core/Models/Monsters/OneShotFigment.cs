@@ -13,7 +13,11 @@ public abstract class OneShotFigment<TTrigger, TTalent> : Figment<ImaginaryFrien
 {
     protected sealed override Task<FigmentIntent?> ReadyNextIntent(PlayerChoiceContext choiceContext)
     {
-        return Task.FromResult<FigmentIntent?>(GetFigmentIntent());
+        return MovesUsed switch
+        {
+            0 => Task.FromResult<FigmentIntent?>(GetFigmentIntent()),
+            _ => Task.FromResult<FigmentIntent?>(null)
+        };
     }
 
     protected abstract FigmentIntent GetFigmentIntent();
