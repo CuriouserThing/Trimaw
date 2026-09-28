@@ -3,6 +3,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
+using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Settings;
@@ -16,7 +17,7 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 public class DuckLordIntent : LabeledFigmentIntent<DuckLordFigment>
 {
     private static readonly Func<MoveContext, PlayerChoiceContext, double, Task>[] Actions =
-        [StDamage, AoeDamage, VigorBuff, AimBuff];
+        [ApplyAim, ApplyVulnerable, ApplyVigor];
 
     private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Unknown;
 
@@ -58,44 +59,45 @@ public class DuckLordIntent : LabeledFigmentIntent<DuckLordFigment>
         return FigmentMoveResult.Success;
     }
 
-    private static async Task StDamage(MoveContext ctx, PlayerChoiceContext choiceCtx, double duration)
+    private static async Task ApplyAim(MoveContext ctx, PlayerChoiceContext choiceCtx, double duration)
     {
-        ctx.MoveUser.ResetFacing(duration);
-        await Cmd.Wait((float)duration);
-        var x = ctx.MoveUser.RunRng.MonsterAi.NextGaussianInt(300, 80, 100, 1000);
-        await DamageCmd
-            .Attack(x / 100M)
-            .FromFigment(ctx.MoveUser)
-            .TargetingRandomOpponents(ctx.CombatState)
-            .Execute(choiceCtx);
+        await Apply<AimPower>(ctx, choiceCtx, duration, true, false);
     }
 
-    private static async Task AoeDamage(MoveContext ctx, PlayerChoiceContext choiceCtx, double duration)
+    private static async Task ApplyVulnerable(MoveContext ctx, PlayerChoiceContext choiceCtx, double duration)
     {
-        ctx.MoveUser.ResetFacing(duration);
-        await Cmd.Wait((float)duration);
-        var x = ctx.MoveUser.RunRng.MonsterAi.NextGaussianInt(200, 60, 100, 500);
-        await DamageCmd
-            .Attack(x / 100M)
-            .FromFigment(ctx.MoveUser)
-            .TargetingAllOpponents(ctx.CombatState)
-            .Execute(choiceCtx);
+        await Apply<VulnerablePower>(ctx, choiceCtx, duration, false, true);
     }
 
-    private static async Task VigorBuff(MoveContext ctx, PlayerChoiceContext choiceCtx, double duration)
+    private static async Task ApplyVigor(MoveContext ctx, PlayerChoiceContext choiceCtx, double duration)
     {
-        var target = ctx.PetOwner.Creature;
+        await Apply<VigorPower>(ctx, choiceCtx, duration, true, true);
+    }
+
+    private static async Task Apply<T>(MoveContext ctx, PlayerChoiceContext choiceCtx, double duration,
+        bool allowPlayer, bool allowEnemies) where T : PowerModel
+    {
+        var target = GetTarget(ctx, allowPlayer, allowEnemies);
+        if (target is null) return;
         ctx.MoveUser.FaceTarget(target, duration);
         await Cmd.Wait((float)duration);
-        await PowerCmd.Apply<VigorPower>(choiceCtx, target, 1, ctx.MoveUser.Creature, null);
+        await PowerCmd.Apply<T>(choiceCtx, target, 1, ctx.MoveUser.Creature, null);
     }
 
-    private static async Task AimBuff(MoveContext ctx, PlayerChoiceContext choiceCtx, double duration)
+    private static Creature? GetTarget(MoveContext ctx, bool allowPlayer, bool allowEnemies)
     {
-        var target = ctx.PetOwner.Creature;
-        ctx.MoveUser.FaceTarget(target, duration);
-        await Cmd.Wait((float)duration);
-        await PowerCmd.Apply<AimPower>(choiceCtx, target, 1, ctx.MoveUser.Creature, null);
+        var rng = ctx.CombatState.RunState.Rng.CombatTargets; // method will always call Next on this exactly once
+        var enemies = ctx.CombatState.HittableEnemies;
+        if (!allowEnemies || enemies.Count == 0)
+        {
+            _ = rng.NextInt(); // dummy call
+            return allowPlayer ? ctx.PetOwner.Creature : null;
+        }
+
+        var maxExclusive = enemies.Count;
+        if (allowPlayer) maxExclusive *= 2;
+        var roll = rng.NextInt(maxExclusive);
+        return roll < enemies.Count ? enemies[roll] : ctx.PetOwner.Creature;
     }
 
     private static double GetStartingDuration()

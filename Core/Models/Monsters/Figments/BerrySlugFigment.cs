@@ -1,12 +1,12 @@
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
-using Trimaw.Core.Models.Powers;
+using Trimaw.Core.Models.Powers.Talents;
 using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class BerrySlugFigment : WispFigment<FieldRationTrigger, PlaceholderTalent, BerrySlugIntent>
+public class BerrySlugFigment : WispFigment<FieldRationTrigger, ScaredyCatTalent, BerrySlugIntent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.Build("enemy_10002_trtrsl",
         new ActionAnimation("Move", 0.25, 0.50, 0.75, "Idle"));

@@ -9,7 +9,7 @@ namespace Trimaw.Core.ImaginationSystem.UniqueIntents;
 
 public class FluorescentSlugIntent : UnlabeledFigmentIntent<FluorescentSlugFigment>
 {
-    private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Buff;
+    private protected override VanillaIntentWrapper DefaultVanillaIntent => VanillaIntentWrapper.Escape;
 
     protected override string DefaultTipIconPath => Pathfinder.GameIconsDotnet64("knife_fork");
 

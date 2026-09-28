@@ -2,6 +2,7 @@ using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using Trimaw.Core.Models.Cards;
+using Trimaw.Core.Models.Monsters;
 using Trimaw.Core.SnackSystem;
 
 namespace Trimaw.Core.Hooks;
@@ -56,6 +57,57 @@ public static class TrimawHook
             if (hookListener is not IPrepListener prepListener) continue;
             choiceContext.PushModel(hookListener);
             await prepListener.AfterMorselPrepped(choiceContext, player, morsel, createdSnack);
+            choiceContext.PopModel(hookListener);
+            hookListener.InvokeExecutionFinished();
+        }
+    }
+
+    public static async Task<bool> FigmentPopIsPrevented(
+        ICombatState combatState,
+        PlayerChoiceContext choiceContext,
+        Player player,
+        Figment figment)
+    {
+        foreach (var hookListener in combatState.IterateHookListeners())
+        {
+            if (hookListener is not IFigmentListener figmentListener ||
+                !figmentListener.ShouldPreventFigmentPop(player, figment)) continue;
+            choiceContext.PushModel(hookListener);
+            await figmentListener.AfterPreventingFigmentPop(choiceContext, player, figment);
+            choiceContext.PopModel(hookListener);
+            hookListener.InvokeExecutionFinished();
+            return true;
+        }
+
+        return false;
+    }
+
+    public static async Task BeforeFigmentImagined(
+        ICombatState combatState,
+        PlayerChoiceContext choiceContext,
+        Player player)
+    {
+        foreach (var hookListener in combatState.IterateHookListeners())
+        {
+            if (hookListener is not IFigmentListener figmentListener) continue;
+            choiceContext.PushModel(hookListener);
+            await figmentListener.BeforeFigmentImagined(choiceContext, player);
+            choiceContext.PopModel(hookListener);
+            hookListener.InvokeExecutionFinished();
+        }
+    }
+
+    public static async Task AfterFigmentImagined(
+        ICombatState combatState,
+        PlayerChoiceContext choiceContext,
+        Player player,
+        Figment figment)
+    {
+        foreach (var hookListener in combatState.IterateHookListeners())
+        {
+            if (hookListener is not IFigmentListener figmentListener) continue;
+            choiceContext.PushModel(hookListener);
+            await figmentListener.AfterFigmentImagined(choiceContext, player, figment);
             choiceContext.PopModel(hookListener);
             hookListener.InvokeExecutionFinished();
         }

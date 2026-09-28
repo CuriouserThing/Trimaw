@@ -4,10 +4,11 @@ using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
 using Trimaw.Core.Models.Powers;
 using Trimaw.Core.Models.Powers.Talents;
+using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class DuckLordFigment : Figment<PhantasmagoriaPower, PlaceholderTrigger, BusinessAsUsualTalent>
+public class DuckLordFigment : Figment<PhantasmagoriaPower, SkillCheckTrigger, BusinessAsUsualTalent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.Build("enemy_2001_duckmi",
         new ActionAnimation("Move", 0, null));

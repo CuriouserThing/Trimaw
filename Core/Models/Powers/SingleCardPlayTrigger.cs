@@ -1,6 +1,7 @@
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Powers;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using Trimaw.Core.ImaginationSystem;
 
 namespace Trimaw.Core.Models.Powers;
 
@@ -12,6 +13,11 @@ public abstract class SingleCardPlayTrigger : CardPlayTrigger
 
     public sealed override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (CardTriggersMove(cardPlay)) await TriggerMove(choiceContext);
+        if (CardTriggersMove(cardPlay)) await TriggerMove(choiceContext, CreateMoveParams(cardPlay));
+    }
+
+    protected virtual MoveParams CreateMoveParams(CardPlay cardPlay)
+    {
+        return MoveParams.None;
     }
 }

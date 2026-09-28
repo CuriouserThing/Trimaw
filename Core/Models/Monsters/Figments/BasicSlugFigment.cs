@@ -2,13 +2,13 @@ using MegaCrit.Sts2.Core.Animation;
 using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
-using Trimaw.Core.Models.Powers;
+using Trimaw.Core.Models.Powers.Talents;
 using Trimaw.Core.Models.Powers.Triggers;
 using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class BasicSlugFigment : WispFigment<FieldRationTrigger, PlaceholderTalent, BasicSlugIntent>
+public class BasicSlugFigment : WispFigment<FieldRationTrigger, ScaredyCatTalent, BasicSlugIntent>
 {
     private bool _isFourLegged;
 

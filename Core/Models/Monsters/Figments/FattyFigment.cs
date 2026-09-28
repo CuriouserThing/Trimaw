@@ -1,11 +1,11 @@
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
-using Trimaw.Core.Models.Powers;
 using Trimaw.Core.Models.Powers.Talents;
+using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class FattyFigment : SimpleFigment<PlaceholderTrigger, BusinessAsUsualTalent, FattyIntent>
+public class FattyFigment : SimpleFigment<SkillCheckTrigger, BusinessAsUsualTalent, FattyIntent>
 {
     protected override AkCombatSkeleton Skeleton => AkCombatSkeleton.Build("enemy_2085_skzjxd",
         new ActionAnimation("Special", 0.20, 0.45, 1.00, "Idle")

@@ -4,14 +4,13 @@ using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.ImaginationSystem.UniqueIntents;
 using Trimaw.Core.Models.Powers;
+using Trimaw.Core.Models.Powers.Talents;
 using Trimaw.Core.Models.Powers.Triggers;
 
 namespace Trimaw.Core.Models.Monsters.Figments;
 
-public class EunectesFigment : Figment<ImaginaryFriendPower, AssemblyRequiredTrigger, PlaceholderTalent>
+public class EunectesFigment : Figment<ImaginaryFriendPower, AssemblyRequiredTrigger, EunectesTalent>
 {
-    private const int MoveCount = 2;
-
     public static string SummonId => "Skill_2_Begin";
 
     // Atlas for this skeleton adjusted to remove most of Big Ugly (and hopefully none of Zumama herself)

@@ -64,8 +64,6 @@ public abstract class Figment : CustomMonsterModel
     /// </summary>
     public int? Timestamp { get; private set; }
 
-    internal bool PreventedFromPopping { get; private set; }
-
     internal int? CurrentSlotIndex { get; private set; }
 
     internal FigmentSlotMap? CurrentSlotMap { get; private set; }
@@ -312,12 +310,6 @@ public abstract class Figment : CustomMonsterModel
     {
         if (!IsMutable) return;
         _markedForPopping = true;
-    }
-
-    protected void PreventFromPopping()
-    {
-        if (!IsMutable) return;
-        PreventedFromPopping = true;
     }
 
     internal async Task Pop()

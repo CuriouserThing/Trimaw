@@ -6,6 +6,7 @@ using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Powers;
 using MegaCrit.Sts2.Core.ValueProps;
+using Trimaw.Core.Hooks;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.Models.Monsters;
 using Trimaw.Core.Models.Powers;
@@ -21,8 +22,7 @@ public static class ImaginationCmd
         return player.Creature.Pets
             .Where(c => c.Monster is Figment { IsAvailable: true })
             .Select(c => (c.Monster as Figment)!)
-            .OrderBy(f => f.PreventedFromPopping)
-            .ThenBy(f => f.Timestamp);
+            .OrderBy(f => f.Timestamp);
     }
 
     public static async Task ImagineRandom<T>(PlayerChoiceContext choiceContext, Player owner) where T : FigmentPower
@@ -58,6 +58,7 @@ public static class ImaginationCmd
 
         // Start a timer to put a min bound on the time we spend here (for visual clarity),
         // then init the figment (set HP, add to owner, etc.)
+        await TrimawHook.BeforeFigmentImagined(newFigment.CombatState, choiceContext, owner);
         MainFile.Logger.Info($"Adding {newFigment.GetType().Name} instance to player.");
         var imagineTimerTask = Cmd.CustomScaledWait(0.50f, 0.75f);
         await newFigment.Initialize(owner);
@@ -71,7 +72,34 @@ public static class ImaginationCmd
         //      Maybe a power allowing it was removed, etc.
         //      We only care about replacing *the* oldest over the limit; the rest can stay until otherwise removed
         var limit = MainFile.CombatManagerFactory.GetOrCreate(owner).ConcurrentFigmentLimit;
-        var oldestPopping = figmentBuffer.Length > limit && figmentBuffer[0] != newFigment;
+        var oldestPopping = figmentBuffer.Length > limit;
+
+        // Re-order figments if anything prevents any figment from popping
+        if (oldestPopping)
+        {
+            var head = 0;
+            var tail = figmentBuffer.Length;
+            var figmentBuffer2 = new Figment[figmentBuffer.Length];
+            foreach (var figment in figmentBuffer)
+                if (head == 0 && // the "oldest" slot has been filled, so we don't want to invoke hook anymore
+                    await TrimawHook.FigmentPopIsPrevented(figment.CombatState, choiceContext, owner, figment))
+                {
+                    tail -= 1;
+                    figmentBuffer2[tail] = figment;
+                }
+                else
+                {
+                    figmentBuffer2[head] = figment;
+                    head += 1;
+                }
+
+            if (tail == 0)
+                MainFile.Logger.Error(
+                    "Something has prevented every single figment from popping, including the one in the middle of imagination. Please evaluate how this happened. For now, we'll pop the one we're imagining, so any bugs or quirks that show up are for that reason.");
+            figmentBuffer = figmentBuffer2;
+        }
+
+        // Now mark the "oldest" (maybe not oldest if there was pop prevention) for popping
         var liveRange = oldestPopping ? 1.. : ..;
         var oldestFigment = figmentBuffer[0];
         if (oldestPopping) oldestFigment.MarkForPopping();
@@ -133,6 +161,7 @@ public static class ImaginationCmd
         // Done!
         await imagineTimerTask;
         MainFile.Logger.Info($"Finished adding {newFigment.GetType().Name} instance.");
+        await TrimawHook.AfterFigmentImagined(newFigment.CombatState, choiceContext, owner, newFigment);
     }
 
     private static bool TryFillSlotsWithoutRepositioning(ReadOnlySpan<Figment> figments, Span<int> slotBuffer,

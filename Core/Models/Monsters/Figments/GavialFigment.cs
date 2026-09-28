@@ -32,7 +32,7 @@ public class GavialFigment : Figment<ImaginaryFriendPower, MahuizzotiaTrigger, P
             case 0:
                 return new GavialAttackAIntent();
             case 1:
-                await PowerCmd.Apply<MahuizzotiaTrigger>(choiceContext, Creature, 1, Creature, null);
+                await PowerCmd.Apply<SkillCheckTrigger>(choiceContext, Creature, 1, Creature, null);
                 return new GavialAttackBIntent();
             default:
                 return null;
