@@ -1,6 +1,8 @@
 using BaseLib.Extensions;
 using Godot;
+using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Models;
+using Trimaw.Core.Models.Cards;
 
 namespace Trimaw.Core.Utils;
 
@@ -53,13 +55,21 @@ public static class Pathfinder
         return Image("ui", Path.Join(name));
     }
 
-    public static string CardPortrait(AbstractModel model)
+    public static string CardPortrait(CardModel model)
     {
-        return Image("card_portraits", $"{ModelFile(model)}").Found() ??
-               Image("card_portraits", "placeholder");
+        const string dir = "card_portraits";
+        if (Image(dir, $"{ModelFile(model)}").Found() is { } image) return image;
+        if (model is SnackCard) return Image(dir, "placeholder_snack");
+        return model.Type switch
+        {
+            CardType.Attack => Image(dir, "placeholder_attack"),
+            CardType.Skill => Image(dir, "placeholder_skill"),
+            CardType.Power => Image(dir, "placeholder_power"),
+            _ => Image(dir, "placeholder")
+        };
     }
 
-    public static string BetaCardPortrait(AbstractModel model)
+    public static string BetaCardPortrait(CardModel model)
     {
         return Image("card_portraits", "beta", $"{ModelFile(model)}").Found() ??
                CardPortrait(model);

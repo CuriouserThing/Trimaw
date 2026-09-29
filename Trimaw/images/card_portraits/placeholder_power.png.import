@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bbfkhvjyrd1"
-path="res://.godot/imported/double_axe.png-f83440185e895c7b77c9c1f4f625625f.ctex"
+uid="uid://bvbbo74yggnv8"
+path="res://.godot/imported/placeholder_power.png-ef35d2dd22c43ce3ae5692bb2dff021d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Trimaw/images/card_portraits/double_axe.png"
-dest_files=["res://.godot/imported/double_axe.png-f83440185e895c7b77c9c1f4f625625f.ctex"]
+source_file="res://Trimaw/images/card_portraits/placeholder_power.png"
+dest_files=["res://.godot/imported/placeholder_power.png-ef35d2dd22c43ce3ae5692bb2dff021d.ctex"]
 
 [params]
 
