@@ -25,7 +25,11 @@ public class BoxOfTruffles : SnackCard
         if (cards.Length < 1) return;
 
         var specialCards = cards.Select(c => c.CreateClone()).ToArray();
-        foreach (var card in specialCards) await TrimawCmd.MakeSuperSpecial(card);
+        foreach (var card in specialCards)
+        {
+            CardCmd.ClearEnchantment(card);
+            await TrimawCmd.MakeSuperSpecial(card);
+        }
 
         var transforms = cards.Zip(specialCards, (a, b) => new CardTransformation(a, b));
         await CardCmd.Transform(transforms, null);
