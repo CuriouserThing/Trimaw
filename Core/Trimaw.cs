@@ -8,6 +8,7 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.Models;
 using Trimaw.Core.Models.Cards.Basic;
+using Trimaw.Core.Models.Cards.Common;
 using Trimaw.Core.Models.Relics;
 using Trimaw.Core.Utils;
 
@@ -35,7 +36,9 @@ public sealed class Trimaw : PlaceholderCharacterModel
         ModelDb.Card<DefendTrimaw>(),
         ModelDb.Card<DefendTrimaw>(),
         ModelDb.Card<DoubleAxe>(),
-        ModelDb.Card<Scrounge>()
+        ModelDb.Card<Scrounge>(),
+        ModelDb.Card<Warmup>(),
+        ModelDb.Card<Cooldown>(),
     ];
 
     public override IReadOnlyList<RelicModel> StartingRelics =>
