@@ -20,5 +20,7 @@ public class CerberusForm() : TrimawCard(3, CardType.Power, CardRarity.Rare, Tar
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         await PowerCmd.Apply<CerberusFormPower>(choiceContext, Owner.Creature, 1, Owner.Creature, this);
+        await PowerCmd.Apply<ObligateOmnivorePower>(choiceContext, Owner.Creature,
+            DynamicVars[MorselsDevouredKey].BaseValue, Owner.Creature, this);
     }
 }

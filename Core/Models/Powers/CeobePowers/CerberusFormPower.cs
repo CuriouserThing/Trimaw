@@ -17,10 +17,11 @@ public class CerberusFormPower : TrimawPower
 
     public override int ModifyCardPlayCount(CardModel card, Creature? target, int playCount)
     {
-        if (card.Owner.Creature != Owner) return playCount;
+        if (card.Owner.Creature != Owner || card.Type != CardType.Attack) return playCount;
 
         var attacksPlayed = CombatManager.Instance.History.CardPlaysFinished
-            .Count(c => c.CardPlay.Card.Type == CardType.Attack && c.CardPlay.IsFirstInSeries);
+            .Count(c => c.HappenedThisTurn(CombatState) && c.CardPlay.Card.Type == CardType.Attack &&
+                        c.CardPlay.IsFirstInSeries);
         return attacksPlayed < Amount ? playCount + 2 : playCount;
     }
 }
