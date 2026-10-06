@@ -31,7 +31,6 @@ public class PineconeFactory : ITrimawCombatManagerFactory
         Enchant<ReallyHot>(4),
         Enchant<ReallyCold>(4),
         Enchant<ReallyDry>(4),
-        Enchant<ReallyWet>(4),
 
         // Costs 0-1
         Enchant<Hyperfixated>(),
