@@ -18,15 +18,15 @@ public class BoxOfCrayons() : TrimawCard(1, CardType.Attack, CardRarity.Common, 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new DamageVar(1, ValueProp.Move),
-        new RepeatVar(2),
+        new RepeatVar(2)
     ];
+
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override void OnUpgrade()
     {
         DynamicVars.Repeat.UpgradeValueBy(1);
     }
-
-    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

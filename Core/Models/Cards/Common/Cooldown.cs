@@ -1,18 +1,18 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Extensions;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.ValueProps;
 using Trimaw.Core.Commands;
 using Trimaw.Core.Models.Enchantments;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Cards.Common;
 
 public class Cooldown() : TrimawCard(1, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipFactory.FromEnchantment<ReallyCold>();
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipHelper.ForManifest<ReallyCold>();
 
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
@@ -29,7 +29,7 @@ public class Cooldown() : TrimawCard(1, CardType.Skill, CardRarity.Common, Targe
     {
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
-        await TrimawCmd.TransformIntoEnchantedCopies<ReallyCold>(Owner, PileType.Draw.GetPile(Owner).Cards,
-            2, DynamicVars[nameof(ReallyCold)].IntValue);
+        var enchanter = new Enchanter<ReallyCold>(DynamicVars[nameof(ReallyCold)].IntValue);
+        await TrimawCmd.Manifest(Owner, PileType.Draw, enchanter, 2);
     }
 }

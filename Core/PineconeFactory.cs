@@ -1,9 +1,7 @@
 using System.Reflection;
 using BaseLib.Utils;
-using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Models;
-using MegaCrit.Sts2.Core.Models.Enchantments;
 using Trimaw.Core.Animation;
 using Trimaw.Core.ImaginationSystem;
 using Trimaw.Core.Models.Cards;
@@ -11,7 +9,6 @@ using Trimaw.Core.Models.Cards.Snacks;
 using Trimaw.Core.Models.Enchantments;
 using Trimaw.Core.Models.Monsters;
 using Trimaw.Core.SnackSystem;
-using Trimaw.Core.Utils;
 
 namespace Trimaw.Core;
 
@@ -21,46 +18,6 @@ namespace Trimaw.Core;
 /// </summary>
 public class PineconeFactory : ITrimawCombatManagerFactory
 {
-    #region Super Special Enchantment!
-
-    public static IReadOnlyList<IEnchanter> SuperSpecialEnchantmentPool =>
-    [
-        // Is ANY card (try to keep at least a couple here)
-        Enchant<Sown>(),
-        Enchant<Glam>(),
-        Enchant<ReallyHot>(4),
-        Enchant<ReallyCold>(4),
-        Enchant<ReallyDry>(4),
-
-        // Costs 0-1
-        Enchant<Hyperfixated>(),
-
-        // Costs 1+ and doesn't exhaust
-        Enchant<Polished>(),
-
-        // Costs 2+ and either deals damage or gains block
-        Enchant<Doodled>(),
-
-        // Exhausts
-        Enchant<Xxl>(2),
-
-        // Is an Attack
-        Enchant<Inky>(c => c.Type == CardType.Attack), // vanilla doesn't do this
-        Enchant<Momentum>(3),
-        Enchant<Corrupted>(),
-
-        // Is a targeted Attack
-        Enchant<Focused>(),
-
-        // Is an Attack that deals N+ damage
-        Enchant<KindaHeavy>(),
-
-        // Gains block
-        Enchant<Nimble>(3)
-    ];
-
-    #endregion
-
     private PassthroughTrimawCombatManager Create(Player player)
     {
         var ceobeAnimator = new StandardCeobeAnimator
@@ -77,13 +34,9 @@ public class PineconeFactory : ITrimawCombatManagerFactory
         // Uses MonsterAi RNG because the choice of figment is also a choice of intended monster move
         var figmentRng = player.RunState.Rng.MonsterAi;
 
-        // Uses CombatCardGeneration RNG because [super special] enchantments are generated card mods
-        var superSpecialRng = player.RunState.Rng.CombatCardGeneration;
-
         return new PassthroughTrimawCombatManager(
             new MegaRngSnackFactoryPrepManager(SnackFactoryInternal, prepRng),
             new MegaRngFigmentPoolFilterer(FigmentPoolInternal, figmentRng),
-            new MegaRngEnchantmentPoolSuperSpecializer(SuperSpecialEnchantmentPoolInternal, superSpecialRng),
             ceobeAnimator);
     }
 
@@ -234,8 +187,6 @@ public class PineconeFactory : ITrimawCombatManagerFactory
         return result!;
     }
 
-    private IReadOnlyList<IEnchanter> SuperSpecialEnchantmentPoolInternal => field ??= SuperSpecialEnchantmentPool;
-
     public ITrimawCombatManager Register(Player player, PlayerCombatState combatState)
     {
         var value = Create(player);
@@ -248,24 +199,6 @@ public class PineconeFactory : ITrimawCombatManagerFactory
         if (player.PlayerCombatState is { } combatState)
             return PlayerCombatStateTable.Get(combatState) ?? Register(player, combatState);
         return Create(player);
-    }
-
-    private static IEnchanter Enchant<T>(Predicate<CardModel>? canPotentiallyEnchantPredicate = null)
-        where T : EnchantmentModel
-    {
-        return new Enchanter<T>
-        {
-            CanPotentiallyEnchantPredicate = canPotentiallyEnchantPredicate
-        };
-    }
-
-    private static IEnchanter Enchant<T>(int amount, Predicate<CardModel>? canPotentiallyEnchantPredicate = null)
-        where T : EnchantmentModel
-    {
-        return new Enchanter<T>(amount)
-        {
-            CanPotentiallyEnchantPredicate = canPotentiallyEnchantPredicate
-        };
     }
 
     private static IMorselEnchanter Enchant<T>(Morsel morsel) where T : EnchantmentModel

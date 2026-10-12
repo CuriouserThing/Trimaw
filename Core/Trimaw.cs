@@ -8,8 +8,6 @@ using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.Models;
 using Trimaw.Core.Models.Cards.Basic;
-using Trimaw.Core.Models.Cards.Common;
-using Trimaw.Core.Models.Cards.Rare;
 using Trimaw.Core.Models.Relics;
 using Trimaw.Core.Utils;
 

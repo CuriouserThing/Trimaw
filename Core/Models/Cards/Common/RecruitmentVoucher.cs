@@ -7,7 +7,7 @@ using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Cards.Common;
 
-public class RecruitmentVoucher(): TrimawCard(2, CardType.Skill, CardRarity.Common, TargetType.Self)
+public class RecruitmentVoucher() : TrimawCard(2, CardType.Skill, CardRarity.Common, TargetType.Self)
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
         HoverTipHelper.ForImagineRandom<BackToBasicsTrigger>(this);

@@ -72,7 +72,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="Directory.Build.props" />
+        <Content Include="Directory.Build.props"/>
     </ItemGroup>
 
     <Target Name="CheckDependencyPaths">

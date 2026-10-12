@@ -17,9 +17,6 @@ public class MiseEnPlace() : TrimawCard(2, CardType.Skill, CardRarity.Uncommon, 
         var morsels = MainFile.CombatManagerFactory.GetOrCreate(Owner).CurrentPrep.Count;
         await CardPileCmd.Draw(choiceContext, morsels, Owner);
         SnackCard? snack = null;
-        while (snack is null)
-        {
-            snack = await SnackCmd.PrepRandom(choiceContext, CombatState, Owner);
-        }
+        while (snack is null) snack = await SnackCmd.PrepRandom(choiceContext, CombatState, Owner);
     }
 }

@@ -28,10 +28,7 @@ public class CookbookClipping() : TrimawCard(1, CardType.Skill, CardRarity.Commo
     {
         await CardPileCmd.Draw(choiceContext, DynamicVars.Cards.BaseValue, Owner);
 
-        int morsels = DynamicVars[MorselsKey].IntValue;
-        for (int i = 0; i < morsels; i += 1)
-        {
-            await SnackCmd.PrepRandom(choiceContext, CombatState, Owner);
-        }
+        var morsels = DynamicVars[MorselsKey].IntValue;
+        for (var i = 0; i < morsels; i += 1) await SnackCmd.PrepRandom(choiceContext, CombatState, Owner);
     }
 }

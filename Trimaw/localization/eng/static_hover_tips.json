@@ -1,6 +1,6 @@
 {
-  "TRIMAW-SUPER_SPECIAL.title": "Super Special",
-  "TRIMAW-SUPER_SPECIAL.description": "Randomly enchanted with...um...something!",
+  "TRIMAW-MANIFEST.title": "Manifest",
+  "TRIMAW-MANIFEST.description": "Transform a random card in some pile into an [purple]Enchanted[/purple] copy. If none can be, add a random card with that [purple]Enchantment[/purple] into that pile.",
   "TRIMAW-PREP.title": "Prep",
   "TRIMAW-PREP.description": "Ready a [color=#ff9047]Morsel[/color]. If you have [blue]4[/blue], you automatically make a [gold]Snack[/gold] card from [blue]2-4[/blue] of them.",
   "TRIMAW-BREAD.title": "Bread",
@@ -19,8 +19,6 @@
   "TRIMAW-IMAGINE.description": "Conjure up a [color=#50d6d6]Figment[/color] and heal it with your [gold]Vigor[/gold]. If you already had {Limit:plural:[blue]1[/blue] [color=#50d6d6]Figment[/color]|[blue]{}[/blue] [color=#50d6d6]Figments[/color]}, [gold]Pop[/gold] the oldest.",
   "TRIMAW-POP.title": "Pop",
   "TRIMAW-POP.description": "Convert a [color=#50d6d6]Figment's[/color] HP into [gold]Block[/gold]. It vanishes.",
-  "TRIMAW-DUCK_LORD_ASSOCIATE.title": "Duck Lord Associate",
-  "TRIMAW-DUCK_LORD_ASSOCIATE.description": "These guys love money! Maybe they'll be stronger if you have more [gold]Gold[/gold]?",
   "TRIMAW-EUNECTES.title": "Zumama",
   "TRIMAW-EUNECTES.description": "She's chief of one of the jungle tribes and built a REALLY BIG robot. Let's help her rebuild it!"
 }

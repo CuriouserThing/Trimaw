@@ -14,6 +14,7 @@ public class StaringDaggers() : TrimawCard(1, CardType.Skill, CardRarity.Uncommo
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips =>
     [
+        HoverTipFactory.FromPower<VulnerablePower>(),
         HoverTipFactory.FromCard<Dart>(),
         HoverTipFactory.FromPower<AimPower>()
     ];

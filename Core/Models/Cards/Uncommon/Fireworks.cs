@@ -15,7 +15,7 @@ public class Fireworks() : TrimawCard(2, CardType.Attack, CardRarity.Uncommon, T
     protected override IEnumerable<DynamicVar> CanonicalVars =>
     [
         new CalculationBaseVar(0),
-        new CalculationExtraVar(2),
+        new ExtraDamageVar(2),
         new CalculatedDamageVar(ValueProp.Move).WithMultiplier(CalculateDamage)
     ];
 

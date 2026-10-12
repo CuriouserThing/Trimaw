@@ -12,7 +12,6 @@ public interface ITrimawCombatManager :
     ITrimawCombatHistory,
     IPrepManager,
     IFigmentFilterer,
-    ISuperSpecializer,
     ICeobeAnimator
 {
     public int ConcurrentFigmentLimit => 2; // for now, always 2

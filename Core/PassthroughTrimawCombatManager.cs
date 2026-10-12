@@ -1,7 +1,6 @@
 using MegaCrit.Sts2.Core.Bindings.MegaSpine;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
-using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.Animation;
 using Trimaw.Core.CombatHistory;
 using Trimaw.Core.ImaginationSystem;
@@ -17,7 +16,6 @@ namespace Trimaw.Core;
 public class PassthroughTrimawCombatManager(
     IPrepManager prepManager,
     IFigmentFilterer figmentFilterer,
-    ISuperSpecializer superSpecializer,
     ICeobeAnimator ceobeAnimator) : ITrimawCombatManager
 {
     private readonly List<TrimawCombatHistoryEntry> _entries = [];
@@ -56,11 +54,6 @@ public class PassthroughTrimawCombatManager(
     public async Task ImagineFigment(PlayerChoiceContext choiceContext, Player owner, Figment figment)
     {
         await figmentFilterer.ImagineFigment(choiceContext, owner, figment);
-    }
-
-    public void MakeSuperSpecial(CardModel card)
-    {
-        superSpecializer.MakeSuperSpecial(card);
     }
 
     public Task<CeobeAnimationResult> AnimateAttack(

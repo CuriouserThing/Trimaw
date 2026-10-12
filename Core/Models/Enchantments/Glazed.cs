@@ -12,11 +12,7 @@ public class Glazed : TrimawEnchantment
     public override bool HasExtraCardText => true;
     public override string Icon64Path => Pathfinder.GameIconsDotnet64("dripping_honey");
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips =>
-    [
-        HoverTipFactory.FromPower<StickyFingersPower>(),
-        HoverTipFactory.Static(StaticHoverTip.SuperSpecial)
-    ];
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [HoverTipFactory.FromPower<StickyFingersPower>()];
 
     public override async Task AfterCardPlayed(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {

@@ -4,12 +4,13 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using Trimaw.Core.Models.Enchantments;
 using Trimaw.Core.Models.Powers.CeobePowers;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Cards.Rare;
 
 public class DailyDoodles() : TrimawCard(2, CardType.Power, CardRarity.Rare, TargetType.Self)
 {
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipFactory.FromEnchantment<Doodled>();
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipHelper.ForManifest<Doodled>();
 
     protected override void OnUpgrade()
     {

@@ -8,7 +8,7 @@ namespace Trimaw.Core;
 [SuppressMessage("Usage", "CA2211:Non-constant fields should not be visible")]
 public static class StaticHoverTip
 {
-    [CustomEnum] public static MegaCritTip SuperSpecial;
+    [CustomEnum] public static MegaCritTip Manifest;
 
     [CustomEnum] public static MegaCritTip Prep;
     [CustomEnum] public static MegaCritTip Bread;
@@ -20,6 +20,5 @@ public static class StaticHoverTip
 
     [CustomEnum] public static MegaCritTip Imagine;
     [CustomEnum] public static MegaCritTip Pop;
-    [CustomEnum] public static MegaCritTip DuckLordAssociate;
     [CustomEnum] public static MegaCritTip Eunectes;
 }
