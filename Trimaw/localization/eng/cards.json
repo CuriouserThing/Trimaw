@@ -94,7 +94,7 @@
   "TRIMAW-STARING_DAGGERS.title": "Staring Daggers",
   "TRIMAW-STARING_DAGGERS.description": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].\nAdd {Dart:diff()}{IfUpgraded:show: [gold]Upgraded[/gold]|} {Dart:plural:[gold]Dart[/gold]|[gold]Darts[/gold]} into your [gold]Hand[/gold].",
   "TRIMAW-STAY_STILL_MY_PREY.title": "Stay Still, My Prey",
-  "TRIMAW-STAY_STILL_MY_PREY.description": "Deal {Damage:diff()} damage.\n[gold]Manifest[/gold] {Cards:diff()} [purple]Focused[/purple] targeted {Cards:plural:Attack|Attacks}.",
+  "TRIMAW-STAY_STILL_MY_PREY.description": "Deal {Damage:diff()} damage.\n[gold]Manifest[/gold] {Cards:diff()} [purple]Focused[/purple] targeted {Cards:plural:Attack|Attacks} in your [gold]Hand[/gold].",
   "TRIMAW-STONE_DISEASE.title": "Stone Disease",
   "TRIMAW-STONE_DISEASE.description": "Whenever an Attack would be [gold]Enchanted[/gold], [gold]Enchant[/gold] it with [purple]Instinct[/purple] instead.\nLose {HpLoss:diff()} Max HP.",
   "TRIMAW-TAKE_AIM.title": "Take Aim",
