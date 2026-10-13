@@ -32,18 +32,25 @@ public static class HoverTipHelper
         ];
     }
 
-    public static IEnumerable<IHoverTip> ForMorselPrep(Morsel morsel)
+    public static IEnumerable<IHoverTip> ForMorselPrep(params Morsel[] morsels)
     {
-        var morselTip = morsel switch
+        var tips = new IHoverTip[morsels.Length + 1];
+        tips[0] = HoverTipFactory.Static(StaticHoverTip.Prep);
+        for (var i = 0; i < morsels.Length; i += 1)
         {
-            Morsel.Bread => StaticHoverTip.Bread,
-            Morsel.Meat => StaticHoverTip.Meat,
-            Morsel.Shrooms => StaticHoverTip.Shrooms,
-            Morsel.Berries => StaticHoverTip.Berries,
-            Morsel.Pepper => StaticHoverTip.Pepper,
-            Morsel.Water => StaticHoverTip.Water,
-            _ => throw new ArgumentOutOfRangeException(nameof(morsel), morsel, null)
-        };
-        return [HoverTipFactory.Static(StaticHoverTip.Prep), HoverTipFactory.Static(morselTip)];
+            var morselTip = morsels[i] switch
+            {
+                Morsel.Bread => StaticHoverTip.Bread,
+                Morsel.Meat => StaticHoverTip.Meat,
+                Morsel.Shrooms => StaticHoverTip.Shrooms,
+                Morsel.Berries => StaticHoverTip.Berries,
+                Morsel.Pepper => StaticHoverTip.Pepper,
+                Morsel.Water => StaticHoverTip.Water,
+                _ => throw new ArgumentOutOfRangeException(nameof(morsels), morsels, null)
+            };
+            tips[i + 1] = HoverTipFactory.Static(morselTip);
+        }
+
+        return tips;
     }
 }
