@@ -11,11 +11,11 @@ namespace Trimaw.Core.Hooks;
 
 public static class TrimawHook
 {
-    public static async Task<IEnchanter> ModifyEnchanter(
+    public static async Task<Enchanter> ModifyEnchanter(
         ICombatState combatState,
         PlayerChoiceContext choiceContext,
         CardModel card,
-        IEnchanter enchanter)
+        Enchanter enchanter)
     {
         foreach (var hookListener in combatState.IterateHookListeners())
         {

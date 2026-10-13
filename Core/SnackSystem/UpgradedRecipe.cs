@@ -8,9 +8,9 @@ namespace Trimaw.Core.SnackSystem;
 internal class UpgradedRecipe<T> : BaseRecipe<T> where T : SnackCard
 {
     private readonly Morsel[] _enchanterMorsels;
-    private readonly Dictionary<Morsel, IMorselEnchanter> _enchanters;
+    private readonly Dictionary<Morsel, MorselEnchanter> _enchanters;
 
-    public UpgradedRecipe(IMorselEnchanter[] enchanters, Morsel[] snackBase) : base(snackBase)
+    public UpgradedRecipe(MorselEnchanter[] enchanters, Morsel[] snackBase) : base(snackBase)
     {
         const int baseSize = SnackConstants.SnackBaseSize + 1;
         Validate(baseSize, enchanters, snackBase, []);
@@ -22,7 +22,7 @@ internal class UpgradedRecipe<T> : BaseRecipe<T> where T : SnackCard
         }
 
         _enchanterMorsels = new Morsel[enchanters.Length];
-        _enchanters = new Dictionary<Morsel, IMorselEnchanter>(enchanters.Length);
+        _enchanters = new Dictionary<Morsel, MorselEnchanter>(enchanters.Length);
         for (var i = 0; i < enchanters.Length; i += 1)
         {
             var enchanter = enchanters[i];
@@ -37,7 +37,7 @@ internal class UpgradedRecipe<T> : BaseRecipe<T> where T : SnackCard
 
     public override IReadOnlyList<Morsel> EnchanterMorsels => _enchanterMorsels;
 
-    public override IReadOnlyDictionary<Morsel, IMorselEnchanter> Enchanters => _enchanters;
+    public override IReadOnlyDictionary<Morsel, MorselEnchanter> Enchanters => _enchanters;
 
     public override bool IsPreUpgraded()
     {
@@ -48,7 +48,7 @@ internal class UpgradedRecipe<T> : BaseRecipe<T> where T : SnackCard
 internal class UpgradedRecipe<TEnchant, TRecipe> : BaseRecipe<TRecipe>
     where TEnchant : EnchantmentModel where TRecipe : SnackCard
 {
-    private readonly IEnchanter _enchanter;
+    private readonly Enchanter _enchanter;
 
     private UpgradedRecipe(Enchanter<TEnchant> enchanter, Morsel[] snackBase) : base(snackBase)
     {
@@ -73,7 +73,7 @@ internal class UpgradedRecipe<TEnchant, TRecipe> : BaseRecipe<TRecipe>
         return true;
     }
 
-    public override bool IsPreEnchanted([NotNullWhen(true)] out IEnchanter? enchanter)
+    public override bool IsPreEnchanted([NotNullWhen(true)] out Enchanter? enchanter)
     {
         enchanter = _enchanter;
         return true;

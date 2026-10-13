@@ -12,8 +12,8 @@ public interface IRecipe
     public bool IsValid { get; }
     public IReadOnlyList<Morsel> SnackBase { get; }
     public IReadOnlyList<Morsel> Upgraders { get; }
-    public IReadOnlyDictionary<Morsel, IMorselEnchanter> Enchanters { get; }
+    public IReadOnlyDictionary<Morsel, MorselEnchanter> Enchanters { get; }
     public bool IsPreUpgraded();
-    public bool IsPreEnchanted([NotNullWhen(true)] out IEnchanter? enchanter);
+    public bool IsPreEnchanted([NotNullWhen(true)] out Enchanter? enchanter);
     public SnackCard CreateCard(ICombatState combatState, Player owner);
 }

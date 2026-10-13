@@ -27,8 +27,8 @@ public class CaramelCandies : SnackCard
     {
         var enchanter = new Enchanter<Glam>
         {
-            CanPotentiallyEnchantPredicate = c =>
-                c.EnergyCost.GetWithModifiers(CostModifiers.All) == DynamicVars.Energy.IntValue
+            PreventedFromEnchantingPredicate = c =>
+                c.EnergyCost.GetWithModifiers(CostModifiers.All) != DynamicVars.Energy.IntValue
         };
         await EnchantCmd.Manifest(choiceContext, Owner, PileType.Hand, enchanter, DynamicVars.Cards.IntValue);
     }

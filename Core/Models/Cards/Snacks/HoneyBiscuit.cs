@@ -24,9 +24,9 @@ public class HoneyBiscuit : SnackCard
         var threshold = DynamicVars.Energy.BaseValue;
         var enchanter = new Enchanter<Polished>
         {
-            CanPotentiallyEnchantPredicate = c =>
-                c.Type is CardType.Attack or CardType.Skill &&
-                c.EnergyCost.GetWithModifiers(CostModifiers.Local) >= threshold
+            PreventedFromEnchantingPredicate = c =>
+                c.Type is not (CardType.Attack or CardType.Skill) ||
+                c.EnergyCost.GetWithModifiers(CostModifiers.Local) < threshold
         };
         await EnchantCmd.Manifest(choiceContext, Owner, PileType.Hand, enchanter);
     }

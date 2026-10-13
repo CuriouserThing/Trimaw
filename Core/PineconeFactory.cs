@@ -201,12 +201,12 @@ public class PineconeFactory : ITrimawCombatManagerFactory
         return Create(player);
     }
 
-    private static IMorselEnchanter Enchant<T>(Morsel morsel) where T : EnchantmentModel
+    private static MorselEnchanter Enchant<T>(Morsel morsel) where T : EnchantmentModel
     {
         return new MorselEnchanter<T>(morsel);
     }
 
-    private static IMorselEnchanter Enchant<T>(int amount, Morsel morsel) where T : EnchantmentModel
+    private static MorselEnchanter Enchant<T>(int amount, Morsel morsel) where T : EnchantmentModel
     {
         return new MorselEnchanter<T>(morsel, amount);
     }

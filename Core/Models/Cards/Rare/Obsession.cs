@@ -24,7 +24,7 @@ public class Obsession() : TrimawCard(0, CardType.Skill, CardRarity.Rare, Target
     {
         var enchanter = new Enchanter<Hyperfixated>
         {
-            CanPotentiallyEnchantPredicate = c => c.EnergyCost.GetWithModifiers(CostModifiers.None) == 1
+            PreventedFromEnchantingPredicate = c => c.EnergyCost.GetWithModifiers(CostModifiers.None) != 1
         };
         await EnchantCmd.Manifest(choiceContext, Owner, PileType.Hand, enchanter);
 

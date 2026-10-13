@@ -41,7 +41,7 @@ public class EncodedSnack
 
     public Morsel? MaybeUpgrader => _upgrader;
 
-    public IEnchanter? MaybeEnchanter
+    public Enchanter? MaybeEnchanter
     {
         get
         {
@@ -50,7 +50,7 @@ public class EncodedSnack
         }
     }
 
-    public IMorselEnchanter? MaybeMorselEnchanter
+    public MorselEnchanter? MaybeMorselEnchanter
     {
         get
         {
@@ -60,7 +60,7 @@ public class EncodedSnack
         }
     }
 
-    public bool TryGetEnchanter([NotNullWhen(true)] out IEnchanter? enchanter)
+    public bool TryGetEnchanter([NotNullWhen(true)] out Enchanter? enchanter)
     {
         if (Recipe.IsPreEnchanted(out enchanter)) return true;
 
@@ -104,7 +104,7 @@ public class EncodedSnack
 
         builder.Append(' ');
 
-        if (TryGetEnchanter(out var enchanter)) builder.Append($"{{{enchanter.Name}}} ");
+        if (TryGetEnchanter(out var enchanter)) builder.Append($"{{{enchanter}}} ");
 
         builder.Append(Recipe.Name);
         if (IsUpgraded) builder.Append('+');

@@ -31,7 +31,7 @@ public class KitchenSink() : TrimawCard(0, CardType.Skill, CardRarity.Uncommon, 
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        IEnchanter[] enchanters =
+        Enchanter[] enchanters =
         [
             new Enchanter<ReallyHot>(DynamicVars[nameof(ReallyHot)].IntValue),
             new Enchanter<ReallyCold>(DynamicVars[nameof(ReallyCold)].IntValue)

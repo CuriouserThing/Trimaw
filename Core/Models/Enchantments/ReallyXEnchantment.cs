@@ -12,6 +12,8 @@ public abstract class ReallyXEnchantment : TrimawEnchantment
 {
     public override bool ShowAmount => true;
 
+    public override bool IsStackable => true;
+
     protected abstract Task Operate();
 
     protected PlayerChoiceContext GetChoiceContext()

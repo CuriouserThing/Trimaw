@@ -5,7 +5,7 @@ namespace Trimaw.Core.Hooks;
 
 public interface IEnchantListener
 {
-    IEnchanter ModifyEnchanter(CardModel card, IEnchanter enchanter);
+    Enchanter ModifyEnchanter(CardModel card, Enchanter enchanter);
 
-    Task AfterModifyingEnchanter(CardModel card, IEnchanter enchanter);
+    Task AfterModifyingEnchanter(CardModel card, Enchanter enchanter);
 }

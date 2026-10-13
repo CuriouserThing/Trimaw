@@ -13,17 +13,17 @@ public class StoneDiseasePower : TrimawPower, IEnchantListener
 
     public override PowerStackType StackType => PowerStackType.Single;
 
-    public IEnchanter ModifyEnchanter(CardModel card, IEnchanter enchanter)
+    public Enchanter ModifyEnchanter(CardModel card, Enchanter enchanter)
     {
         if (card.Owner.Creature != Owner ||
             card.Type != CardType.Attack ||
             enchanter.CanonicalModel is Instinct) return enchanter;
 
-        IEnchanter newEnchanter = new Enchanter<Instinct>();
-        return newEnchanter.CanEnchant(card) ? newEnchanter : enchanter;
+        Enchanter newEnchanter = new Enchanter<Instinct>();
+        return newEnchanter.CanEnchantCloneOf(card) ? newEnchanter : enchanter;
     }
 
-    public Task AfterModifyingEnchanter(CardModel card, IEnchanter enchanter)
+    public Task AfterModifyingEnchanter(CardModel card, Enchanter enchanter)
     {
         Flash();
         return Task.CompletedTask;

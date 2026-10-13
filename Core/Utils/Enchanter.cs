@@ -1,54 +1,76 @@
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Entities.Enchantments;
 using MegaCrit.Sts2.Core.Models;
 
 namespace Trimaw.Core.Utils;
 
-internal class Enchanter<T>(int amount = 1) : IEnchanter, IEquatable<Enchanter<T>> where T : EnchantmentModel
+public abstract class Enchanter
 {
-    public Predicate<CardModel>? CanPotentiallyEnchantPredicate { private get; init; }
+    public abstract EnchantmentModel CanonicalModel { get; }
 
-    public string Name => typeof(T).Name;
+    public int Amount { get; init; } = 1;
 
-    public int Amount { get; } = amount;
-
-    public EnchantmentModel CanonicalModel => ModelDb.Enchantment<T>();
-
-    public bool CanPotentiallyEnchant(CardModel card)
+    public bool CanEnchantCloneOf(CardModel card)
     {
-        return CanPotentiallyEnchantPredicate is null || CanPotentiallyEnchantPredicate(card);
+        var canonicalCard = card.CanonicalInstance;
+        if (!CanonicalModel.CanEnchant(canonicalCard) || PreventedFromEnchanting(canonicalCard)) return false;
+        var oldEnchantment = card.Enchantment;
+        if (oldEnchantment is null || oldEnchantment.Status == EnchantmentStatus.Disabled) return true;
+        return CanStackEnchantment(oldEnchantment);
     }
 
-    public EnchantmentModel? Enchant(CardModel card)
+    public abstract EnchantmentModel? Enchant(CardModel card);
+
+    protected virtual bool PreventedFromEnchanting(CardModel card)
     {
-        return CardCmd.Enchant<T>(card, Amount);
+        return false;
+    }
+
+    protected virtual bool CanStackEnchantment(EnchantmentModel enchantment)
+    {
+        return false;
     }
 
     public override string ToString()
     {
-        return Amount == 1 ? $"{Name}" : $"{Name} {Amount}";
+        var name = CanonicalModel.GetType().Name;
+        return Amount == 1 ? name : $"{name} {Amount}";
     }
+}
 
-    #region Equality
-
-    public bool Equals(Enchanter<T>? other)
+public class Enchanter<T> : Enchanter where T : EnchantmentModel
+{
+    public Enchanter(int amount = 1)
     {
-        if (other is null) return false;
-        if (ReferenceEquals(this, other)) return true;
-        return Amount == other.Amount;
+        Amount = amount;
     }
 
-    public override bool Equals(object? obj)
+    public Predicate<CardModel> PreventedFromEnchantingPredicate { get; init; } = _ => false;
+
+    public bool CanStackSameEnchantment { get; init; } = false;
+
+    public override EnchantmentModel CanonicalModel => ModelDb.Enchantment<T>();
+
+    public override EnchantmentModel? Enchant(CardModel card)
     {
-        if (obj is null) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != GetType()) return false;
-        return Equals((Enchanter<T>)obj);
+        var oldEnchantment = card.Enchantment;
+        var amount = Amount;
+        if (oldEnchantment is not null)
+        {
+            if (CanStackEnchantment(oldEnchantment)) amount += oldEnchantment.Amount;
+            CardCmd.ClearEnchantment(card);
+        }
+
+        return CardCmd.Enchant<T>(card, amount);
     }
 
-    public override int GetHashCode()
+    protected override bool PreventedFromEnchanting(CardModel card)
     {
-        return Amount;
+        return PreventedFromEnchantingPredicate(card);
     }
 
-    #endregion
+    protected override bool CanStackEnchantment(EnchantmentModel enchantment)
+    {
+        return enchantment is T && (CanStackSameEnchantment || enchantment.IsStackable);
+    }
 }

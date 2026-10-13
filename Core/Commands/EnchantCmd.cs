@@ -13,7 +13,7 @@ namespace Trimaw.Core.Commands;
 public static class EnchantCmd
 {
     public static async Task<CardModel> GenerateCard(PlayerChoiceContext choiceContext, Player owner,
-        IEnchanter enchanter, CardPoolModel? cardPool = null)
+        Enchanter enchanter, CardPoolModel? cardPool = null)
     {
         var combatState = owner.Creature.CombatState;
         ArgumentNullException.ThrowIfNull(combatState);
@@ -21,7 +21,7 @@ public static class EnchantCmd
         cardPool ??= owner.Character.CardPool;
         var pool = cardPool
             .GetUnlockedCards(owner.UnlockState, owner.RunState.CardMultiplayerConstraint)
-            .Where(enchanter.CanEnchant);
+            .Where(enchanter.CanEnchantCloneOf);
         var rng = owner.RunState.Rng.CombatCardGeneration;
         var card = CardFactory.GetForCombat(owner, pool, 1, rng).FirstOrDefault();
         if (card is null) throw new Exception($"No card found in pool for enchanter {enchanter}.");
@@ -31,7 +31,7 @@ public static class EnchantCmd
     }
 
     public static async Task<IReadOnlyList<CardModel>> GenerateCards(PlayerChoiceContext choiceContext, Player owner,
-        IEnchanter enchanter, int cardCount, CardPoolModel? cardPool = null, bool getDistinctCards = true)
+        Enchanter enchanter, int cardCount, CardPoolModel? cardPool = null, bool getDistinctCards = true)
     {
         var combatState = owner.Creature.CombatState;
         ArgumentNullException.ThrowIfNull(combatState);
@@ -44,7 +44,7 @@ public static class EnchantCmd
         cardPool ??= owner.Character.CardPool;
         var pool = cardPool
             .GetUnlockedCards(owner.UnlockState, owner.RunState.CardMultiplayerConstraint)
-            .Where(enchanter.CanEnchant);
+            .Where(enchanter.CanEnchantCloneOf);
         var rng = owner.RunState.Rng.CombatCardGeneration;
         var cards = getDistinctCards
             ? CardFactory.GetDistinctForCombat(owner, pool, cardCount, rng).ToArray()
@@ -57,7 +57,7 @@ public static class EnchantCmd
     }
 
     public static async Task Manifest(PlayerChoiceContext choiceContext, Player owner, PileType pileType,
-        IEnchanter enchanter, int cardCount = 1)
+        Enchanter enchanter, int cardCount = 1)
     {
         if (cardCount < 1)
         {
@@ -65,13 +65,13 @@ public static class EnchantCmd
             return;
         }
 
-        var enchanters = new IEnchanter[cardCount];
+        var enchanters = new Enchanter[cardCount];
         Array.Fill(enchanters, enchanter);
         await Manifest(choiceContext, owner, pileType, enchanters);
     }
 
     public static async Task Manifest(PlayerChoiceContext choiceContext, Player owner, PileType pileType,
-        IReadOnlyList<IEnchanter> enchanters)
+        IReadOnlyList<Enchanter> enchanters)
     {
         var combatState = owner.Creature.CombatState;
         ArgumentNullException.ThrowIfNull(combatState);
@@ -82,13 +82,12 @@ public static class EnchantCmd
         var transformClones = new List<CardModel>(enchanters.Count);
         var generatedCards = new List<CardModel>(enchanters.Count);
         foreach (var enchanter in enchanters)
-            if (rng.CombatCardSelection.NextItem(pileCards.Where(enchanter.CanEnchant)) is { } card)
+            if (rng.CombatCardSelection.NextItem(pileCards.Where(enchanter.CanEnchantCloneOf)) is { } card)
             {
                 pileCards.Remove(card);
                 transformOriginals.Add(card);
 
                 var clone = card.CreateClone();
-                CardCmd.ClearEnchantment(clone);
                 await Enchant(combatState, choiceContext, clone, enchanter);
                 transformClones.Add(clone);
             }
@@ -96,7 +95,7 @@ public static class EnchantCmd
             {
                 var pool = owner.Character.CardPool
                     .GetUnlockedCards(owner.UnlockState, owner.RunState.CardMultiplayerConstraint)
-                    .Where(enchanter.CanEnchant);
+                    .Where(enchanter.CanEnchantCloneOf);
                 card = CardFactory.GetForCombat(owner, pool, 1, rng.CombatCardGeneration).FirstOrDefault();
                 if (card is null)
                 {
@@ -114,7 +113,6 @@ public static class EnchantCmd
         {
             var transforms = transformOriginals.Zip(transformClones, (a, b) => new CardTransformation(a, b));
             await CardCmd.Transform(transforms, null);
-            if (generatedCards.Count > 0) await Cmd.Wait(1.2f); // same length as PreviewCardPileAdd default
         }
 
         if (generatedCards.Count > 0)
@@ -126,7 +124,7 @@ public static class EnchantCmd
     }
 
     private static async Task Enchant(ICombatState combatState, PlayerChoiceContext choiceContext, CardModel card,
-        IEnchanter enchanter)
+        Enchanter enchanter)
     {
         enchanter = await TrimawHook.ModifyEnchanter(combatState, choiceContext, card, enchanter);
         enchanter.Enchant(card);

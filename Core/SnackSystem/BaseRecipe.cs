@@ -16,15 +16,15 @@ internal abstract class BaseRecipe<T>(Morsel[] snackBase) : IRecipe where T : Sn
     public IReadOnlyList<Morsel> SnackBase { get; } = snackBase;
     public virtual IReadOnlyList<Morsel> Upgraders => [];
 
-    public virtual IReadOnlyDictionary<Morsel, IMorselEnchanter> Enchanters =>
-        ImmutableDictionary<Morsel, IMorselEnchanter>.Empty;
+    public virtual IReadOnlyDictionary<Morsel, MorselEnchanter> Enchanters =>
+        ImmutableDictionary<Morsel, MorselEnchanter>.Empty;
 
     public virtual bool IsPreUpgraded()
     {
         return false;
     }
 
-    public virtual bool IsPreEnchanted([NotNullWhen(true)] out IEnchanter? enchanter)
+    public virtual bool IsPreEnchanted([NotNullWhen(true)] out Enchanter? enchanter)
     {
         enchanter = null;
         return false;
@@ -35,7 +35,7 @@ internal abstract class BaseRecipe<T>(Morsel[] snackBase) : IRecipe where T : Sn
         return combatState.CreateCard<T>(owner);
     }
 
-    protected void Validate(int baseSize, IMorselEnchanter[] enchanters, Morsel[] snackBase, Morsel[] upgraders)
+    protected void Validate(int baseSize, MorselEnchanter[] enchanters, Morsel[] snackBase, Morsel[] upgraders)
     {
         Span<bool> flags = stackalloc bool[SnackConstants.MorselKinds];
 
@@ -66,8 +66,7 @@ internal abstract class BaseRecipe<T>(Morsel[] snackBase) : IRecipe where T : Sn
         foreach (var morsel in EnchanterMorsels)
         {
             var e = Printing.Emojify(morsel);
-            var name = Enchanters[morsel].Name;
-            builder.Append($"{{{e} {name}}} ");
+            builder.Append($"{{{e} {Enchanters[morsel]}}} ");
         }
 
         if (SnackBase.Count > 0)
@@ -76,7 +75,7 @@ internal abstract class BaseRecipe<T>(Morsel[] snackBase) : IRecipe where T : Sn
             builder.Append($"{b} ");
         }
 
-        if (IsPreEnchanted(out var enchanter)) builder.Append($"{{{enchanter.Name}}} ");
+        if (IsPreEnchanted(out var enchanter)) builder.Append($"{{{enchanter}}} ");
 
         builder.Append($"{Name}");
         if (IsPreUpgraded()) builder.Append('+');

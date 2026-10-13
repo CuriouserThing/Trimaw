@@ -18,7 +18,7 @@ public class IroncladAndMe() : TrimawCard(0, CardType.Skill, CardRarity.Rare, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        var enchanter = new Enchanter<Doodled> { CanPotentiallyEnchantPredicate = CanPotentiallyEnchant };
+        var enchanter = new Enchanter<Doodled> { PreventedFromEnchantingPredicate = PreventedFromEnchanting };
         CardModel[] cards =
         [
             await EnchantCmd.GenerateCard(choiceContext, Owner, enchanter),
@@ -30,7 +30,7 @@ public class IroncladAndMe() : TrimawCard(0, CardType.Skill, CardRarity.Rare, Ta
         await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, Owner);
     }
 
-    private static bool CanPotentiallyEnchant(CardModel card)
+    private static bool PreventedFromEnchanting(CardModel card)
     {
         // Design of this could go a few ways. We disallow cards that can't be Doodled after upgrade, even if this card
         // itself won't be upgrading it. Just to keep the pool the same regardless of whether this card is upgrading
@@ -38,6 +38,6 @@ public class IroncladAndMe() : TrimawCard(0, CardType.Skill, CardRarity.Rare, Ta
         // It also is irrelevant if no card that deals damage or gains block upgrades from 2 to 1.
         card = card.ToMutable();
         card.UpgradeInternal();
-        return ModelDb.Enchantment<Doodled>().CanEnchant(card);
+        return !ModelDb.Enchantment<Doodled>().CanEnchant(card);
     }
 }

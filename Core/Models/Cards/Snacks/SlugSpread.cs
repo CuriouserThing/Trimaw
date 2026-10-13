@@ -24,13 +24,14 @@ public class SlugSpread : SnackCard
     {
         var momentumEnchanter = new Enchanter<Momentum>(DynamicVars[nameof(Momentum)].IntValue)
         {
-            CanPotentiallyEnchantPredicate = c => c.EnergyCost.GetWithModifiers(CostModifiers.All) == 1
+            PreventedFromEnchantingPredicate = c => c.EnergyCost.GetWithModifiers(CostModifiers.All) != 1,
+            CanStackSameEnchantment = true
         };
         await EnchantCmd.Manifest(choiceContext, Owner, PileType.Hand, momentumEnchanter);
 
         var slitherEnchanter = new Enchanter<Slither>
         {
-            CanPotentiallyEnchantPredicate = c => c.EnergyCost.GetWithModifiers(CostModifiers.All) == 2
+            PreventedFromEnchantingPredicate = c => c.EnergyCost.GetWithModifiers(CostModifiers.All) != 2
         };
         await EnchantCmd.Manifest(choiceContext, Owner, PileType.Draw, slitherEnchanter);
     }
