@@ -114,12 +114,14 @@ public static class EnchantCmd
         {
             var transforms = transformOriginals.Zip(transformClones, (a, b) => new CardTransformation(a, b));
             await CardCmd.Transform(transforms, null);
+            if (generatedCards.Count > 0) await Cmd.Wait(1.2f); // same length as PreviewCardPileAdd default
         }
 
         if (generatedCards.Count > 0)
         {
             var pilePosition = pileType == PileType.Draw ? CardPilePosition.Random : CardPilePosition.Bottom;
-            await CardPileCmd.AddGeneratedCardsToCombat(generatedCards, pileType, owner, pilePosition);
+            var addResults = await CardPileCmd.AddGeneratedCardsToCombat(generatedCards, pileType, owner, pilePosition);
+            CardCmd.PreviewCardPileAdd(addResults);
         }
     }
 
