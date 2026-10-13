@@ -13,6 +13,8 @@ public class Obsession() : TrimawCard(0, CardType.Skill, CardRarity.Rare, Target
 {
     protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipHelper.ForManifest<Hyperfixated>();
 
+    public override IEnumerable<CardKeyword> CanonicalKeywords => [CardKeyword.Exhaust];
+
     protected override IEnumerable<DynamicVar> CanonicalVars => [new EnergyVar(1)];
 
     protected override void OnUpgrade()
