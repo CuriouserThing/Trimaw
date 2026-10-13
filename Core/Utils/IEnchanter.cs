@@ -6,9 +6,9 @@ public interface IEnchanter
 {
     public string Name { get; }
 
-    public int Amount { get; }
-
     public EnchantmentModel CanonicalModel { get; }
+
+    public int Amount { get; }
 
     /// <summary>
     ///     Additional restriction on top of the <see cref="EnchantmentModel" />'s own restrictions.

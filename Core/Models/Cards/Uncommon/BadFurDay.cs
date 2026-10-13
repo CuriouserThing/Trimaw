@@ -28,6 +28,6 @@ public class BadFurDay() : TrimawCard(2, CardType.Skill, CardRarity.Uncommon, Ta
     {
         var enchanter = new Enchanter<ReallyDry>(DynamicVars[nameof(ReallyDry)].IntValue);
         var cardCount = DynamicVars.Cards.IntValue;
-        await TrimawCmd.Manifest(Owner, PileType.Hand, enchanter, cardCount);
+        await EnchantCmd.Manifest(choiceContext, Owner, PileType.Hand, enchanter, cardCount);
     }
 }

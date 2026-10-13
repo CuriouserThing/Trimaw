@@ -36,7 +36,7 @@ public class KitchenSink() : TrimawCard(0, CardType.Skill, CardRarity.Uncommon, 
             new Enchanter<ReallyHot>(DynamicVars[nameof(ReallyHot)].IntValue),
             new Enchanter<ReallyCold>(DynamicVars[nameof(ReallyCold)].IntValue)
         ];
-        await TrimawCmd.Manifest(Owner, PileType.Draw, enchanters);
+        await EnchantCmd.Manifest(choiceContext, Owner, PileType.Draw, enchanters);
 
         await SnackCmd.PrepSpecific(choiceContext, CombatState, Morsel.Water, Owner);
     }

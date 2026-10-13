@@ -1,10 +1,11 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models.Enchantments;
+using Trimaw.Core.Commands;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Cards.Snacks;
 
@@ -22,12 +23,8 @@ public class ChicoTequila : SnackCard
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         var original = PileType.Hand.GetPile(Owner).Cards.ToArray();
-        var transformed = CardFactory.GetDistinctForCombat(
-            Owner,
-            Owner.Character.CardPool.GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint),
-            original.Length,
-            Owner.RunState.Rng.CombatCardGeneration).ToArray();
-        foreach (var card in transformed) CardCmd.Enchant<Swift>(card, DynamicVars[nameof(Swift)].BaseValue);
+        var enchanter = new Enchanter<Swift>(DynamicVars[nameof(Swift)].IntValue);
+        var transformed = await EnchantCmd.GenerateCards(choiceContext, Owner, enchanter, original.Length);
         var transforms = original.Zip(transformed, (a, b) => new CardTransformation(a, b));
         await CardCmd.Transform(transforms, null);
     }

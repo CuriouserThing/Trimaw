@@ -30,6 +30,6 @@ public class Cooldown() : TrimawCard(1, CardType.Skill, CardRarity.Common, Targe
         await CreatureCmd.GainBlock(Owner.Creature, DynamicVars.Block, cardPlay);
 
         var enchanter = new Enchanter<ReallyCold>(DynamicVars[nameof(ReallyCold)].IntValue);
-        await TrimawCmd.Manifest(Owner, PileType.Draw, enchanter, 2);
+        await EnchantCmd.Manifest(choiceContext, Owner, PileType.Draw, enchanter, 2);
     }
 }

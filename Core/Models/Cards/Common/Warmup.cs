@@ -36,6 +36,6 @@ public class Warmup() : TrimawCard(1, CardType.Attack, CardRarity.Common, Target
             .Execute(choiceContext);
 
         var enchanter = new Enchanter<ReallyHot>(DynamicVars[nameof(ReallyHot)].IntValue);
-        await TrimawCmd.Manifest(Owner, PileType.Hand, enchanter);
+        await EnchantCmd.Manifest(choiceContext, Owner, PileType.Hand, enchanter);
     }
 }

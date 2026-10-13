@@ -1,11 +1,12 @@
 using MegaCrit.Sts2.Core.Commands;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Factories;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Characters;
+using Trimaw.Core.Commands;
 using Trimaw.Core.Models.Enchantments;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Models.Cards.Rare;
 
@@ -17,29 +18,26 @@ public class IroncladAndMe() : TrimawCard(0, CardType.Skill, CardRarity.Rare, Ta
 
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        await CardPileCmd.AddGeneratedCardsToCombat(
-            [Generate(Owner.Character), Generate(ModelDb.Character<Ironclad>())],
-            PileType.Hand, Owner);
+        var enchanter = new Enchanter<Doodled> { CanPotentiallyEnchantPredicate = CanPotentiallyEnchant };
+        CardModel[] cards =
+        [
+            await EnchantCmd.GenerateCard(choiceContext, Owner, enchanter),
+            await EnchantCmd.GenerateCard(choiceContext, Owner, enchanter, ModelDb.Character<Ironclad>().CardPool)
+        ];
+        if (IsUpgraded)
+            foreach (var card in cards)
+                CardCmd.Upgrade(card);
+        await CardPileCmd.AddGeneratedCardsToCombat(cards, PileType.Hand, Owner);
     }
 
-    private CardModel Generate(CharacterModel character)
+    private static bool CanPotentiallyEnchant(CardModel card)
     {
-        var card = CardFactory.GetDistinctForCombat(
-            Owner,
-            character.CardPool.GetUnlockedCards(Owner.UnlockState, Owner.RunState.CardMultiplayerConstraint)
-                .Where(CanEnchant),
-            1,
-            Owner.RunState.Rng.CombatCardGeneration).First();
-        CardCmd.Enchant<Doodled>(card, 1);
-        if (IsUpgraded) CardCmd.Upgrade(card);
-        return card;
-    }
-
-    private static bool CanEnchant(CardModel card)
-    {
-        var doodled = ModelDb.Enchantment<Doodled>();
+        // Design of this could go a few ways. We disallow cards that can't be Doodled after upgrade, even if this card
+        // itself won't be upgrading it. Just to keep the pool the same regardless of whether this card is upgrading
+        // the cards it generates.
+        // It also is irrelevant if no card that deals damage or gains block upgrades from 2 to 1.
         card = card.ToMutable();
-        CardCmd.Upgrade(card);
-        return doodled.CanEnchant(card);
+        card.UpgradeInternal();
+        return ModelDb.Enchantment<Doodled>().CanEnchant(card);
     }
 }

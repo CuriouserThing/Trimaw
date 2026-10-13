@@ -1,7 +1,7 @@
-using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using MegaCrit.Sts2.Core.Entities.Creatures;
+using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.Entities.Powers;
+using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.HoverTips;
 using Trimaw.Core.Commands;
 using Trimaw.Core.Models.Enchantments;
@@ -19,11 +19,10 @@ public class DailyDoodlesPower : TrimawPower
 
     protected override IEnumerable<IHoverTip> ExtraHoverTips => HoverTipHelper.ForManifest<Doodled>();
 
-    public override async Task AfterSideTurnStart(CombatSide side, IReadOnlyList<Creature> participants,
-        ICombatState combatState)
+    public override async Task AfterPlayerTurnStart(PlayerChoiceContext choiceContext, Player player)
     {
-        if (side != CombatSide.Player || Owner.Player is not { } player) return;
+        if (player != Owner.Player) return;
 
-        await TrimawCmd.Manifest(player, PileType.Hand, new Enchanter<Doodled>(), Amount);
+        await EnchantCmd.Manifest(choiceContext, player, PileType.Hand, new Enchanter<Doodled>(), Amount);
     }
 }

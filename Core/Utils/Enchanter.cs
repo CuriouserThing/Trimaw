@@ -5,7 +5,8 @@ namespace Trimaw.Core.Utils;
 
 internal class Enchanter<T>(int amount = 1) : IEnchanter, IEquatable<Enchanter<T>> where T : EnchantmentModel
 {
-    public Predicate<CardModel>? CanPotentiallyEnchantPredicate { get; init; }
+    public Predicate<CardModel>? CanPotentiallyEnchantPredicate { private get; init; }
+
     public string Name => typeof(T).Name;
 
     public int Amount { get; } = amount;

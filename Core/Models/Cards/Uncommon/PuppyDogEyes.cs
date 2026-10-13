@@ -35,6 +35,6 @@ public class PuppyDogEyes() : TrimawCard(1, CardType.Skill, CardRarity.Uncommon,
             Owner.Creature, this);
 
         var enchanter = new Enchanter<ReallyWet>(DynamicVars[nameof(ReallyWet)].IntValue);
-        await TrimawCmd.Manifest(Owner, PileType.Hand, enchanter);
+        await EnchantCmd.Manifest(choiceContext, Owner, PileType.Hand, enchanter);
     }
 }

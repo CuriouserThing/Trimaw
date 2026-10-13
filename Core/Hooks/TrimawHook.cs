@@ -1,14 +1,37 @@
 using MegaCrit.Sts2.Core.Combat;
 using MegaCrit.Sts2.Core.Entities.Players;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.Models.Cards;
 using Trimaw.Core.Models.Monsters;
 using Trimaw.Core.SnackSystem;
+using Trimaw.Core.Utils;
 
 namespace Trimaw.Core.Hooks;
 
 public static class TrimawHook
 {
+    public static async Task<IEnchanter> ModifyEnchanter(
+        ICombatState combatState,
+        PlayerChoiceContext choiceContext,
+        CardModel card,
+        IEnchanter enchanter)
+    {
+        foreach (var hookListener in combatState.IterateHookListeners())
+        {
+            if (hookListener is not IEnchantListener enchantListener) continue;
+            var newEnchanter = enchantListener.ModifyEnchanter(card, enchanter);
+            if (newEnchanter.Equals(enchanter)) continue;
+            choiceContext.PushModel(hookListener);
+            await enchantListener.AfterModifyingEnchanter(card, newEnchanter);
+            choiceContext.PopModel(hookListener);
+            hookListener.InvokeExecutionFinished();
+            return newEnchanter;
+        }
+
+        return enchanter;
+    }
+
     public static async Task<bool> MorselPrepIsPrevented(
         ICombatState combatState,
         PlayerChoiceContext choiceContext,

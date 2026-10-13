@@ -30,6 +30,6 @@ public class CaramelCandies : SnackCard
             CanPotentiallyEnchantPredicate = c =>
                 c.EnergyCost.GetWithModifiers(CostModifiers.All) == DynamicVars.Energy.IntValue
         };
-        await TrimawCmd.Manifest(Owner, PileType.Hand, enchanter, DynamicVars.Cards.IntValue);
+        await EnchantCmd.Manifest(choiceContext, Owner, PileType.Hand, enchanter, DynamicVars.Cards.IntValue);
     }
 }

@@ -28,6 +28,6 @@ public class HoneyBiscuit : SnackCard
                 c.Type is CardType.Attack or CardType.Skill &&
                 c.EnergyCost.GetWithModifiers(CostModifiers.Local) >= threshold
         };
-        await TrimawCmd.Manifest(Owner, PileType.Hand, enchanter);
+        await EnchantCmd.Manifest(choiceContext, Owner, PileType.Hand, enchanter);
     }
 }

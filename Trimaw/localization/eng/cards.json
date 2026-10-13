@@ -89,6 +89,8 @@
   "TRIMAW-SNEAK_SECONDS.description": "Gain {Block:diff()} [gold]Block[/gold].\n[gold]Prep[/gold] the last [color=#ff9047]Morsel[/color] you prepped.",
   "TRIMAW-STARING_DAGGERS.title": "Staring Daggers",
   "TRIMAW-STARING_DAGGERS.description": "Apply {VulnerablePower:diff()} [gold]Vulnerable[/gold].\nAdd {Dart:diff()}{IfUpgraded:show: [gold]Upgraded[/gold]|} {Dart:plural:[gold]Dart[/gold]|[gold]Darts[/gold]} into your [gold]Hand[/gold].",
+  "TRIMAW-STONE_DISEASE.title": "Stone Disease",
+  "TRIMAW-STONE_DISEASE.description": "Whenever an Attack would be [gold]Enchanted[/gold], [gold]Enchant[/gold] it with [purple]Instinct[/purple] instead.\nLose {HpLoss:diff()} Max HP.",
   "TRIMAW-TAKE_AIM.title": "Take Aim",
   "TRIMAW-TAKE_AIM.description": "Gain {Block:diff()} [gold]Block[/gold].\nGain {AimPower:diff()} [gold]Aim[/gold].",
   "TRIMAW-THICK_FAT.title": "Thick Fat",

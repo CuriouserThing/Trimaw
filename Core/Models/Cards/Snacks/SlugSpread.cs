@@ -26,12 +26,12 @@ public class SlugSpread : SnackCard
         {
             CanPotentiallyEnchantPredicate = c => c.EnergyCost.GetWithModifiers(CostModifiers.All) == 1
         };
-        await TrimawCmd.Manifest(Owner, PileType.Hand, momentumEnchanter);
+        await EnchantCmd.Manifest(choiceContext, Owner, PileType.Hand, momentumEnchanter);
 
         var slitherEnchanter = new Enchanter<Slither>
         {
             CanPotentiallyEnchantPredicate = c => c.EnergyCost.GetWithModifiers(CostModifiers.All) == 2
         };
-        await TrimawCmd.Manifest(Owner, PileType.Draw, slitherEnchanter);
+        await EnchantCmd.Manifest(choiceContext, Owner, PileType.Draw, slitherEnchanter);
     }
 }

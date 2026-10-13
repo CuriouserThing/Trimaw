@@ -31,6 +31,6 @@ public class BoxOfTruffles : SnackCard
         await ImaginationCmd.ImagineRandom<ArtsAssimilationTalent>(choiceContext, Owner);
 
         var enchanter = new Enchanter<ReallyCold>(DynamicVars[nameof(ReallyCold)].IntValue);
-        await TrimawCmd.Manifest(Owner, PileType.Draw, enchanter, DynamicVars.Cards.IntValue);
+        await EnchantCmd.Manifest(choiceContext, Owner, PileType.Draw, enchanter, DynamicVars.Cards.IntValue);
     }
 }
