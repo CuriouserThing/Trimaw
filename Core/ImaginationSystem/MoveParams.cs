@@ -16,11 +16,11 @@ public class MoveParams
         EnemyTarget = other.EnemyTarget;
     }
 
-    public decimal? BaseAmount { get; init; }
+    public decimal BaseAmount { get; init; } = 0;
 
-    public decimal? Addend { get; init; }
+    public decimal Addend { get; init; }
 
-    public decimal? Multiplier { get; init; }
+    public decimal Multiplier { get; init; } = 1;
 
     /// <summary>
     ///     Single target that a <see cref="FigmentTrigger" /> may be passing to a <see cref="FigmentIntent" />.

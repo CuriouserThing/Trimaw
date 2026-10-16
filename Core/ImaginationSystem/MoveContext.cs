@@ -20,24 +20,19 @@ public abstract class MoveContext(Player petOwner, MoveParams moveParams)
         MoveUser.Creature.GetCreatureNode()?.Visuals.SpineBody?.TryGetAnimationState();
 
     /// <summary>
-    ///     <c>(BaseAmount + Addend) * Multiplier</c>. <see cref="MoveParams.BaseAmount" /> and
-    ///     <see cref="MoveParams.Addend" /> become 0 if null. <see cref="MoveParams.Multiplier" /> becomes 1 if null.
+    ///     <c>(BaseAmount + Addend) * Multiplier</c>.
     /// </summary>
     public decimal GetAmount()
     {
-        var baseAmount = Params.BaseAmount ?? 0;
-        return TransformAmount(baseAmount);
+        return TransformAmount(Params.BaseAmount);
     }
 
     /// <summary>
-    ///     <c>(Amount + Addend) * Multiplier</c>. <see cref="MoveParams.Addend" /> becomes 0 if null.
-    ///     <see cref="MoveParams.Multiplier" /> becomes 1 if null. Ignores <see cref="MoveParams.BaseAmount" />.
+    ///     <c>(Amount + Addend) * Multiplier</c>. Ignores <see cref="MoveParams.BaseAmount" />.
     /// </summary>
     public decimal TransformAmount(decimal amount)
     {
-        amount += Params.Addend is { } addend and > 0 ? addend : 0;
-        amount *= Params.Multiplier is { } multiplier and > 1 ? multiplier : 1;
-        return amount;
+        return (amount + Params.Addend) * Params.Multiplier;
     }
 
     /// <summary>
