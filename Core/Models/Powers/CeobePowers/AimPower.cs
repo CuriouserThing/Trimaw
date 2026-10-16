@@ -1,4 +1,5 @@
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Commands.Builders;
 using MegaCrit.Sts2.Core.Entities.Cards;
 using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Powers;
@@ -23,29 +24,52 @@ public class AimPower : TrimawPower
 
     private decimal AdditionalDamageMult => DynamicVars[AdditionalDamagePctKey].BaseValue / 100M;
 
-    private int Repeat => Math.Min(Amount, 1 + Owner.GetPowerAmount<BifocalPower>());
+    private int GetStacks()
+    {
+        return Math.Min(Amount, 1 + Owner.GetPowerAmount<BifocalPower>());
+    }
+
+    public override Task BeforeAttack(AttackCommand command)
+    {
+        if (command.Attacker != Owner ||
+            command.CardPlay is not { } cardPlay ||
+            cardPlay.Card.TargetType != TargetType.AnyEnemy) return Task.CompletedTask;
+
+        Flash();
+        var data = GetInternalData<Data>();
+        data.CardPlayStacks[cardPlay] = GetStacks();
+        return Task.CompletedTask;
+    }
 
     public override decimal ModifyDamageMultiplicative(Creature? target, decimal amount, ValueProp props,
         Creature? dealer, CardModel? cardSource, CardPlay? cardPlay)
     {
-        if (target is not null && cardSource?.CurrentTarget is { } cardTarget && target != cardTarget)
-            // Deal normal damage to enemies hit by some AoE/aftershock if they weren't *the* enemy that had a card dragged to them.
-            return 1;
-        if (dealer == Owner && cardSource?.TargetType == TargetType.AnyEnemy)
-            // Otherwise, to make sure damage preview works, multiply all damage from cards that target an enemy.
-            return 1 + Repeat * AdditionalDamageMult;
-        return 1;
+        if (dealer != Owner ||
+            cardSource is null ||
+            cardSource.TargetType != TargetType.AnyEnemy) return 1;
+
+        var data = GetInternalData<Data>();
+        if (cardPlay is null || !data.CardPlayStacks.TryGetValue(cardPlay, out var stacks))
+            // For card preview
+            stacks = GetStacks();
+        return 1 + stacks * AdditionalDamageMult;
     }
 
-    public override async Task AfterDamageGiven(PlayerChoiceContext choiceContext, Creature? dealer,
-        DamageResult result, ValueProp props, Creature target, CardModel? cardSource)
+    public override async Task AfterAttack(PlayerChoiceContext choiceContext, AttackCommand command)
     {
-        if (dealer != Owner || target != cardSource?.CurrentTarget) return;
+        if (command.CardPlay is not { } cardPlay) return;
+        var data = GetInternalData<Data>();
+        if (!data.CardPlayStacks.Remove(cardPlay, out var stacks)) return;
+        await PowerCmd.ModifyAmount(choiceContext, this, -stacks, Owner, null);
+    }
 
-        var repeat = Repeat;
-        if (Repeat == 1)
-            await PowerCmd.Decrement(this);
-        else
-            await PowerCmd.ModifyAmount(choiceContext, this, -repeat, Owner, null);
+    protected override object InitInternalData()
+    {
+        return new Data();
+    }
+
+    private class Data
+    {
+        public Dictionary<CardPlay, int> CardPlayStacks { get; } = [];
     }
 }
