@@ -171,6 +171,12 @@ public static class Pathfinder
         return Image("game_icons_dotnet_64px", $"{Path.Join(name)}");
     }
 
+    public static string GameIconsDotnet85(params string[] name)
+    {
+        UnderscoreToDash(name);
+        return Image("game_icons_dotnet_85px", $"{Path.Join(name)}");
+    }
+
     public static string GameIconsDotnet256(params string[] name)
     {
         UnderscoreToDash(name);

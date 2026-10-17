@@ -1,7 +1,8 @@
 using MegaCrit.Sts2.Core.Combat;
-using MegaCrit.Sts2.Core.Entities.Players;
+using MegaCrit.Sts2.Core.Entities.Creatures;
 using MegaCrit.Sts2.Core.Entities.Relics;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using MegaCrit.Sts2.Core.Models;
 using Trimaw.Core.Commands;
 using Trimaw.Core.Utils;
 
@@ -14,9 +15,19 @@ public class Lunchbox : TrimawRelic
     public override string Icon85Path => Pathfinder.NotoEmoji85("bento_box");
     public override string Icon256Path => Pathfinder.NotoEmoji256("bento_box");
 
-    public override async Task BeforeHandDraw(Player player, PlayerChoiceContext choiceContext,
-        ICombatState combatState)
+    public override RelicModel GetUpgradeReplacement()
     {
-        await SnackCmd.PrepRandom(choiceContext, combatState, player);
+        return ModelDb.Relic<Cooler>();
+    }
+
+    public override async Task BeforeSideTurnStart(PlayerChoiceContext choiceContext, CombatSide side,
+        IReadOnlyList<Creature> participants, ICombatState combatState)
+    {
+        if (!participants.Contains(Owner.Creature) ||
+            Owner.PlayerCombatState is not { } playerCombatState ||
+            playerCombatState.TurnNumber > 1) return;
+
+        await SnackCmd.PrepRandom(choiceContext, combatState, Owner);
+        await SnackCmd.PrepRandom(choiceContext, combatState, Owner);
     }
 }

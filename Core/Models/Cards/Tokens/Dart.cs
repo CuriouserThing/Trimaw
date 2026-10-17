@@ -32,8 +32,7 @@ public class Dart() : TrimawTokenCard(0, CardType.Attack, CardRarity.Token, Targ
             .WithKnifeAnimation()
             .Execute(choiceContext);
 
-        if (Owner.Creature.GetPowerAmount<AimPower>() == 0)
-            await PowerCmd.Apply<AimPower>(choiceContext, Owner.Creature, DynamicVars[nameof(AimPower)].BaseValue,
-                Owner.Creature, this);
+        await PowerCmd.Apply<AimPower>(choiceContext, Owner.Creature, DynamicVars[nameof(AimPower)].BaseValue,
+            Owner.Creature, this);
     }
 }
